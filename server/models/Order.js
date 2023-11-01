@@ -1,1 +1,1 @@
-// order id, products, confirmed y/n
+// order id, product id [], confirmed y/n
