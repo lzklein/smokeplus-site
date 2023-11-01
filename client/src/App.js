@@ -12,6 +12,8 @@ import Projects from './components/Projects';
 import Summary from './components/Summary';
 import Resume from './components/Resume';
 
+// TODO sessionid create/check on open
+
 function App() {
   return (
     <div className="App">
