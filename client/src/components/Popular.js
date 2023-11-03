@@ -2,7 +2,7 @@ import React from 'react'
 
 const Popular = () => {
   return (
-    <div>Popular</div>
+    <div>Popular Items Here</div>
   )
 }
 
