@@ -1,5 +1,5 @@
 import React from 'react'
-
+import Map from './Map'
 const Footer = () => {
   return (
     <footer class="footer">
@@ -14,7 +14,9 @@ const Footer = () => {
     </div>
     <div class="footer-right">
         {/* <!-- Right column content (map) --> */}
-        <div id="map-container"></div>
+        <div id="map-container">
+            <Map/>
+        </div>
     </div>
     </footer>
 
