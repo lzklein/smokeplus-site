@@ -1,17 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NavLeft from './NavLeft';
+import NavRight from './NavRight';
 
 const Header = () => {
   return (
     <header className="header">
       <div className="left-nav">
-        <Link to="/left">Left</Link>
+        <NavLeft />
       </div>
       <div className="logo">
         <Link to="/">SMOKE PLUS</Link>
       </div>
       <div className="right-nav">
-        <Link to="/right">Right</Link>
+        <NavRight />
       </div>
     </header>
   );
