@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 
 const NavRight = () => {
   return (
-    <div>NavRight</div>
+    <div>
+        <Link to="/order">Order Status</Link>
+        <Link to="/cart">Cart</Link>
+    </div>
   )
 }
 
