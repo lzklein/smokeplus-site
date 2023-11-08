@@ -138,6 +138,43 @@
   font-size : 12px;
 }
 
+.banner {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  height: 300px; /* Adjust the height as needed */
+}
+
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio */
+  animation: rotateBanner 5s linear; /* Change image every 5 seconds */
+}
+
+@keyframes rotateBanner {
+  0%, 100% {
+    transform: translateX(0%);
+  }
+  20% {
+    transform: translateX(0%);
+  }
+  25%, 45% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(-100%);
+  }
+  55%, 75% {
+    transform: translateX(-200%);
+  }
+  80% {
+    transform: translateX(-200%);
+  }
+}
+
+
+
 /* Media query for responsiveness */
 @media (max-width: 768px) {
   .footer-left, .footer-center, .footer-right {
@@ -145,3 +182,4 @@
     padding: 0;
   }
 }
+
