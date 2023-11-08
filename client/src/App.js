@@ -11,6 +11,7 @@ import Cart from './components/Cart';
 import Order from './components/OrderStatus';
 import Contact from './components/Contact';
 import AllProducts from './components/AllProducts';
+import Banner from './components/Banner';
 
 // TODO sessionid create/check on open
 
@@ -18,6 +19,7 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <Banner/>
       <Routes>
         <Route path='/cart' element={<Cart/>}/>
         <Route path='/order' element={<Order/>}/>
