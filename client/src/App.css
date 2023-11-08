@@ -114,3 +114,7 @@
   width: auto; /* Automatically adjust width */
   height: auto; /* Automatically adjust height */
 }
+
+.foot-sub {
+  font-size : 12px;
+}
