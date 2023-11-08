@@ -5,35 +5,37 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-left">
-        {/* Left column content */}
-        <div className="column-left">
-        <ul >
-          <li><h4>About Us</h4></li>
-          <ul className="foot-sub">
-            <li><a href="/about">About</a></li>
-            <li><a href="/terms">Terms and Policies</a></li>
-            <li><a href="/careers">Careers</a></li>
+        <div>
+          <ul>
+            <li><h4>About Us</h4></li>
+            <ul className="foot-sub">
+              <li><a href="/about">About</a></li>
+              <li><a href="/terms">Terms and Policies</a></li>
+              <li><a href="/careers">Careers</a></li>
+            </ul>
+            <li><h4>Stay Connected</h4></li>
+            <ul className="foot-sub">
+              {/* TODO link new tab socials */}
+              <li><a href="/twit">Twitter</a></li>
+              <li><a href="/insta">Instagram</a></li>
+              <li><a href="/fb">Facebook</a></li>
+            </ul>
           </ul>
-          <li><h4>Stay Connected</h4></li>
-          <ul className="foot-sub">
-            {/* TODO link new tab socials */}
-            <li><a href="/twit">Twitter</a></li>
-            <li><a href="/insta">Instagram</a></li>
-            <li><a href="/fb">Facebook</a></li>
-          </ul>
-        </ul>
         </div>
-        <div className="column-right">
-        <ul >
+      </div>
+      <div className="footer-center">
+        <ul>
           <li><h4>Contact Us</h4></li>
           <ul className="foot-sub">
             <li><p>Phone #</p></li>
             {/* link to email sender thing maybe */}
             <li><a href="/terms">Email: </a></li>
           </ul>
-          {/* Add more links as needed */}
+          <li><h4>Employee Resources</h4></li>
+          <ul className="foot-sub">
+            <li><a href="/employee-login">Login</a></li>
+          </ul>
         </ul>
-        </div>
       </div>
       <div className="footer-right">
         {/* Right column content (map) */}
