@@ -6,12 +6,34 @@ const Footer = () => {
     <footer className="footer">
       <div className="footer-left">
         {/* Left column content */}
-        <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Services</a></li>
-          <li><a href="#">Contact Us</a></li>
+        <div className="column-left">
+        <ul >
+          <li><h4>About Us</h4></li>
+          <ul className="foot-sub">
+            <li><a href="/about">About</a></li>
+            <li><a href="/terms">Terms and Policies</a></li>
+            <li><a href="/careers">Careers</a></li>
+          </ul>
+          <li><h4>Stay Connected</h4></li>
+          <ul className="foot-sub">
+            {/* TODO link new tab socials */}
+            <li><a href="/twit">Twitter</a></li>
+            <li><a href="/insta">Instagram</a></li>
+            <li><a href="/fb">Facebook</a></li>
+          </ul>
+        </ul>
+        </div>
+        <div className="column-right">
+        <ul >
+          <li><h4>Contact Us</h4></li>
+          <ul className="foot-sub">
+            <li><p>Phone #</p></li>
+            {/* link to email sender thing maybe */}
+            <li><a href="/terms">Email: </a></li>
+          </ul>
           {/* Add more links as needed */}
         </ul>
+        </div>
       </div>
       <div className="footer-right">
         {/* Right column content (map) */}
