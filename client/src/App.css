@@ -81,8 +81,13 @@
   padding: 20px;
 }
 
-.footer-left, .footer-center, .footer-right {
+.footer-left, .footer-center  {
   width: 30%; /* Adjust the column widths as needed */
+}
+
+.footer-right{
+  width: 40%;
+  padding-right:30px;
 }
 
 .footer-left, .footer-center {
