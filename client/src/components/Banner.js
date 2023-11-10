@@ -19,7 +19,7 @@ const Banner = ({ images }) => {
     }, [currentImageIndex]);
   
     return (
-        <div className="carousel">
+        <div className="carousel banner">
           <button className="prev" onClick={prevImage}>&lt;</button>
           <img src={images[currentImageIndex]} alt={`Image ${currentImageIndex}`} />
           <button className="next" onClick={nextImage}>&gt;</button>

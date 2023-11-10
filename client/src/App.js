@@ -13,7 +13,9 @@ import Cart from './components/Cart';
 import Order from './components/OrderStatus';
 import Contact from './components/Contact';
 import AllProducts from './components/AllProducts';
-import Banner from './components/Banner';
+
+// employee components
+import EmployeeLogin from './components/employees/EmployeeLogin';
 
 // TODO sessionid create/check on open
 const App = () => {
@@ -28,6 +30,7 @@ const App = () => {
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
         <Route path='/contact' element={<Contact />} />
+        <Route path='/employee-login' element={<EmployeeLogin/>}/>
         <Route path="/" element={<Home />} />
       </Routes>
       <Footer />
