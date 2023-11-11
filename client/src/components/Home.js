@@ -8,14 +8,12 @@ import Banner from './Banner';
 import hero1 from '../img/hero1.png';
 import hero2 from '../img/hero2.png';
 import hero3 from '../img/hero3.png';
-import hero4 from '../img/hero4.png';
 
 const Home = () => {
   const images = [
     hero1,
     hero2,
     hero3,
-    hero4
     // Add more image URLs as needed
   ];
   return (
