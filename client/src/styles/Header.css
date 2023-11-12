@@ -14,6 +14,7 @@
   
   .left-nav, .right-nav, .logo {
     padding: 10px;
+    flex-shrink: 0; /* Prevent these elements from growing beyond their content */
   }
   
   .left-nav, .right-nav {
@@ -27,14 +28,10 @@
     margin: 0 10px;
   }
   
-  .section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+  .logo {
+    flex-grow: 1; /* Take up remaining space */
   }
-  
-  .see-all-link {
-    text-decoration: none;
-    color: #0077CC; /* Customize the color as needed */
+
+  .logo a {
+    font-size: 1.5rem; /* Increase font size for the logo */
   }
