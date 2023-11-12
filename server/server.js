@@ -1,11 +1,16 @@
+// server.js
 const express = require('express');
+const bodyParser = require('body-parser');
+const initRoutes = require('./routes');
+
 const app = express();
-const port = process.env.PORT || 5555;
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello from Express!');
-});
+app.use(bodyParser.json());
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
+// Initialize routes
+initRoutes(app);
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

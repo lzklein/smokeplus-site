@@ -3,14 +3,11 @@ const express = require('express');
 const router = express.Router();
 
 // Import route files
-// ! Example
-const employeesRoute = require('./routes/employees');
+const loginRoute = require('./routes/login');
 
 
 // Mount routes
-// ! Examples
-// router.use(employeesRoute);
+router.use(loginRoute);
 // router.delete('/reset', resetController.resetData);
-
 
 module.exports = router;

@@ -8,9 +8,9 @@ const EmployeeLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("submitted");
-    setUsername('');
-    setPassword('');
+    // console.log("submitted");
+    console.log(username)
+    console.log(password)
   };
 
   return (
@@ -24,6 +24,8 @@ const EmployeeLogin = () => {
             type="text"
             name="username"
             id="username"
+            value={username}
+            onChange={(e)=>{setUsername(e.target.value)}}
             style={{margin:"10px"}}
             className="rounded-md border py-1.5 pl-7 pr-20"
             placeholder="username"
@@ -38,6 +40,8 @@ const EmployeeLogin = () => {
             type={showPassword ? "text" : "password"}
             name="password"
             id="password"
+            value={password}
+            onChange={(e)=>{setPassword(e.target.value)}}
             style={{margin:"10px"}}
             className="rounded-md border py-1.5 pl-7 pr-20"
             placeholder="password"
