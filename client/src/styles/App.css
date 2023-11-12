@@ -1,6 +1,9 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+/* components */
+@import './Banner.css';
+@import './EmployeeLogin.css';
+@import './Footer.css';
+@import './Header.css';
+@import './Home.css';
 
 .App {
   text-align: center;

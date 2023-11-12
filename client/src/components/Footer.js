@@ -1,6 +1,6 @@
 import React from 'react';
 import Map from './Map';
-import '../styles/Footer.css';
+// import '../styles/Footer.css';
 
 const Footer = () => {
   return (
@@ -28,7 +28,7 @@ const Footer = () => {
         <ul>
           <li><h4>Contact Us</h4></li>
           <ul className="foot-sub">
-            <li><p>Phone #</p></li>
+            <li><p>Phone #: (425)264-5749</p></li>
             {/* link to email sender thing maybe */}
             <li><a href="/terms">Email: </a></li>
           </ul>
