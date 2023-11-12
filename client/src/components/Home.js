@@ -3,7 +3,7 @@ import Deals from './Deals'
 import Popular from './Popular'
 import { Link } from 'react-router-dom';
 import Banner from './Banner';
-import '../styles/Home.css';
+// import '../styles/Home.css';
 
 // banner images
 import hero1 from '../img/hero1.png';
