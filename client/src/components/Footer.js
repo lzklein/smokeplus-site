@@ -18,7 +18,7 @@ const Footer = () => {
             <ul className="foot-sub">
               {/* TODO link new tab socials */}
               <li><a href="/twit">Twitter</a></li>
-              <li><a href="/insta">Instagram</a></li>
+              <li><a href="https://www.instagram.com/smoke_plus_renton/?hl=en" target="_blank">Instagram</a></li>
               <li><a href="/fb">Facebook</a></li>
             </ul>
           </ul>
