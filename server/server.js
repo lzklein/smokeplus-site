@@ -1,7 +1,8 @@
 // server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const initRoutes = require('./routes');
+const initRoutes = require('./routes/routes');
+require('dotenv').config(); // Load environment variables from .env
 
 const app = express();
 const PORT = process.env.PORT || 3000;
