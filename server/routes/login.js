@@ -1,9 +1,10 @@
-// routes/login.js
 const express = require('express');
-const router = express.Router();
+const loginRouter = express.Router();
 
 // Login route
-router.post('/', (req, res) => {
+loginRouter.post('/', (req, res) => {
+  console.log("Login route triggered");
+  
   const { username, password } = req.body;
   const { USERNAME, PASSWORD } = process.env;
 
@@ -15,4 +16,4 @@ router.post('/', (req, res) => {
   }
 });
 
-module.exports = router;
+module.exports = loginRouter;
