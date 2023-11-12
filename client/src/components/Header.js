@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavLeft from './NavLeft';
 import NavRight from './NavRight';
+import '../styles/Header.css';
 
 const Header = () => {
   return (

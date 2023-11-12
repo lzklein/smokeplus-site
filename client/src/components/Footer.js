@@ -1,5 +1,6 @@
 import React from 'react';
 import Map from './Map';
+import '../styles/Footer.css';
 
 const Footer = () => {
   return (

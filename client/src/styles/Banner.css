@@ -1,0 +1,50 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* banner */
+.carousel {
+    position: relative;
+    max-width: 1000px; /* Adjust the maximum width as needed */
+    margin: auto;
+}
+
+img {
+    width: 100%;
+    height: 200px; /* Adjust the height as needed */
+    object-fit: cover; /* Maintain aspect ratio and cover the container */
+    border-radius: 8px; /* Add rounded corners to the images */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle box shadow */
+}
+
+.banner button {
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0, 119, 204, 0); /* Fully transparent blue */
+    color: #fff; /* Customize the button text color */
+    border: none;
+    height: 200px; /* Match the height of the image */
+    width: 50px; /* Adjust the width of the buttons */
+    padding: 15px; /* Adjust the padding to make the button wider */
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    transform: translateY(-50%); /* Center the button vertically */
+    transition: background-color 0.3s ease; /* Add a smooth transition effect */
+}
+
+.banner button.prev {
+    left: 0; /* Adjust the left position for alignment */
+    border-top-left-radius: 8px; /* Add rounded corners to the top-left of the "previous" button */
+    border-bottom-left-radius: 8px; /* Add rounded corners to the bottom-left of the "previous" button */
+}
+
+.banner button.next {
+    right: 0; /* Adjust the right position for alignment */
+    border-top-right-radius: 8px; /* Add rounded corners to the top-right of the "next" button */
+    border-bottom-right-radius: 8px; /* Add rounded corners to the bottom-right of the "next" button */
+}
+
+.banner button:hover {
+    background-color: rgba(103, 103, 103, 0.1); /* Opaque blue on hover */
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/Banner.css';
 
 const Banner = ({ images }) => {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);

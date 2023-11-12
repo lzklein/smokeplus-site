@@ -1,0 +1,40 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .left-nav, .right-nav, .logo {
+    padding: 10px;
+  }
+  
+  .left-nav, .right-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .left-nav a, .right-nav a, .logo a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+  }
+  
+  .section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .see-all-link {
+    text-decoration: none;
+    color: #0077CC; /* Customize the color as needed */
+  }
