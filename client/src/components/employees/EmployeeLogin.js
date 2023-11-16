@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 // import '../../styles/EmployeeLogin.css';
 
 const EmployeeLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,6 +23,7 @@ const EmployeeLogin = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Login successful:', data);
+        navigate('/employee')
       } else {
         console.error('Login failed:', response.statusText);
       }

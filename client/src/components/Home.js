@@ -25,12 +25,12 @@ const Home = () => {
       {/* Banner/Promo thing here */}
       <div className="section">
         <h3>Deals!</h3>
-        <a className="see-all-link">See All &raquo;</a>
+        <a className="see-all-link" href='/deals'>See All &raquo;</a>
       </div>
       <Deals />
       <div className="section">
         <h3>Popular</h3>
-        <a className="see-all-link">See All &raquo;</a>
+        <a className="see-all-link" href='/popular'>See All &raquo;</a>
       </div>
       <Popular />
     </div>

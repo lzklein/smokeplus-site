@@ -1,10 +1,10 @@
 import React from 'react'
 
 // create full list of products, click on to go into product edit
-const EditInventory = () => {
+const InventoryEdit = () => {
   return (
-    <div>EditInventory</div>
+    <div>InventoryEdit</div>
   )
 }
 
-export default EditInventory
+export default InventoryEdit
