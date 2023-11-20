@@ -3,6 +3,7 @@
 @import './Footer.css';
 @import './Header.css';
 @import './Home.css';
+@import './Excel.css';
 
 /* tailwind */
 @import 'tailwindcss/base';
