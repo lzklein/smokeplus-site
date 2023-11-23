@@ -90,7 +90,7 @@ const ExcelUploader = () => {
     <div>
       <h2>ExcelUploader</h2>
       <input type="file" onChange={handleFileChange} accept=".xls, .xlsx" />
-      <button onClick={() => navigate(-1)}>{"<< Back"}</button>
+      <button className = "backbutton" onClick={() => navigate(-1)}>{"<< Back"}</button>
       {excelData && (
         <div>
           <h3>Preview:</h3>

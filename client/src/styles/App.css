@@ -4,6 +4,7 @@
 @import './Header.css';
 @import './Home.css';
 @import './Excel.css';
+@import './EmployeePages.css';
 
 /* tailwind */
 @import 'tailwindcss/base';
