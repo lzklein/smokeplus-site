@@ -13,6 +13,7 @@ const EmployeeHome = () => {
           <li><Link to="/banner/edit">Edit Banner</Link></li>
           <li><Link to='/inventory/edit'>Edit Inventory</Link></li> 
           <li><Link to='/product/edit'>Edit Product</Link></li>
+          <li><Link to='/deals/edit'>Edit Deals</Link></li>
         </ul>
       </nav>
       <img src={cow}/>

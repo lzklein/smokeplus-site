@@ -22,6 +22,7 @@ import ExcelUploader from './components/employees/ExcelUploader';
 import BannerEdit from './components/employees/BannerEdit';
 import ProductEdit from './components/employees/ProductEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
+import DealsEdit from './components/employees/DealsEdit';
 
 
 // TODO sessionid create/check on open
@@ -33,7 +34,10 @@ const App = () => {
     <div className="App">
       <Header />
 
-      <Routes>
+      <Routes>        
+        <Route path="/banner/edit" element={<BannerEdit/>} />
+        <Route path="/product/edit" element={<ProductEdit/>} />
+        <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path='/cart' element={<Cart />} />
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
@@ -45,8 +49,6 @@ const App = () => {
         <Route path="/inventory/edit" element={<InventoryEdit/>} />
         <Route path="/inbox" element={<Inbox/>} />
         <Route path="/upload" element={<ExcelUploader/>} />
-        <Route path="/banner/edit" element={<BannerEdit/>} />
-        <Route path="/product/edit" element={<ProductEdit/>} />
         <Route path="/" element={<Home />} />
       </Routes>
       <Footer />
