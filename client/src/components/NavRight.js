@@ -5,7 +5,7 @@ const NavRight = () => {
   return (
     <div>
         <Link to="/order">Order Status</Link>
-        <Link to="/cart">Cart</Link>
+        <Link to="/cart">Cart (0{/* cart.length() */})</Link>
     </div>
   )
 }

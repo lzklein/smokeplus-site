@@ -6,6 +6,7 @@ import cow from '../../img/cow.gif';
 const EmployeeHome = () => {
   return (
     <div><h1>Smoke Plus Employees Portal</h1>
+          <img src={cow} style={{"height":"100px"}}/>
       <nav>
         <ul>
           <li><Link to="/inbox">Inbox</Link></li>
@@ -16,7 +17,6 @@ const EmployeeHome = () => {
           <li><Link to='/deals/edit'>Edit Deals</Link></li>
         </ul>
       </nav>
-      <img src={cow}/>
     </div>
   )
 }
