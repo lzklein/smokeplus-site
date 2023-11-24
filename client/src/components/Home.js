@@ -26,13 +26,13 @@ const Home = () => {
       <div className="section">
         <h3>Deals!</h3>
         <a className="see-all-link" href='/deals'>See All &raquo;</a>
+        <Deals />
       </div>
-      <Deals />
       <div className="section">
         <h3>Popular</h3>
         <a className="see-all-link" href='/popular'>See All &raquo;</a>
+        <Popular />
       </div>
-      <Popular />
     </div>
   );
 }
