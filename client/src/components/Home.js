@@ -1,40 +1,30 @@
-import React from 'react'
-import Deals from './Deals'
-import Popular from './Popular'
+import React from 'react';
+import Deals from './Deals';
+import Popular from './Popular';
 import { Link } from 'react-router-dom';
 import Banner from './Banner';
-// import '../styles/Home.css';
 
-// banner images
-import hero1 from '../img/hero1.png';
-import hero2 from '../img/hero2.png';
-import hero3 from '../img/hero3.png';
-import hero4 from '../img/giphy.gif';
+// Import all files in the img/banner directory
+const importAll = (r) => r.keys().map(r);
+const bannerImages = importAll(require.context('../img/banner', false, /\.(png|gif)$/));
 
 const Home = () => {
-  const images = [
-    hero1,
-    hero2,
-    hero3,
-    hero4
-    // Add more image URLs as needed
-  ];
   return (
     <div>
-      <Banner images={images} />
+      <Banner images={bannerImages} />
       {/* Banner/Promo thing here */}
       <div className="section">
         <h3>Deals!</h3>
-        <a className="see-all-link" href='/deals'>See All &raquo;</a>
+        <Link className="see-all-link" to='/deals'>See All &raquo;</Link>
       </div>
       <Deals />
       <div className="section">
         <h3>Popular</h3>
-        <a className="see-all-link" href='/popular'>See All &raquo;</a>
+        <Link className="see-all-link" to='/popular'>See All &raquo;</Link>
       </div>
       <Popular />
     </div>
   );
 }
 
-export default Home
+export default Home;
