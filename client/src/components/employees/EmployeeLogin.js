@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-// import '../../styles/EmployeeLogin.css';
+import { useNavigate } from 'react-router-dom';
 
 const EmployeeLogin = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  let failCount = 0;
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,17 +19,21 @@ const EmployeeLogin = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, password }),
-      });      
+      });
 
       if (response.ok) {
+        setErrorMessage('');
         const data = await response.json();
-        console.log('Login successful:', data);
-        navigate('/employee')
+        navigate('/employee');
+        failCount = 0;
       } else {
         console.error('Login failed:', response.statusText);
+        setErrorMessage('Login Info Incorrect');
+        failCount += 1
       }
     } catch (error) {
       console.error('Error during login:', error);
+      setErrorMessage('Oops, no one should see this. Bug Alert');
     }
   };
 
@@ -38,14 +43,16 @@ const EmployeeLogin = () => {
         <div>
           <label htmlFor="username">Username</label>
           <br />
-
           <input
             type="text"
             name="username"
             id="username"
             value={username}
-            onChange={(e)=>{setUsername(e.target.value)}}
-            style={{margin:"10px"}}
+            onChange={(e) => setUsername(e.target.value)}
+            style={{
+              margin: '10px',
+              borderColor: errorMessage ? 'red' : 'initial',
+            }}
             className="rounded-md border py-1.5 pl-7 pr-20"
             placeholder="username"
           />
@@ -54,35 +61,34 @@ const EmployeeLogin = () => {
         <div>
           <label htmlFor="password">Password</label>
           <br />
-
           <input
-            type={showPassword ? "text" : "password"}
+            type={showPassword ? 'text' : 'password'}
             name="password"
             id="password"
             value={password}
-            onChange={(e)=>{setPassword(e.target.value)}}
-            style={{margin:"10px"}}
+            onChange={(e) => setPassword(e.target.value)}
+            style={{
+              margin: '10px',
+              borderColor: errorMessage ? 'red' : 'initial',
+            }}
             className="rounded-md border py-1.5 pl-7 pr-20"
             placeholder="password"
           />
-                  <br />
-
+          <br />
           <label>
             <input
               type="checkbox"
               onChange={() => setShowPassword(!showPassword)}
-            />{" "}
+            />{' '}
             Show Password
           </label>
         </div>
         <br />
         <div>
-        <button
-          type="submit"
-          className="logbutton"
-        >
-          Sign in
-        </button>
+          {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          <button type="submit" className="logbutton">
+            Sign in
+          </button>
         </div>
       </form>
     </div>
