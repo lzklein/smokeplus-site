@@ -20,10 +20,22 @@ const BannerEdit = ({ bannerImages }) => {
   };
 
   const handleAddNewImage = () => {
-    const newImageURL = prompt('Enter the URL for the new image:');
-    if (newImageURL) {
-      setUpdatedBannerImages([...updatedBannerImages, newImageURL]);
-    }
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.jpg, .jpeg, .gif, .png'; // Specify accepted file formats
+
+    input.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setUpdatedBannerImages([...updatedBannerImages, reader.result]);
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    input.click();
   };
 
   return (
@@ -33,15 +45,15 @@ const BannerEdit = ({ bannerImages }) => {
         {"<< Back"}
       </button>
       <br/>
-      <button className="backbutton" onClick={handleAddNewImage} style = {{"margin-bottom":"10px"}}>
-          + Add New Image
-        </button>
+      <button className="backbutton" onClick={handleAddNewImage} style={{ marginBottom: "10px" }}>
+        + Add New Image
+      </button>
       <div className="bannercards">
         {updatedBannerImages.map((image, index) => (
           <div key={index} className="bannercard">
             <img src={image} alt={`Banner ${index + 1}`} className="bannerimg"/>
-            <button className="backbutton" onClick={() => handleDelete(index)}  style = {{"margin-bottom":"5px", "margin-top":"2px"}}>
-            &uarr; Delete &uarr;
+            <button className="backbutton" onClick={() => handleDelete(index)} style={{ marginBottom: "5px", marginTop: "2px" }}>
+              &uarr; Delete &uarr;
             </button>
           </div>
         ))}

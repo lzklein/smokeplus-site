@@ -6,6 +6,7 @@ const ExcelUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const navigate= useNavigate();
+  
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
@@ -50,10 +51,17 @@ const ExcelUploader = () => {
   
             row.push(cellValue);
   
+              // Check if it's the 2nd cell and has a value
+            if (colIndex === range.s.c + 1 && (cellValue === null || cellValue === undefined || cellValue === '')) {
+              isEmptyRow = true;
+              break; // If the 2nd cell is empty, consider the row as empty and break out of the loop
+            }
+
             // Check if it's one of the first 4 cells and has a value
-            if (colIndex <= range.s.c + 3 && (cellValue !== null && cellValue !== undefined && cellValue !== '')) {
+            if (colIndex <= range.s.c + 2 && (cellValue !== null && cellValue !== undefined && cellValue !== '')) {
               isEmptyRow = false;
             }
+
           }
   
           // Only add the row if the first cell is not "UPC" and the first 4 cells are not all empty
