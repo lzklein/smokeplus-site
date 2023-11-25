@@ -8,6 +8,8 @@ const DealsEdit = () => {
     //! if deals =/= 0, cross off price and next to price display price * (product.deals/100)
     // items where product.deals =/= 0 display as already checked, with input as product.deals
     // uncheck to remove deal
+    // add button to filter only items with deals
+    // also add button to remove all deals
     const navigate= useNavigate();
 
   return (
