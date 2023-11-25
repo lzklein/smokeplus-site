@@ -4,11 +4,7 @@ import Popular from './Popular';
 import { Link } from 'react-router-dom';
 import Banner from './Banner';
 
-// Import all files in the img/banner directory
-const importAll = (r) => r.keys().map(r);
-const bannerImages = importAll(require.context('../img/banner', false, /\.(png|gif)$/));
-
-const Home = () => {
+const Home = ({bannerImages}) => {
   return (
     <div>
       <Banner images={bannerImages} />

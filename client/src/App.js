@@ -28,14 +28,15 @@ import DealsEdit from './components/employees/DealsEdit';
 // TODO sessionid create/check on open
 const App = () => {
 
-
+  const importAll = (r) => r.keys().map(r);
+  const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
   
   return (
     <div className="App">
       <Header />
 
       <Routes>        
-        <Route path="/banner/edit" element={<BannerEdit/>} />
+        <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path="/product/edit" element={<ProductEdit/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path='/cart' element={<Cart />} />
@@ -49,7 +50,7 @@ const App = () => {
         <Route path="/inventory/edit" element={<InventoryEdit/>} />
         <Route path="/inbox" element={<Inbox/>} />
         <Route path="/upload" element={<ExcelUploader/>} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home bannerImages={bannerImages}/>} />
       </Routes>
       <Footer />
     </div>
