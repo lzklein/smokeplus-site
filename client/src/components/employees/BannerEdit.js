@@ -28,22 +28,23 @@ const BannerEdit = ({ bannerImages }) => {
 
   return (
     <div>
-      <div>BannerEdit</div>
+      <h2>Banner Editor</h2>
       <button className="backbutton" onClick={() => navigate(-1)}>
         {"<< Back"}
       </button>
-      <div className="banner-cards">
+      <br/>
+      <button className="backbutton" onClick={handleAddNewImage} style = {{"margin-bottom":"10px"}}>
+          + Add New Image
+        </button>
+      <div className="bannercards">
         {updatedBannerImages.map((image, index) => (
-          <div key={index} className="banner-card">
-            <img src={image} alt={`Banner ${index + 1}`} />
-            <button className="backbutton" onClick={() => handleDelete(index)}>
-              Delete
+          <div key={index} className="bannercard">
+            <img src={image} alt={`Banner ${index + 1}`} className="bannerimg"/>
+            <button className="backbutton" onClick={() => handleDelete(index)}  style = {{"margin-bottom":"5px", "margin-top":"2px"}}>
+            &uarr; Delete &uarr;
             </button>
           </div>
         ))}
-        <button className="backbutton" onClick={handleAddNewImage}>
-          + Add New Image
-        </button>
       </div>
     </div>
   );
