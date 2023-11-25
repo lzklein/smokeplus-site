@@ -6,7 +6,7 @@ const EmployeeLogin = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
-  let failCount = 0;
+  const [failCount, setFailCount] = useState(0);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -25,11 +25,12 @@ const EmployeeLogin = () => {
         setErrorMessage('');
         const data = await response.json();
         navigate('/employee');
-        failCount = 0;
+        setFailCount(0)
       } else {
         console.error('Login failed:', response.statusText);
         setErrorMessage('Login Info Incorrect');
-        failCount += 1
+        setFailCount(failCount+1)
+        console.log(failCount)
       }
     } catch (error) {
       console.error('Error during login:', error);
@@ -86,6 +87,7 @@ const EmployeeLogin = () => {
         <br />
         <div>
           {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
+          {failCount > 4 ? <p style={{ color: 'red' }}>You suck</p>:null}
           <button type="submit" className="logbutton">
             Sign in
           </button>
