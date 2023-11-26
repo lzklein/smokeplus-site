@@ -9,16 +9,20 @@ const Home = ({bannerImages}) => {
     <div>
       <Banner images={bannerImages} />
       {/* Banner/Promo thing here */}
-      <div className="section">
-        <h3>Deals!</h3>
-        <Link className="see-all-link" to='/deals'>See All &raquo;</Link>
+      <div>
+        <div className="section">
+          <h3>Deals!</h3>
+          <Link className="see-all-link" to='/deals'>See All &raquo;</Link>
+        </div>
+        <Deals />
       </div>
-      <Deals />
-      <div className="section">
-        <h3>Popular</h3>
-        <Link className="see-all-link" to='/popular'>See All &raquo;</Link>
+      <div>
+        <div className="section">
+          <h3>Popular</h3>
+          <Link className="see-all-link" to='/popular'>See All &raquo;</Link>
+        </div>
+        <Popular />
       </div>
-      <Popular />
     </div>
   );
 }
