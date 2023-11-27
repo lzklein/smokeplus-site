@@ -1,6 +1,7 @@
 import React from 'react'
 import {useNavigate} from 'react-router-dom';
 
+  // edit screen of product from inventoryedit
 const ProductEdit = () => {
   const navigate= useNavigate();
 

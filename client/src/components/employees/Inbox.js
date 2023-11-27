@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 
 const Inbox = () => {
   const navigate= useNavigate();
-
+  // every midnight delete all inbox items/all "confirmed" items or something
   return (
     <div>Inbox
 
