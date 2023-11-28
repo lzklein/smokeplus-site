@@ -28,6 +28,7 @@ import DealsEdit from './components/employees/DealsEdit';
 // TODO sessionid create/check on open
 const App = () => {
 
+  // ! Temp banner, change to useEffect fetch backend banner images
   const importAll = (r) => r.keys().map(r);
   const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
   
