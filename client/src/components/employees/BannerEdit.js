@@ -29,7 +29,7 @@ const BannerEdit = ({ bannerImages }) => {
       if (file) {
         const reader = new FileReader();
         reader.onloadend = () => {
-          setUpdatedBannerImages([...updatedBannerImages, reader.result]);
+          setUpdatedBannerImages([reader.result, ...updatedBannerImages]);
         };
         reader.readAsDataURL(file);
       }
