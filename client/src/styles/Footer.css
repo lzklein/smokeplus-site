@@ -2,16 +2,18 @@
 .footer {
     display: flex;
     justify-content: space-between;
-    background-color: #333;
+    background: linear-gradient(180deg, #ffffff 0%, #b5bdc8 1%,#828c95 3%,#333333 6%);
     color: white;
     padding: 20px;
   }
   
   .footer-left, .footer-center  {
+    margin-top: 15px;
     width: 30%; /* Adjust the column widths as needed */
   }
   
   .footer-right{
+    margin-top: 15px;
     width: 40%;
     padding-right:30px;
   }
@@ -50,10 +52,12 @@
   
   #map-container {
     width: 100%;
-    height: 300px; /* Adjust the height as needed */
-  }
+    max-width: 24vw; /* Set a maximum width relative to the viewport width */
+    height: auto; /* Automatically adjust height */
+}
    
   .map-png {
+    margin-left: 90px;
     max-width: 24vw; 
     max-height: 24vw;
     width: auto; /* Automatically adjust width */

@@ -4,15 +4,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: #333;
-    color: white;
+    background: linear-gradient(0deg, #b5bdc8 0%,#828c95 4%,#333333 25%);
   }
   
   .left-nav, .right-nav, .logo {
     padding: 10px;
     flex-shrink: 0; /* Prevent these elements from growing beyond their content */
   }
-  
+
   .left-nav, .right-nav {
     display: flex;
     align-items: center;
