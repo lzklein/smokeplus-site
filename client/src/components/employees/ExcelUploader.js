@@ -93,6 +93,13 @@ const ExcelUploader = () => {
   const handleSubmit = () => {
     if (selectedFile) {
       // You can perform additional logic here, such as sending the file to a server
+      // ! patch request to backend
+      // ! foreach row, do a patch on back
+      // ! treating each column as an item with index, find item where product.id == item[0]
+      // ? product.quantity -= item[4]
+      // ! if item don't exist (id not found), log error on side and print for manual fixing?
+      // ? if item id not found check product.name == item[1] maybe
+
       alert("File submitted")
       console.log('File submitted:', selectedFile);
     } else {
