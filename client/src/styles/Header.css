@@ -4,12 +4,18 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background: linear-gradient(0deg, #b5bdc8 0%,#828c95 4%,#333333 25%);
+    background: linear-gradient(180deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 2%,rgba(102,102,102,1) 4%,rgba(71,71,71,1) 8%,rgba(44,44,44,1) 16%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
   }
   
   .left-nav, .right-nav, .logo {
     padding: 10px;
     flex-shrink: 0; /* Prevent these elements from growing beyond their content */
+  }
+
+  .headnav:hover {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 1);
   }
 
   .left-nav, .right-nav {
