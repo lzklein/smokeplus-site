@@ -1,18 +1,34 @@
-import React from 'react'
-import {useNavigate} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import NewProductForm from './NewProductForm'; // Adjust the import path based on your file structure
 
-// create full list of products, click on to go into product edit
-// x key to delete with confirmation
-// maybe add new product button
 const InventoryEdit = () => {
-  const navigate= useNavigate();
+  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  const handleNewProductSubmit = (newProductData) => {
+    // Handle the submission of the new product data (e.g., make a POST request)
+    console.log('New Product Data:', newProductData);
+  };
 
   return (
-    <div>InventoryEdit
+    <div>
+      <h1>InventoryEdit</h1>
+      <button className="backbutton" onClick={() => navigate(-1)}>
+        {"<< Back"}
+      </button>
+      <br />
+      <button className="backbutton" onClick={openModal}>
+        + New Product
+      </button>
 
-      <button className = "backbutton" onClick={() => navigate(-1)}>{"<< Back"}</button>
+      {/* Render the NewProductForm as a modal */}
+      <NewProductForm isOpen={isModalOpen} onClose={closeModal} onSubmit={handleNewProductSubmit} />
     </div>
-  )
-}
+  );
+};
 
-export default InventoryEdit
+export default InventoryEdit;
