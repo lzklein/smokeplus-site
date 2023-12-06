@@ -3,7 +3,7 @@ const sequelize = require('./config');
 
 // imports
 // ! Example
-const Shift = require('./models/shifts');
+const Product = require('./models/Product');
 
 // relationships
 // ! Examples
@@ -16,5 +16,5 @@ const Shift = require('./models/shifts');
 // Employee.hasMany(TimeOffRequest);
 // TimeOffRequest.belongsTo(Employee, { foreignKey: 'employee_id'});
 
-// Export
-// module.exports = { sequelize, Shift, Employee, Schedule, TimeOffRequest };
+Export
+module.exports = { sequelize, Product };

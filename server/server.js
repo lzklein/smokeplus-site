@@ -4,6 +4,8 @@ const initRoutes = require('./routes');
 
 require('dotenv').config();
 
+const sequelize = require('./config');
+
 const app = express();
 const PORT = process.env.PORT || 5555;
 
