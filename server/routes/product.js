@@ -5,6 +5,7 @@ const router = express.Router();
 
 // Get all products
 router.get('/', async (req, res) => {
+    console.log("Getting All!")
   try {
     const products = await Product.findAll();
     res.json(products);
@@ -16,6 +17,8 @@ router.get('/', async (req, res) => {
 
 // Get a specific product
 router.get('/:id', async (req, res) => {
+    console.log("Getting One!")
+
   const productId = req.params.id;
 
   try {
@@ -33,26 +36,32 @@ router.get('/:id', async (req, res) => {
 
 // Create a new product
 router.post('/', async (req, res) => {
-  const { name, categories, price, quantity, description, image } = req.body;
-
-  try {
-    const newProduct = await Product.create({
-      name,
-      categories,
-      price,
-      quantity,
-      description,
-      image,
-    });
-    res.status(201).json(newProduct);
-  } catch (error) {
-    console.error('Error creating product:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+    console.log("Posting!")
+  
+    const { name, categories, price, quantity, description, image, id } = req.body;
+  
+    try {
+      const newProduct = await Product.create({
+        name,
+        categories,
+        price,
+        quantity,
+        description,
+        image,
+        id, 
+      });
+      res.status(201).json(newProduct);
+    } catch (error) {
+      console.error('Error creating product:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  });
+  
 
 // Update a product
 router.put('/:id', async (req, res) => {
+    console.log("Patching!")
+
   const productId = req.params.id;
   const { name, categories, price, quantity, description, image } = req.body;
 
@@ -79,6 +88,7 @@ router.put('/:id', async (req, res) => {
 
 // Delete a product
 router.delete('/:id', async (req, res) => {
+    console.log("Deleting!")
   const productId = req.params.id;
 
   try {
