@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
   const [productName, setProductName] = useState('');
   const [productCategories, setProductCategories] = useState(['']);
+  const [productSizes, setProductSizes] = useState(['']);
+  const [productFlavors, setProductFlavors] = useState(['']);
   const [productPrice, setProductPrice] = useState('');
   const [productQuantity, setProductQuantity] = useState('');
   const [productDescription, setProductDescription] = useState('');
@@ -12,6 +14,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
   const [errors, setErrors] = useState({
     name: '',
     categories: [],
+    sizes:[],
+    flavors:[],
     price: '',
     quantity: '',
     description: '',
@@ -24,6 +28,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     // Log current form values
     console.log('productName:', productName);
     console.log('productCategories:', productCategories);
+    console.log('productSizes:',productSizes);
+    console.log('productFlavors:',productFlavors);
     console.log('productPrice:', productPrice);
     console.log('productQuantity:', productQuantity);
     console.log('productDescription:', productDescription);
@@ -34,6 +40,12 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       name: productName.trim() === '' ? 'This field must be filled out' : '',
       categories: productCategories.map((category) =>
         category.trim() === '' ? 'This field must be filled out' : ''
+      ),
+      sizes: productSizes.map((size) =>
+        size.trim() === '' ? 'This field must be filled out' : ''
+      ),      
+      flavors: productFlavors.map((flavor) =>
+        flavor.trim() === '' ? 'This field must be filled out' : ''
       ),
       price: !/^\d+(\.\d{1,2})?$/.test(productPrice)
         ? 'Enter a valid price (up to 2 decimal places)'
@@ -46,11 +58,21 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       image: productImage.trim() === '' ? 'This field must be filled out' : ''
     };
   
-    // Special handling for categories field
+    // Special handling for arrays
     if (productCategories.some((category) => category.trim() === '')) {
       newErrors.categories = ['All categories must be filled out'];
     } else {
       newErrors.categories = [];
+    }
+    if (productSizes.some((size) => size.trim() === '')) {
+      newErrors.sizes = ['All sizes must be filled out'];
+    } else {
+      newErrors.sizes = [];
+    }    
+    if (productFlavors.some((flavor) => flavor.trim() === '')) {
+      newErrors.flavors = ['All flavors must be filled out'];
+    } else {
+      newErrors.flavors = [];
     }
   
     // Log current errors
@@ -77,26 +99,62 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     return hasError;
   };
   
-  
+  // category
   const handleAddCategory = () => {
     setProductCategories([...productCategories, '']);
   };
 
-  const handleRemoveCategory = (index) => {
+  const handleRemoveCategory = (i) => {
     const updatedCategories = [...productCategories];
-    updatedCategories.splice(index, 1);
+    updatedCategories.splice(i, 1);
     setProductCategories(updatedCategories);
   };
 
-  const handleChangeCategory = (index, value) => {
+  const handleChangeCategory = (i, value) => {
     const updatedCategories = [...productCategories];
-    updatedCategories[index] = value;
+    updatedCategories[i] = value;
     setProductCategories(updatedCategories);
+  };
+  
+  // sizes
+  const handleAddSize = () => {
+    setProductSizes([...productSizes, '']);
+  };
+
+  const handleRemoveSize = (i) => {
+    const updatedSizes = [...productSizes];
+    updatedSizes.splice(i, 1);
+    setProductSizes(updatedSizes);
+  };
+
+  const handleChangeSize = (i, value) => {
+    const updatedSizes = [...productSizes];
+    updatedSizes[i] = value;
+    setProductSizes(updatedSizes);
+  };
+
+  // flavor
+  const handleAddFlavor = () => {
+    setProductFlavors([...productFlavors, '']);
+  };
+
+  const handleRemoveFlavor = (i) => {
+    const updatedFlavors = [...productFlavors];
+    updatedFlavors.splice(i, 1);
+    setProductFlavors(updatedFlavors);
+  };
+
+  const handleChangeFlavor = (i, value) => {
+    const updatedFlavors = [...productFlavors];
+    updatedFlavors[i] = value;
+    setProductFlavors(updatedFlavors);
   };
 
   const closeModal = () => {
     setProductName('');
     setProductCategories(['']);
+    setProductSizes(['']);
+    setProductFlavors(['']);
     setProductPrice('');
     setProductQuantity('');
     setProductDescription('');
@@ -116,6 +174,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     console.log('Form data valid:', {
         name: productName,
         categories: productCategories,
+        sizes:productSizes,
+        flavors:productFlavors,
         price: productPrice,
         quantity: productQuantity,
         description: productDescription,
@@ -126,6 +186,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       const formData = {
         name: productName,
         categories: productCategories.join(","),
+        sizes:productSizes.join(","),
+        flavors:productFlavors.join(","),
         price: parseFloat(productPrice),
         quantity: parseInt(productQuantity),
         description: productDescription,
@@ -145,6 +207,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
 
       setProductName('');
       setProductCategories(['']);
+      setProductSizes(['']);
+      setProductFlavors(['']);
       setProductPrice('');
       setProductQuantity('');
       setProductDescription('');
@@ -201,6 +265,62 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                       </button>
                     )}
                     {errors.categories && errors.categories[index] && <span className="error-message">{errors.categories[index]}</span>}
+                  </div>
+                ))}
+              </label>
+            </div>
+
+            {/* Sizes */}
+            <div className="form-group">
+              <label>
+                Sizes:
+                {productSizes.map((size, index) => (
+                  <div key={index}>
+                    <input
+                      type="text"
+                      value={size}
+                      onChange={(e) => handleChangeSize(index, e.target.value)}
+                      className={(errors.sizes && errors.sizes[index]) ? 'error' : ''}
+                    />
+                    {index > 0 && (
+                      <button type="button" className="backbutton" onClick={() => handleRemoveSize(index)}>
+                        -
+                      </button>
+                    )}
+                    {index === productSizes.length - 1 && (
+                      <button className="backbutton" type="button" onClick={handleAddSize}>
+                        +
+                      </button>
+                    )}
+                    {errors.sizes && errors.sizes[index] && <span className="error-message">{errors.sizes[index]}</span>}
+                  </div>
+                ))}
+              </label>
+            </div>
+
+            {/* Flavors */}
+            <div className="form-group">
+              <label>
+                flavors:
+                {productFlavors.map((flavor, index) => (
+                  <div key={index}>
+                    <input
+                      type="text"
+                      value={flavor}
+                      onChange={(e) => handleChangeFlavor(index, e.target.value)}
+                      className={(errors.flavors && errors.flavors[index]) ? 'error' : ''}
+                    />
+                    {index > 0 && (
+                      <button type="button" className="backbutton" onClick={() => handleRemoveFlavor(index)}>
+                        -
+                      </button>
+                    )}
+                    {index === productFlavors.length - 1 && (
+                      <button className="backbutton" type="button" onClick={handleAddFlavor}>
+                        +
+                      </button>
+                    )}
+                    {errors.flavors && errors.flavors[index] && <span className="error-message">{errors.flavors[index]}</span>}
                   </div>
                 ))}
               </label>
