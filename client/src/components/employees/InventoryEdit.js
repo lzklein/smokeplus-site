@@ -2,17 +2,21 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewProductForm from './NewProductForm';
 
+const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
+
 const InventoryEdit = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });
   const [products, setProducts] = useState([]);
 
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
   const handleNewProductSubmit = async (newProductData) => {
+    console.log(newProductData)
     try {
-      const response = await fetch('/api/products', {
+      const response = await fetch(`${API_BASE_URL}/api/products`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -23,37 +27,59 @@ const InventoryEdit = () => {
       if (response.ok) {
         const newProduct = await response.json();
         console.log('New Product created:', newProduct);
-        setProducts([newProduct, ...products]); // Prepend the new product to the existing list
-        // Optionally, you can update the UI or perform other actions based on the response
+        setProducts([newProduct, ...products]);
       } else {
         console.error('Failed to create new product:', response.status);
-        // Handle error scenarios
       }
     } catch (error) {
       console.error('Error submitting new product:', error);
-      // Handle unexpected errors
     }
+  };
+
+  const handleDeleteProduct = (productId) => {
+    setDeleteConfirmation({ isOpen: true, productId });
+  };
+
+  const confirmDelete = async (productId) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
+        method: 'DELETE',
+      });
+
+      if (response.ok) {
+        console.log(`Product with ID ${productId} deleted`);
+        setProducts(products.filter((product) => product.id !== productId));
+      } else {
+        console.error(`Failed to delete product with ID ${productId}:`, response.status);
+      }
+    } catch (error) {
+      console.error(`Error deleting product with ID ${productId}:`, error);
+    }
+
+    setDeleteConfirmation({ isOpen: false, productId: null });
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmation({ isOpen: false, productId: null });
   };
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/products');
+        const response = await fetch(`${API_BASE_URL}/api/products`);
         if (response.ok) {
           const productList = await response.json();
           setProducts(productList);
         } else {
           console.error('Failed to fetch products:', response.status);
-          // Handle error scenarios
         }
       } catch (error) {
         console.error('Error fetching products:', error);
-        // Handle unexpected errors
       }
     };
 
     fetchProducts();
-  }, []); // The empty dependency array ensures that this effect runs only once, similar to componentDidMount
+  }, []);
 
   return (
     <div>
@@ -66,15 +92,24 @@ const InventoryEdit = () => {
         + New Product
       </button>
 
-      {/* Render the NewProductForm as a modal */}
       <NewProductForm isOpen={isModalOpen} onClose={closeModal} onSubmit={handleNewProductSubmit} />
 
-      {/* Display the list of products */}
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <li key={product.id}>
+            {product.name}
+            <button className ="backbutton" onClick={() => handleDeleteProduct(product.id)}>Delete</button>
+          </li>
         ))}
       </ul>
+
+      {deleteConfirmation.isOpen && (
+        <div>
+          <p>Are you sure you want to delete this item?</p>
+          <button className ="backbutton" onClick={() => confirmDelete(deleteConfirmation.productId)}>Yes</button>
+          <button className ="backbutton" onClick={cancelDelete}>No</button>
+        </div>
+      )}
     </div>
   );
 };

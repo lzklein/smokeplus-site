@@ -8,7 +8,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
   const [productQuantity, setProductQuantity] = useState('');
   const [productDescription, setProductDescription] = useState('');
   const [productUPC, setProductUPC] = useState('');
-  const [imageFile, setImageFile] = useState(null);
+  const [productImage, setProductImage] = useState('');
   const [errors, setErrors] = useState({
     name: '',
     categories: [],
@@ -18,25 +18,66 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     upc: '',
     image: '',
   });
-  const [isImageRemoved, setIsImageRemoved] = useState(false);
-  const [submittedImage, setSubmittedImage] = useState(false);
+
 
   const validateForm = () => {
+    // Log current form values
+    console.log('productName:', productName);
+    console.log('productCategories:', productCategories);
+    console.log('productPrice:', productPrice);
+    console.log('productQuantity:', productQuantity);
+    console.log('productDescription:', productDescription);
+    console.log('productUPC:', productUPC);
+    console.log('productImage:', productImage);
+  
     const newErrors = {
       name: productName.trim() === '' ? 'This field must be filled out' : '',
-      categories: productCategories.map((category) => (category.trim() === '' ? 'This field must be filled out' : '')),
-      price: !/^\d+(\.\d{1,2})?$/.test(productPrice) ? 'Enter a valid price (up to 2 decimal places)' : '',
-      quantity: !/^\d+$/.test(productQuantity) ? 'Enter a valid quantity (whole number)' : '',
+      categories: productCategories.map((category) =>
+        category.trim() === '' ? 'This field must be filled out' : ''
+      ),
+      price: !/^\d+(\.\d{1,2})?$/.test(productPrice)
+        ? 'Enter a valid price (up to 2 decimal places)'
+        : '',
+      quantity: !/^\d+$/.test(productQuantity)
+        ? 'Enter a valid quantity (whole number)'
+        : '',
       description: productDescription.trim() === '' ? 'This field must be filled out' : '',
-      image: !imageFile && !isImageRemoved ? 'Upload an image file' : '',
+      upc: !/^\d+$/.test(productUPC) ? 'Enter a valid UPC (whole number)' : '',
+      image: productImage.trim() === '' ? 'This field must be filled out' : ''
     };
-
+  
+    // Special handling for categories field
+    if (productCategories.some((category) => category.trim() === '')) {
+      newErrors.categories = ['All categories must be filled out'];
+    } else {
+      newErrors.categories = [];
+    }
+  
+    // Log current errors
+    console.log('New Errors:', newErrors);
+  
+    // Set errors state
     setErrors(newErrors);
-
+  
+    // Log current state after setting errors
+    console.log('Current Errors State:', errors);
+  
     // Check if any field has an error
-    return Object.values(newErrors).some((error) => error !== '');
+    const hasError = Object.values(newErrors).some((error) => {
+      if (Array.isArray(error)) {
+        return error.length > 0; // Check if array has elements
+      }
+      return error !== ''; // For non-array values, check if it's not an empty string
+    }) || newErrors.categories.length > 0;
+  
+    // Log values used to determine hasError
+    console.log('Values for hasError:', Object.values(newErrors));
+    console.log('Has Error:', hasError);
+  
+    return hasError;
   };
-
+  
+  
   const handleAddCategory = () => {
     setProductCategories([...productCategories, '']);
   };
@@ -53,22 +94,6 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     setProductCategories(updatedCategories);
   };
 
-
-  const handleImageInputChange = (e) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setImageFile(file);
-      setIsImageRemoved(false);
-      setSubmittedImage(true);
-    }
-  };
-
-  const handleRemoveImage = () => {
-    setImageFile(null);
-    setIsImageRemoved(true);
-    setSubmittedImage(false);
-  };
-
   const closeModal = () => {
     setProductName('');
     setProductCategories(['']);
@@ -76,30 +101,46 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     setProductQuantity('');
     setProductDescription('');
     setProductUPC('');
-    setImageFile(null);
+    setProductImage('');
     setErrors({});
-    setIsImageRemoved(false);
-    setSubmittedImage(false);
+
     onClose();
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("Submitting")
     if (validateForm()) {
       return;
     }
-
+    console.log('Form data valid:', {
+        name: productName,
+        categories: productCategories,
+        price: productPrice,
+        quantity: productQuantity,
+        description: productDescription,
+        id: productUPC,
+        image: productImage,
+      });
     try {
-      const formData = new FormData();
-      formData.append('name', productName);
-      formData.append('categories', JSON.stringify(productCategories));
-      formData.append('price', parseFloat(productPrice));
-      formData.append('quantity', parseInt(productQuantity));
-      formData.append('description', productDescription);
-      formData.append('upc', parseInt(productUPC));
-      formData.append('image', submittedImage ? null : imageFile);
+      const formData = {
+        name: productName,
+        categories: productCategories.join(","),
+        price: parseFloat(productPrice),
+        quantity: parseInt(productQuantity),
+        description: productDescription,
+        id: parseInt(productUPC),
+        image: productImage
+      }
+    //   formData.append('name', productName);
+    //   formData.append('categories', JSON.stringify(productCategories));
+    //   formData.append('price', parseFloat(productPrice));
+    //   formData.append('quantity', parseInt(productQuantity));
+    //   formData.append('description', productDescription);
+    //   formData.append('id', parseInt(productUPC));
+    //   formData.append('image', submittedImage ? null : imageFile);
 
+      console.log(formData)
       onSubmit(formData);
 
       setProductName('');
@@ -108,10 +149,9 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       setProductQuantity('');
       setProductDescription('');
       setProductUPC('');
-      setImageFile(null);
+      setProductImage('');
       setErrors({});
-      setIsImageRemoved(false);
-      setSubmittedImage(false);
+
       onClose();
     } catch (error) {
       console.error('Error submitting form:', error);
@@ -124,6 +164,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
         <>
           <h2>New Product</h2>
           <form onSubmit={handleSubmit}>
+            {/* Name */}
             <div className="form-group">
               <label>
                 Name:
@@ -136,6 +177,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 {errors.name && <span className="error-message">{errors.name}</span>}
               </label>
             </div>
+  
+            {/* Categories */}
             <div className="form-group">
               <label>
                 Categories:
@@ -148,12 +191,12 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                       className={(errors.categories && errors.categories[index]) ? 'error' : ''}
                     />
                     {index > 0 && (
-                      <button type="button" onClick={() => handleRemoveCategory(index)}>
+                      <button type="button" className="backbutton" onClick={() => handleRemoveCategory(index)}>
                         -
                       </button>
                     )}
                     {index === productCategories.length - 1 && (
-                      <button type="button" onClick={handleAddCategory}>
+                      <button className="backbutton" type="button" onClick={handleAddCategory}>
                         +
                       </button>
                     )}
@@ -162,6 +205,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 ))}
               </label>
             </div>
+  
+            {/* Price */}
             <div className="form-group">
               <label>
                 Price:
@@ -175,6 +220,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 {errors.price && <span className="error-message">{errors.price}</span>}
               </label>
             </div>
+  
+            {/* Quantity */}
             <div className="form-group">
               <label>
                 Quantity:
@@ -187,6 +234,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 {errors.quantity && <span className="error-message">{errors.quantity}</span>}
               </label>
             </div>
+  
+            {/* Description */}
             <div className="form-group">
               <label>
                 Description:
@@ -199,6 +248,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 {errors.description && <span className="error-message">{errors.description}</span>}
               </label>
             </div>
+  
+            {/* UPC */}
             <div className="form-group">
               <label>
                 UPC:
@@ -211,29 +262,22 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 {errors.upc && <span className="error-message">{errors.upc}</span>}
               </label>
             </div>
+  
+            {/* Image */}
             <div className="form-group">
               <label>
                 Image:
                 <input
-                  type="file"
-                  accept="image/*"
-                  onChange={handleImageInputChange}
-                  className={(errors.image || isImageRemoved) && 'error'}
-                  disabled={isImageRemoved || submittedImage}
+                  type="text"
+                  value={productImage}
+                  onChange={(e) => setProductImage(e.target.value)}
+                  className={errors.name && 'error'}
                 />
-                {isImageRemoved && (
-                  <button type="button" className="backbutton" onClick={handleRemoveImage}>
-                    Remove Image
-                  </button>
-                )}
-                {submittedImage && (
-                  <button type="button" className="backbutton" onClick={handleRemoveImage}>
-                    Delete Image
-                  </button>
-                )}
-                {errors.image && <span className="error-message">{errors.image}</span>}
+                {errors.name && <span className="error-message">{errors.name}</span>}
               </label>
+              <img src={productImage}/>
             </div>
+  
             <button type="submit" className="logbutton">
               Submit
             </button>
@@ -242,6 +286,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       )}
     </Modal>
   );
+  
 };
 
 export default NewProductForm;

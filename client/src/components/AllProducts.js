@@ -38,3 +38,6 @@ const AllProducts = () => {
 };
 
 export default AllProducts;
+
+
+// add size + flavor araays (same as categories)
