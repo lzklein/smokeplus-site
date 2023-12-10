@@ -1,5 +1,5 @@
 const express = require('express');
-const { Product } = require('../models'); 
+const { sequelize, Product } = require('../models'); 
 
 const router = express.Router();
 
@@ -39,7 +39,9 @@ router.post('/', async (req, res) => {
     console.log("Posting!")
   
     const { name, categories, price, quantity, description, image, id } = req.body;
-  
+    
+    console.log("New Product:", name,categories,price,quantity,description,image,id)
+
     try {
       const newProduct = await Product.create({
         name,
