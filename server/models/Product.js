@@ -9,9 +9,6 @@ const Product = sequelize.define('Product', {
   categories: {
     type: DataTypes.STRING,
     allowNull: false,
-    get() {
-      return this.getDataValue('categories').split(',');
-    },
     set(value) {
       if (Array.isArray(value)) {
         this.setDataValue('categories', value.join(','));
@@ -25,9 +22,6 @@ const Product = sequelize.define('Product', {
   sizes: {
     type: DataTypes.STRING, 
     allowNull: true,
-    get() {
-      return this.getDataValue('sizes').split(',');
-    },
     set(value) {
       if (Array.isArray(value)) {
         this.setDataValue('sizes', value.join(','));
@@ -41,9 +35,6 @@ const Product = sequelize.define('Product', {
   flavors: {
     type: DataTypes.STRING,
     allowNull: true,
-    get() {
-      return this.getDataValue('flavors').split(',');
-    },
     set(value) {
       if (Array.isArray(value)) {
         this.setDataValue('flavors', value.join(','));
