@@ -1,59 +1,66 @@
-const { Sequelize } = require('sequelize');
-const sequelize = require('./config');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../config');
 
 const Product = sequelize.define('Product', {
   name: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   categories: {
-    type: Sequelize.STRING, // ARRAY to STRING
+    type: DataTypes.STRING,
     allowNull: false,
+    // defaultValue: '', // Set a default value if needed
     get() {
-      const rawValue = this.getDataValue('categories');
-      return rawValue ? rawValue.split(',') : [];
+      return this.getDataValue('categories').split(',');
     },
     set(value) {
-      this.setDataValue('categories', value.join(','));
+      if (Array.isArray(value)) {
+        this.setDataValue('categories', value.join(','));
+      } else if (typeof value === 'string') {
+        this.setDataValue('categories', value);
+      } else {
+        console.warn('Invalid value type for categories:', typeof value);
+      }
     },
-  },
+    
+  },  
   price: {
-    type: Sequelize.FLOAT,
+    type: DataTypes.FLOAT,
     allowNull: false,
     validate: {
       min: 0, // Min value 0
     },
   },
   quantity: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     validate: {
       min: 0, 
     },
   },
   description: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true, 
     },
   },
   image: {
-    type: Sequelize.STRING,
+    type: DataTypes.STRING,
     allowNull: false,
     validate: {
       notEmpty: true, 
     },
   },
   id: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
   },
   deals: {
-    type: Sequelize.INTEGER,
+    type: DataTypes.INTEGER,
     defaultValue: 0,
   },
 });
 
-module.exports = { sequelize, Product };
+module.exports = Product;
