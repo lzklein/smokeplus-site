@@ -232,7 +232,6 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                   type="text"
                   value={productSizes}
                   onChange={(e) => setProductSizes(e.target.value)}
-                  className={errors.sizes && 'error'}
                 />
                 {errors.sizes && <span className="error-message">{errors.sizes}</span>}
               </label>
@@ -246,7 +245,6 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                   type="text"
                   value={productFlavors}
                   onChange={(e) => setProductFlavors(e.target.value)}
-                  className={errors.flavors && 'error'}
                 />
                 {errors.flavors && <span className="error-message">{errors.flavors}</span>}
               </label>
