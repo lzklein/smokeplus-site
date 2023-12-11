@@ -1,0 +1,15 @@
+.cardimage {
+    max-width: 100px;
+    margin: 0 auto; 
+    display: block; 
+    margin-top:25px;
+    pointer-events: none;
+}
+
+.productcard {
+    border: 1px solid black; 
+    width: 40%;
+    margin: 0 auto;
+    margin-top:5px;
+    margin-bottom:2px;
+}

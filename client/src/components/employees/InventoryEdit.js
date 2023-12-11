@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewProductForm from './NewProductForm';
+import ProductCard from './ProductCard';
 
 const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -37,7 +38,10 @@ const InventoryEdit = () => {
   };
 
   const handleDeleteProduct = (productId) => {
-    setDeleteConfirmation({ isOpen: true, productId });
+    const isConfirmed = window.confirm("Are you sure you want to delete this item?")
+    if(isConfirmed) {
+      confirmDelete(productId)
+    }
   };
 
   const confirmDelete = async (productId) => {
@@ -59,10 +63,6 @@ const InventoryEdit = () => {
     setDeleteConfirmation({ isOpen: false, productId: null });
   };
 
-  const cancelDelete = () => {
-    setDeleteConfirmation({ isOpen: false, productId: null });
-  };
-
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -81,6 +81,16 @@ const InventoryEdit = () => {
     fetchProducts();
   }, []);
 
+  const renderProducts = () => {
+    return products.map((product) => {
+      return(
+        <div>
+          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct}/>
+        </div>
+      )
+    })
+  }
+
   return (
     <div>
       <h1>InventoryEdit</h1>
@@ -94,22 +104,9 @@ const InventoryEdit = () => {
 
       <NewProductForm isOpen={isModalOpen} onClose={closeModal} onSubmit={handleNewProductSubmit} />
 
-      <ul>
-        {products.map((product) => (
-          <li key={product.id}>
-            {product.name}
-            <button className ="backbutton" onClick={() => handleDeleteProduct(product.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+      {renderProducts()}
 
-      {deleteConfirmation.isOpen && (
-        <div>
-          <p>Are you sure you want to delete this item?</p>
-          <button className ="backbutton" onClick={() => confirmDelete(deleteConfirmation.productId)}>Yes</button>
-          <button className ="backbutton" onClick={cancelDelete}>No</button>
-        </div>
-      )}
+      
     </div>
   );
 };

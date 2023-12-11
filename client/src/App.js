@@ -20,7 +20,6 @@ import EmployeeHome from './components/employees/EmployeeHome';
 import Inbox from './components/employees/Inbox';
 import ExcelUploader from './components/employees/ExcelUploader';
 import BannerEdit from './components/employees/BannerEdit';
-import ProductEdit from './components/employees/ProductEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 
@@ -38,7 +37,6 @@ const App = () => {
 
       <Routes>        
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
-        <Route path="/product/edit" element={<ProductEdit/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path='/cart' element={<Cart />} />
         <Route path='/order' element={<Order />} />

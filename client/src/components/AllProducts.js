@@ -1,38 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import ProductCard from './ProductCard';
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
 
+  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
+
   useEffect(() => {
-    const fetchAllProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/products'); // Adjust the API endpoint as needed
+        const response = await fetch(`${API_BASE_URL}/api/products`);
         if (response.ok) {
-          const products = await response.json();
-          setAllProducts(products);
+          const productList = await response.json();
+          setAllProducts(productList);
         } else {
-          console.error('Error fetching products:', response.statusText);
+          console.error('Failed to fetch products:', response.status);
         }
       } catch (error) {
-        console.error('Error fetching products:', error.message);
+        console.error('Error fetching products:', error);
       }
     };
 
-    // Call the fetchAllProducts function
-    fetchAllProducts();
-  }, []); // The empty dependency array ensures that this effect runs once on mount
+    fetchProducts();
+  }, []);
+  
+  const renderProducts = () =>{
+    return allProducts.map((product) => {
+      return(
+        <div>
+          <ProductCard product={product}/>
+        </div>
+      )
+    })
+  }
 
   return (
     <div>
       <h1>All Products</h1>
       {/* Render the list of products */}
-      <ul>
-        {allProducts.map(product => (
-          <li key={product.id}>
-            {product.name} - {product.price}
-          </li>
-        ))}
-      </ul>
+      {renderProducts()}
     </div>
   );
 };
