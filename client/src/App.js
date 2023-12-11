@@ -13,6 +13,7 @@ import Contact from './components/Contact';
 import AllProducts from './components/AllProducts';
 import Deals from './components/Deals';
 import Popular from './components/Popular';
+import ProductPage from './components/ProductPage';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -38,6 +39,7 @@ const App = () => {
       <Routes>        
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
+        <Route path="/products/:productId" element={<ProductPage />} />
         <Route path='/cart' element={<Cart />} />
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
