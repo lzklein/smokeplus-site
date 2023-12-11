@@ -22,28 +22,10 @@ const Product = sequelize.define('Product', {
   sizes: {
     type: DataTypes.STRING, 
     allowNull: true,
-    set(value) {
-      if (Array.isArray(value)) {
-        this.setDataValue('sizes', value.join(','));
-      } else if (typeof value === 'string') {
-        this.setDataValue('sizes', value);
-      } else {
-        console.warn('Invalid value type for sizes:', typeof value);
-      }
-    },
   },
   flavors: {
     type: DataTypes.STRING,
     allowNull: true,
-    set(value) {
-      if (Array.isArray(value)) {
-        this.setDataValue('flavors', value.join(','));
-      } else if (typeof value === 'string') {
-        this.setDataValue('flavors', value);
-      } else {
-        console.warn('Invalid value type for flavors:', typeof value);
-      }
-    },
   },
   price: {
     type: DataTypes.FLOAT,
