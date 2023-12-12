@@ -7,6 +7,7 @@ const ProductPage = () => {
   const [loaded, setLoaded] = useState(false);
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
+  // ! if this product has a size or flavor or both, search for all products with same name, create sizes/flavors array for dropdown
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -39,16 +40,19 @@ const ProductPage = () => {
             <p style={{'margin-bottom':"10px"}}>${product.price}</p>
             {
               product.sizes ?
-               <select>
+              <div>
+                <p>Size Options</p>
+                <select></select> 
+              </div>
 
-               </select> 
                : null
             }
             {
               product.flavors ? 
-              <select>
-
-              </select> 
+              <div>
+                <p>Flavors</p>
+                <select></select> 
+              </div>
               : null
             }
             <br/>

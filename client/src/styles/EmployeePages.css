@@ -32,7 +32,7 @@
 
 .backbutton:hover,
 .backbutton:focus { 
-  background-color: #16437E;
+  background-color: #16437E !important;
   color: #ffffff;
 }
 
