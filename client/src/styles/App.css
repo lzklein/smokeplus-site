@@ -12,6 +12,31 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+body {
+  background-color: rgb(255, 255, 246);
+}
+
+body h1 {
+  font-size:32px;
+  font-weight:bold;
+}
+
+body h2 {
+  font-size:24px;
+  font-weight:bold;
+}
+
+body h3 {
+  font-size:18px;
+  font-weight:bold;
+}
+
+body h4 {
+  font-size:12px;
+  font-weight:bold;
+}
+
+
 .App {
   text-align: center;
 }
