@@ -319,7 +319,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 />
                 {errors.image && <span className="error-message">{errors.image}</span>}
               </label>
-              <img src={productImage}/>
+              <img src={productImage} className="imgpreview"/>
             </div>
   
             <button type="submit" className="logbutton">

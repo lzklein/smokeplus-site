@@ -3,6 +3,7 @@ import ProductCard from './ProductCard';
 
 const AllProducts = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -23,27 +24,32 @@ const AllProducts = () => {
 
     fetchProducts();
   }, []);
-  
-  const renderProducts = () =>{
-    return allProducts.map((product) => {
-      return(
-        <div>
-          <ProductCard product={product}/>
-        </div>
-      )
-    })
-  }
+
+  const renderProducts = () => {
+    const filteredProducts = allProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    return filteredProducts.map((product) => (
+      <div key={product.id} className="productcard">
+        <ProductCard product={product} />
+      </div>
+    ));
+  };
 
   return (
     <div>
       <h1>All Products</h1>
-      {/* Render the list of products */}
-      {renderProducts()}
+      <input
+        type="text"
+        placeholder="Search..."
+        value={searchTerm}
+        className="product-search"
+        onChange={(e) => setSearchTerm(e.target.value)}
+      />
+      <div className="productcard-container">{renderProducts()}</div>
     </div>
   );
 };
 
 export default AllProducts;
-
-
-// add size + flavor araays (same as categories)

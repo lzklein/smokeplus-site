@@ -3,7 +3,7 @@ import React from 'react';
 const ProductCard = ({ product, handleDeleteProduct }) => {
 
   return (
-    <div className="productcard">
+    <div className="product-edit-card">
       <img src={product.image} className='cardimage' alt={product.name} />
       <p>{product.id}</p>
       <h4>
