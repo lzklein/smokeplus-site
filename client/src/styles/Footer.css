@@ -4,7 +4,7 @@
 .footer {
     display: flex;
     justify-content: space-between;
-    background: linear-gradient(180deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 2%,rgba(102,102,102,1) 4%,rgba(71,71,71,1) 8%,rgba(44,44,44,1) 16%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(28,28,28,1) 91%,rgba(19,19,19,1) 100%);
+    background: linear-gradient(0deg, rgba(76,76,76,1) 0%,rgba(89,89,89,1) 2%,rgba(102,102,102,1) 4%,rgba(71,71,71,1) 8%,rgba(44,44,44,1) 16%,rgba(0,0,0,1) 51%,rgba(17,17,17,1) 60%,rgba(43,43,43,1) 76%,rgba(43,43,43,1) 84%,rgba(43,43,43,1) 88%,rgba(28,28,28,1) 92%,gold 93%,yellow 94%,gold 95%, rgba(19,19,19,1) 97%, black 99%);
     color: white;
     padding: 20px;
     margin-top: auto; /* Push the footer to the bottom */
