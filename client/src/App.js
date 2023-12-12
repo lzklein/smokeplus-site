@@ -9,7 +9,7 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import Cart from './components/Cart';
 import Order from './components/OrderStatus';
-import Contact from './components/Contact';
+import Contact from './components/Categories';
 import AllProducts from './components/AllProducts';
 import Deals from './components/Deals';
 import Popular from './components/Popular';
@@ -43,7 +43,7 @@ const App = () => {
         <Route path='/cart' element={<Cart />} />
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
-        <Route path='/contact' element={<Contact />} />
+        <Route path='/categories' element={<Contact />} />
         <Route path='/deals' element={<Deals/>}/>
         <Route path='/popular' element={<Popular/>}/>
         <Route path='/employee-login' element={<EmployeeLogin/>}/>
