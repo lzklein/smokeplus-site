@@ -13,7 +13,7 @@
 @import 'tailwindcss/utilities';
 
 body {
-  background-color: rgb(255, 255, 246);
+  background-color: whitesmoke;
 }
 
 body h1 {

@@ -28,16 +28,41 @@ const ProductPage = () => {
   }, []);
 
   return (
-    loaded?
-    <div>
-      <h2>{product.name}</h2>
-      <img src={product.image}/>
-      <p>{product.description}</p>
-      <p>${product.price}</p> <button className="backbutton">Add to Cart</button>
-    </div>
-    :<div>
-      loading
-    </div>
+    loaded ? (
+      <>           
+        <div className="product-container">
+          <div className="product-left">
+            <img src={product.image} alt={product.name} className="product-img" />
+          </div>
+          <div className="product-right">
+            <h2>{product.name}</h2>
+            <p style={{'margin-bottom':"10px"}}>${product.price}</p>
+            {
+              product.sizes ?
+               <select>
+
+               </select> 
+               : null
+            }
+            {
+              product.flavors ? 
+              <select>
+
+              </select> 
+              : null
+            }
+            <br/>
+            <button className="backbutton" style={{"margin-top":"10px"}}>Add to Cart</button>
+            <p>{product.description}</p>
+          </div>
+        </div>
+        <div>
+        </div>
+      </>
+
+    ) : (
+      <div>loading</div>
+    )
   );
 };
 

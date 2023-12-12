@@ -5,7 +5,7 @@ const NavLeft = () => {
   return (
     <div>
         <Link to="/all" className="headnav">All Products</Link>
-        <Link to="/contact" className="headnav" style={{"margin-left":"80px", "margin-right":"80px"}}>Contact Us</Link>
+        <Link to="/categories" className="headnav" style={{"margin-left":"80px", "margin-right":"80px"}}>Shop by Category</Link>
     </div>
   )
 }

@@ -38,3 +38,28 @@
 .product-search{
     margin:10px
 }
+
+.product-img{
+    margin: 0 auto; 
+    display: block; 
+    max-width:100%;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.product-container {
+    margin: 0 auto; 
+    margin-top: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
+    max-width:40%;
+  }
+  
+  .product-left {
+    flex: 1;
+  }
+  
+  .product-right {
+    flex: 2;
+  }
+  
