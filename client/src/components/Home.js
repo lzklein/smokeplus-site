@@ -18,7 +18,7 @@ const Home = ({bannerImages}) => {
       </div>
       <div>
         <div className="section">
-          <h3>Popular</h3>
+          <h3>Popular!</h3>
           <Link className="see-all-link" to='/popular'>See All &raquo;</Link>
         </div>
         <Popular />
