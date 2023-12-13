@@ -8,6 +8,9 @@ const ProductPage = () => {
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
   // ! if this product has a size or flavor or both, search for all products with same name, create sizes/flavors array for dropdown
+  // ? Ideas: Reviews, Star Rating (can be static), Related Items (random items of same category or something)
+  // ? if quantity under x number, red text "Only x left, buy now"?
+  // ! Above add to cart, put dropdown menu for buy quantity add to cart that many times
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -61,11 +64,14 @@ const ProductPage = () => {
           </div>
         </div>
         <div>
+          <h3 style={{textAlign:"left", marginLeft:"25%"}}>Related Items:</h3>
         </div>
       </>
 
     ) : (
-      <div>loading</div>
+      <div>
+        <h1></h1>
+      </div>
     )
   );
 };
