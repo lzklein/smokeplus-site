@@ -11,7 +11,11 @@ const ProductCard = ({ product }) => {
         </h4>
         <p>
           Qty: {product.quantity} | ${parseFloat(product.price).toFixed(2)}
+
         </p>
+        <button className="logbutton">
+          🛒 Add to Cart
+        </button>
       </Link>
       <br />
     </div>

@@ -40,7 +40,7 @@ const ProductPage = () => {
           </div>
           <div className="product-right">
             <h2>{product.name}</h2>
-            <p style={{'margin-bottom':"10px"}}>${product.price}</p>
+            <p style={{'margin-bottom':"10px"}}>${parseFloat(product.price).toFixed(2)}</p>
             {
               product.sizes ?
               <div>
@@ -59,17 +59,18 @@ const ProductPage = () => {
               : null
             }
             <br/>
-            <button className="backbutton" style={{"margin-top":"10px"}}>Add to Cart</button>
+            <button className="backbutton" style={{"margin-top":"10px"}}>Add to Cart 🛒</button>
             <p>{product.description}</p>
           </div>
         </div>
-        <div>
+        <div className="related-products">
           <h3 style={{textAlign:"left", marginLeft:"25%"}}>Related Items:</h3>
+          {/* {renderRelated()} */}
         </div>
       </>
 
     ) : (
-      <div>
+      <div className="empty-space" style={{margin:"5000px"}}>
         <h1></h1>
       </div>
     )

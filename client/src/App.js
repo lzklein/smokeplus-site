@@ -26,6 +26,7 @@ import DealsEdit from './components/employees/DealsEdit';
 
 
 // TODO sessionid create/check on open
+// TODO Cart, Order, Check Order, Related Items, Inbox, Categories, Banners, Deals/Popular, excel, finish css
 const App = () => {
 
   // ! Temp banner, change to useEffect fetch backend banner images
