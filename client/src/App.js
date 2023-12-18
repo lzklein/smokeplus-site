@@ -37,6 +37,8 @@ const App = () => {
 
   const [sessionId, setSessionId] = useState('')
   const [loading, setLoading] = useState(true);
+  const [cart, setCart] = useState([])
+  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
   useEffect(() => {
     let currentSession = localStorage.getItem('sessionId');
@@ -45,16 +47,36 @@ const App = () => {
       localStorage.setItem('sessionId', currentSession);
     }
     setSessionId(currentSession)
-    setLoading(false)
   }, []);
+
+  useEffect(()=>{
+    const fetchCartItems = async () => {
+      try {
+        console.log("sessionId:",sessionId)
+        const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
   
+        const cartData = await response.json();
+        console.log(cartData)
+        setCart(cartData);
+        console.log(cart)
+      } catch (error) {
+        console.error('Error fetching cart:', error);
+      } finally {
+        console.log(cart)
+        setLoading(false)
+      }
+    };
+    fetchCartItems();
+  },[sessionId])
+  
+
   // ! Temp banner, change to useEffect fetch backend banner images
   const importAll = (r) => r.keys().map(r);
   const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
   
   
   return (
-    <SessionContext.Provider value={{sessionId}}>
+    <SessionContext.Provider value={{sessionId, cart, setCart, API_BASE_URL}}>
     {loading?
     <div>
       Loading

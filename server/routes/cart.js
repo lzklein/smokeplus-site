@@ -7,7 +7,8 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     console.log("Getting Cart!")
     const { sessionId } = req.query;
-    console.log(sessionId)
+    
+    console.log("sessionId:", sessionId)
   try {
     const cart = await Cart.findAll({
         where:{

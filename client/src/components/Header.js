@@ -7,7 +7,7 @@ import { SessionContext } from '../App';
 // import '../styles/Header.css';
 
 const Header = () => {
-  const { sessionId } = useContext(SessionContext);
+  const { sessionId, cart } = useContext(SessionContext);
 
   return (
     <header className="header">
@@ -18,7 +18,7 @@ const Header = () => {
         <Link to="/">SMOKE PLUS</Link>
       </div>
       <div className="right-nav">
-        <NavRight />
+        <NavRight cart={cart}/>
       </div>
       <button className='logbutton' onClick={()=>{console.log(sessionId)}}>boop</button>
     </header>

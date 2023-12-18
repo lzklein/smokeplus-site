@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const ProductPage = () => {
-  const { sessionId } = useContext(SessionContext);
+  const { sessionId, setCart, API_BASE_URL } = useContext(SessionContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
   // ! if this product has a size or flavor or both, search for all products with same name, create sizes/flavors array for dropdown
   // ? Ideas: Reviews, Star Rating (can be static), Related Items (random items of same category or something)
@@ -59,6 +58,7 @@ const ProductPage = () => {
         console.error('Failed to add item to cart:', response.statusText);
       } else {
         console.log('Item added to cart successfully');
+        setCart((prevCart)=>[...prevCart,cartItem])
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);

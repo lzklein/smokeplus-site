@@ -3,31 +3,8 @@ import { SessionContext } from '../App';
 import CartCard from './CartCard';
 
 const Cart = () => {
-  const { sessionId } = useContext(SessionContext);
-  const [cart, setCart] = useState([])
-  const [loading, setLoading] = useState(true);
+  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
 
-  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
-
-  useEffect(() => {
-    const fetchCartItems = async () => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
-  
-        const cartData = await response.json();
-        console.log(cartData)
-        setCart(cartData);
-        console.log(cart)
-      } catch (error) {
-        console.error('Error fetching cart:', error);
-      } finally {
-        setLoading(false);
-        console.log(cart)
-      }
-    };
-  
-    fetchCartItems();
-  }, [sessionId]);
 
   const handleDelete = async (itemId) => {
     try {
@@ -60,15 +37,15 @@ const Cart = () => {
 
   return (
     <div>
-      {
-        loading ?
-        <div>Loading</div>
-        :
+      {/* {
+        loading ? */}
+        {/* <div>Loading</div>
+        : */}
         <div>
           <h3>Cart</h3>
           {renderCart()}
         </div>
-      }
+      {/* } */}
     </div>
   )
 }
