@@ -181,151 +181,153 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       {isOpen && (
         <>
           <h2>New Product</h2>
-          <form onSubmit={handleSubmit}>
-            {/* Name */}
-            <div className="form-group">
-              <label>
-                Name:
-                <input
-                  type="text"
-                  value={productName}
-                  onChange={(e) => setProductName(e.target.value)}
-                  className={errors.name && 'error'}
-                />
-                {errors.name && <span className="error-message">{errors.name}</span>}
-              </label>
-            </div>
-  
-            {/* Categories */}
-            <div className="form-group">
-              <label>
-                Categories:
-                {productCategories.map((category, index) => (
-                  <div key={index}>
-                    <input
-                      type="text"
-                      value={category}
-                      onChange={(e) => handleChangeCategory(index, e.target.value)}
-                      className={(errors.categories && errors.categories[index]) ? 'error' : ''}
-                    />
-                    {index > 0 && (
-                      <button type="button" className="backbutton" onClick={() => handleRemoveCategory(index)}>
-                        -
-                      </button>
-                    )}
-                    {index === productCategories.length - 1 && (
-                      <button className="backbutton" type="button" onClick={handleAddCategory}>
-                        +
-                      </button>
-                    )}
-                    {errors.categories && errors.categories[index] && <span className="error-message">{errors.categories[index]}</span>}
-                  </div>
-                ))}
-              </label>
-            </div>
+          <div className="form-container">
+            <form onSubmit={handleSubmit}>
+              {/* Name */}
+              <div className="form-group">
+                <label>
+                  Name:
+                  <input
+                    type="text"
+                    value={productName}
+                    onChange={(e) => setProductName(e.target.value)}
+                    className={errors.name && 'error'}
+                  />
+                  {errors.name && <span className="error-message">{errors.name}</span>}
+                </label>
+              </div>
+    
+              {/* Categories */}
+              <div className="form-group">
+                <label>
+                  Categories:
+                  {productCategories.map((category, index) => (
+                    <div key={index}>
+                      <input
+                        type="text"
+                        value={category}
+                        onChange={(e) => handleChangeCategory(index, e.target.value)}
+                        className={(errors.categories && errors.categories[index]) ? 'error' : ''}
+                      />
+                      {index > 0 && (
+                        <button type="button" className="backbutton" onClick={() => handleRemoveCategory(index)}>
+                          -
+                        </button>
+                      )}
+                      {index === productCategories.length - 1 && (
+                        <button className="backbutton" type="button" onClick={handleAddCategory}>
+                          +
+                        </button>
+                      )}
+                      {errors.categories && errors.categories[index] && <span className="error-message">{errors.categories[index]}</span>}
+                    </div>
+                  ))}
+                </label>
+              </div>
 
-            {/* Sizes */}
-            <div className="form-group">
-              <label>
-                Size:
-                <input
-                  type="text"
-                  value={productSizes}
-                  onChange={(e) => setProductSizes(e.target.value)}
-                />
-                {errors.sizes && <span className="error-message">{errors.sizes}</span>}
-              </label>
-            </div>
+              {/* Sizes */}
+              <div className="form-group">
+                <label>
+                  Size:
+                  <input
+                    type="text"
+                    value={productSizes}
+                    onChange={(e) => setProductSizes(e.target.value)}
+                  />
+                  {errors.sizes && <span className="error-message">{errors.sizes}</span>}
+                </label>
+              </div>
 
-            {/* Flavors */}
-            <div className="form-group">
-              <label>
-                flavors:
-                <input
-                  type="text"
-                  value={productFlavors}
-                  onChange={(e) => setProductFlavors(e.target.value)}
-                />
-                {errors.flavors && <span className="error-message">{errors.flavors}</span>}
-              </label>
-            </div>
-  
-            {/* Price */}
-            <div className="form-group">
-              <label>
-                Price:
-                <input
-                  type="number"
-                  step="0.01"
-                  value={productPrice}
-                  onChange={(e) => setProductPrice(e.target.value)}
-                  className={errors.price && 'error'}
-                />
-                {errors.price && <span className="error-message">{errors.price}</span>}
-              </label>
-            </div>
-  
-            {/* Quantity */}
-            <div className="form-group">
-              <label>
-                Quantity:
-                <input
-                  type="number"
-                  value={productQuantity}
-                  onChange={(e) => setProductQuantity(e.target.value)}
-                  className={errors.quantity && 'error'}
-                />
-                {errors.quantity && <span className="error-message">{errors.quantity}</span>}
-              </label>
-            </div>
-  
-            {/* Description */}
-            <div className="form-group">
-              <label>
-                Description:
-                <input
-                  type="text"
-                  value={productDescription}
-                  onChange={(e) => setProductDescription(e.target.value)}
-                  className={errors.description && 'error'}
-                />
-                {errors.description && <span className="error-message">{errors.description}</span>}
-              </label>
-            </div>
-  
-            {/* UPC */}
-            <div className="form-group">
-              <label>
-                UPC:
-                <input
-                  type="number"
-                  value={productUPC}
-                  onChange={(e) => setProductUPC(e.target.value)}
-                  className={errors.upc && 'error'}
-                />
-                {errors.upc && <span className="error-message">{errors.upc}</span>}
-              </label>
-            </div>
-  
-            {/* Image */}
-            <div className="form-group">
-              <label>
-                Image:
-                <input
-                  type="text"
-                  value={productImage}
-                  onChange={(e) => setProductImage(e.target.value)}
-                  className={errors.image && 'error'}
-                />
-                {errors.image && <span className="error-message">{errors.image}</span>}
-              </label>
-              <img src={productImage} className="imgpreview"/>
-            </div>
-  
-            <button type="submit" className="logbutton">
-              Submit
-            </button>
-          </form>
+              {/* Flavors */}
+              <div className="form-group">
+                <label>
+                  flavors:
+                  <input
+                    type="text"
+                    value={productFlavors}
+                    onChange={(e) => setProductFlavors(e.target.value)}
+                  />
+                  {errors.flavors && <span className="error-message">{errors.flavors}</span>}
+                </label>
+              </div>
+    
+              {/* Price */}
+              <div className="form-group">
+                <label>
+                  Price:
+                  <input
+                    type="number"
+                    step="0.01"
+                    value={productPrice}
+                    onChange={(e) => setProductPrice(e.target.value)}
+                    className={errors.price && 'error'}
+                  />
+                  {errors.price && <span className="error-message">{errors.price}</span>}
+                </label>
+              </div>
+    
+              {/* Quantity */}
+              <div className="form-group">
+                <label>
+                  Quantity:
+                  <input
+                    type="number"
+                    value={productQuantity}
+                    onChange={(e) => setProductQuantity(e.target.value)}
+                    className={errors.quantity && 'error'}
+                  />
+                  {errors.quantity && <span className="error-message">{errors.quantity}</span>}
+                </label>
+              </div>
+    
+              {/* Description */}
+              <div className="form-group">
+                <label>
+                  Description:
+                  <input
+                    type="text"
+                    value={productDescription}
+                    onChange={(e) => setProductDescription(e.target.value)}
+                    className={errors.description && 'error'}
+                  />
+                  {errors.description && <span className="error-message">{errors.description}</span>}
+                </label>
+              </div>
+    
+              {/* UPC */}
+              <div className="form-group">
+                <label>
+                  UPC:
+                  <input
+                    type="number"
+                    value={productUPC}
+                    onChange={(e) => setProductUPC(e.target.value)}
+                    className={errors.upc && 'error'}
+                  />
+                  {errors.upc && <span className="error-message">{errors.upc}</span>}
+                </label>
+              </div>
+    
+              {/* Image */}
+              <div className="form-group">
+                <label>
+                  Image:
+                  <input
+                    type="text"
+                    value={productImage}
+                    onChange={(e) => setProductImage(e.target.value)}
+                    className={errors.image && 'error'}
+                  />
+                  {errors.image && <span className="error-message">{errors.image}</span>}
+                </label>
+                <img src={productImage} className="imgpreview"/>
+              </div>
+    
+              <button type="submit" className="logbutton">
+                Submit
+              </button>
+            </form>
+          </div>
         </>
       )}
     </Modal>

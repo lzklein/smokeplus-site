@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     console.log("Posting!")
     console.log('Request Body:', req.body);
 
-    const { user, product, quantity } = req.body;
+    const { user, product, quantity } = req.body.cartItem;
 
     console.log("New Cart Item:", user, product, quantity)
 

@@ -1,22 +1,35 @@
 'use strict';
 
-/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
+  up: async (queryInterface, Sequelize) => {
+    await queryInterface.createTable('Cart', {
+      id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        primaryKey: true,
+        autoIncrement: true,
+        },
+    user: {
+        type: Sequelize.STRING,
+        allowNull: false,
+
+    },
+    product: {
+        type: Sequelize.INTEGER,
+        allowNull:false,
+        // references: {
+        //     model: Product,
+        //     key: 'id',
+        // },
+    },
+    quantity: {
+        type: Sequelize.INTEGER,
+        allowNull:false
+    }
+    });
   },
 
-  async down (queryInterface, Sequelize) {
-    /**
-     * Add reverting commands here.
-     *
-     * Example:
-     * await queryInterface.dropTable('users');
-     */
-  }
+  down: async (queryInterface, Sequelize) => {
+    await queryInterface.dropTable('Cart');
+  },
 };

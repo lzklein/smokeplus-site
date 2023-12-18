@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { SessionContext } from '../App'; 
 
 const ProductPage = () => {
+  const { sessionId } = useContext(SessionContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -31,6 +33,38 @@ const ProductPage = () => {
     fetchProduct();
   }, []);
 
+  const handleCart = () => {
+    const cartItem = {
+      user: sessionId,
+      product: product.id,
+      quantity: 1,
+    }
+    console.log(cartItem)
+    cartPost(cartItem);
+  }
+
+  const cartPost = async (cartItem) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/cart`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', 
+        },
+        body: JSON.stringify({
+          cartItem, 
+        }),
+      });
+  
+      if (!response.ok) {
+        console.error('Failed to add item to cart:', response.statusText);
+      } else {
+        console.log('Item added to cart successfully');
+      }
+    } catch (error) {
+      console.error('Error adding item to cart:', error.message);
+    }
+  };
+
   return (
     loaded ? (
       <>           
@@ -59,7 +93,7 @@ const ProductPage = () => {
               : null
             }
             <br/>
-            <button className="backbutton" style={{"margin-top":"10px"}}>Add to Cart 🛒</button>
+            <button className="backbutton" style={{"margin-top":"10px"}} onClick={handleCart}>Add to Cart 🛒</button>
             <p>{product.description}</p>
           </div>
         </div>
@@ -71,7 +105,7 @@ const ProductPage = () => {
 
     ) : (
       <div className="empty-space" style={{margin:"5000px"}}>
-        <h1></h1>
+        <h1>Loading</h1>
       </div>
     )
   );
