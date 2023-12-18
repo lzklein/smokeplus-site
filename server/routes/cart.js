@@ -7,13 +7,14 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     console.log("Getting Cart!")
     const { sessionId } = req.query;
-
+    console.log(sessionId)
   try {
     const cart = await Cart.findAll({
         where:{
             user:sessionId
         }
     });
+    console.log(cart)
     res.json(cart);
   } catch (error) {
     console.error('Error fetching cart:', error);
