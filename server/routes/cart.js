@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
     console.log("Getting Cart!")
     const { sessionId } = req.query;
     
-    console.log("sessionId:", sessionId)
+    console.log("sessionId", sessionId)
   try {
     const cart = await Cart.findAll({
         where:{
@@ -47,8 +47,25 @@ router.post('/', async (req, res) => {
   
 
 // Update a Cart item
-router.put('/:id', async (req, res) => {
-    console.log("Patching!")
+router.patch('/:id', async (req, res) => {
+  const { id } = req.params;
+  const { quantity } = req.body;
+
+  try {
+    const updatedCartItem = await Cart.findByPk(id);
+
+    if (!updatedCartItem) {
+      return res.status(404).json({ error: 'Cart item not found' });
+    }
+
+    updatedCartItem.quantity = quantity;
+    await updatedCartItem.save();
+
+    res.json(updatedCartItem);
+  } catch (error) {
+    console.error('Error updating cart item:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 // Delete a Cart item

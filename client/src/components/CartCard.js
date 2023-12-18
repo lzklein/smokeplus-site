@@ -21,18 +21,15 @@ const CartCard = ({item, onDelete}) => {
               console.error('Error fetching products:', error);
             }
           };
-      
           fetchProduct();
     },[])
-
-
 
   return (
     <div>
     {loaded?
         <div>
             <h3>{product.name}</h3>
-            <img src={product.image}/>
+            <img src={product.image} className='cart-img'/>
             <button>-</button> <p>Qty: {item.quantity}</p> <button>+</button>
             <br/>
             <button className="backbutton" onClick={onDelete}>Delete</button>
