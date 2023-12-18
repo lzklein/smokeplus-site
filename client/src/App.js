@@ -1,6 +1,6 @@
 // imports
 import './styles/App.css';
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 // components
@@ -24,11 +24,24 @@ import BannerEdit from './components/employees/BannerEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 
+const SessionContext = createContext();
+
 
 // TODO sessionid create/check on open
 // TODO Cart, Order, Check Order, Related Items, Inbox, Categories, Banners, Deals/Popular, excel, finish css
 const App = () => {
+  const [sessionId, setSessionId] = useState('')
 
+
+  useEffect(() => {
+    let currentSession = localStorage.getItem('sessionId');
+    if (!currentSession) {
+      currentSession = generateSessionId();
+      localStorage.setItem('sessionId', currentSession);
+    }
+    setSessionId(currentSession)
+  }, []);
+  
   // ! Temp banner, change to useEffect fetch backend banner images
   const importAll = (r) => r.keys().map(r);
   const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
@@ -36,7 +49,7 @@ const App = () => {
   return (
     <div className="App">
       <Header />
-
+      <SessionContext.Provider value={{sessionId}}>
       <Routes>        
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
@@ -54,6 +67,7 @@ const App = () => {
         <Route path="/upload" element={<ExcelUploader/>} />
         <Route path="/" element={<Home bannerImages={bannerImages}/>} />
       </Routes>
+      </SessionContext.Provider>
       <Footer />
     </div>
   );
