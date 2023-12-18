@@ -2,6 +2,7 @@
 import './styles/App.css';
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 
 // components
 import Header from './components/Header';
@@ -24,14 +25,18 @@ import BannerEdit from './components/employees/BannerEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 
-const SessionContext = createContext();
+export const SessionContext = createContext();
 
+const generateSessionId = () => {
+  return uuidv4();
+};
 
 // TODO sessionid create/check on open
 // TODO Cart, Order, Check Order, Related Items, Inbox, Categories, Banners, Deals/Popular, excel, finish css
 const App = () => {
-  const [sessionId, setSessionId] = useState('')
 
+  const [sessionId, setSessionId] = useState('')
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     let currentSession = localStorage.getItem('sessionId');
@@ -40,16 +45,23 @@ const App = () => {
       localStorage.setItem('sessionId', currentSession);
     }
     setSessionId(currentSession)
+    setLoading(false)
   }, []);
   
   // ! Temp banner, change to useEffect fetch backend banner images
   const importAll = (r) => r.keys().map(r);
   const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
   
+  
   return (
+    <SessionContext.Provider value={{sessionId}}>
+    {loading?
+    <div>
+      Loading
+    </div>
+    :
     <div className="App">
       <Header />
-      <SessionContext.Provider value={{sessionId}}>
       <Routes>        
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
@@ -67,9 +79,10 @@ const App = () => {
         <Route path="/upload" element={<ExcelUploader/>} />
         <Route path="/" element={<Home bannerImages={bannerImages}/>} />
       </Routes>
-      </SessionContext.Provider>
       <Footer />
     </div>
+    }
+    </SessionContext.Provider>
   );
 }
 
