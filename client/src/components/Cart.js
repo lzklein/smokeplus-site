@@ -4,7 +4,7 @@ import CartCard from './CartCard';
 
 const Cart = () => {
   const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
-
+  const [total, setTotal] = useState(0);
 
   const handleDelete = async (itemId) => {
     try {
@@ -31,14 +31,14 @@ const Cart = () => {
 
   const renderCart = () => {
     return cart.map((item) => (
-      <CartCard key={item.id} item={item} onDelete={() => handleDelete(item.id)} />
+      <CartCard key={item.id} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} />
     ));
   }
 
   return (
     <div>
       {
-        cart.length == 0 ?
+        cart.length === 0 ?
         <div>
           <h2>Cart is empty</h2>
         </div>
@@ -46,6 +46,7 @@ const Cart = () => {
         <div>
           <h3>Cart</h3>
           {renderCart()}
+          <h3>Total: ${total.toFixed(2)}</h3>
         </div>
       }
     </div>
