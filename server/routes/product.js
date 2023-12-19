@@ -34,6 +34,52 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Route to flavors of product
+router.get('/:productName/flavors', async (req, res) => {
+  const productName = req.params.productName;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        name: productName,
+      },
+    });
+
+    if (products.length > 0) {
+      // const flavors = products.map(product => product.flavor);
+      res.json(products);
+    } else {
+      res.status(404).json({ error: 'Flavors not found for the specified product' });
+    }
+  } catch (error) {
+    console.error('Error fetching flavors:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Route to get sizes for a specific product
+router.get('/:productName/sizes', async (req, res) => {
+  const productName = req.params.productName;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        name: productName,
+      },
+    });
+
+    if (products.length > 0) {
+      // const sizes = products.map(product => product.size);
+      res.json(products);
+    } else {
+      res.status(404).json({ error: 'Sizes not found for the specified product' });
+    }
+  } catch (error) {
+    console.error('Error fetching sizes:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Create a new product
 router.post('/', async (req, res) => {
     console.log("Posting!")
