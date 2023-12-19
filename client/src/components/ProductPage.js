@@ -67,7 +67,7 @@ const ProductPage = () => {
       <>
         <div className="product-container">
           <div className="product-left">
-            <img src={product.image} alt={product.name} className="product-img" />
+            <img src={product.image} alt={product.name} draggable='false' className="product-img" />
           </div>
           <div className="product-right">
             <h2>{product.name}</h2>
