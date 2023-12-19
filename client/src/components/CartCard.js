@@ -25,14 +25,26 @@ const CartCard = ({item, onDelete, setTotal}) => {
           fetchProduct();
     },[])
 
+    const lessQuantity = () => {
+
+    }
+
+    const moreQuantity = () => {
+
+    }
+
   return (
     <div>
     {loaded?
         <div>
             <h3>{product.name}</h3>
             <img src={product.image} className='cart-img'/>
-            <p>${product.price*item.quantity}</p>
-            <button>-</button> <p>Qty: {item.quantity}</p> <button>+</button>
+            <p>${(product.price*item.quantity).toFixed(2)}</p>
+            <div class="number">
+              <span class="minus" onClick={lessQuantity}>-</span>
+              <input type="text" readOnly value={item.quantity}/>
+              <span class="plus" onClick={moreQuantity}>+</span>
+            </div>            
             <br/>
             <button className="backbutton" onClick={onDelete}>Delete</button>
             {/* <button onClick={()=>{console.log(item)}}>test</button>
