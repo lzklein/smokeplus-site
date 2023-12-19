@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { SessionContext } from '../App'; 
 
 const ProductCard = ({ product }) => {
+  const { addToCart } = useContext(SessionContext);
+
   return (
     <div>
       <Link to={`/products/${product.id}`}>
@@ -11,12 +14,11 @@ const ProductCard = ({ product }) => {
         </h4>
         <p>
           Qty: {product.quantity} | ${parseFloat(product.price).toFixed(2)}
-
         </p>
-        <button className="logbutton">
+      </Link>
+        <button className="logbutton" onClick={()=>{addToCart(product)}}>
           🛒 Add to Cart
         </button>
-      </Link>
       <br />
     </div>
   );

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const ProductPage = () => {
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { sessionId, cart, setCart, API_BASE_URL, addToCart } = useContext(SessionContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -32,71 +32,7 @@ const ProductPage = () => {
     fetchProduct();
   }, []);
 
-  const handleCart = () => {
-    const cartItem = {
-      user: sessionId,
-      product: product.id,
-      quantity: 1,
-    }
-    console.log(cart)
-    cart.map((item)=>{console.log(item.product)})
-    console.log(cartItem.product)
-    const existingCartItem = cart.find((item) => item.product === cartItem.product);
-    if(existingCartItem){
-      cartPatch(existingCartItem)
-    }
-    else{
-      cartPost(cartItem);
-    }
-  }
 
-  const cartPatch = async (cartItem) => {
-    console.log(cartItem)
-    const response = await fetch(`${API_BASE_URL}/api/cart/${cartItem.id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        quantity: cartItem.quantity + 1,
-      }),
-    });
-  
-    if (!response.ok) {
-      console.error('Failed to update cart item:', response.statusText);
-    } else {
-      console.log('Cart item updated successfully');
-      // Fetch updated cart items after successful update
-      const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
-      const updatedCartData = await updatedResponse.json();
-      setCart(updatedCartData);
-    }
-  };
-  
-
-  const cartPost = async (cartItem) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/cart`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', 
-        },
-        body: JSON.stringify({
-          cartItem, 
-        }),
-      });
-  
-      if (!response.ok) {
-        console.error('Failed to add item to cart:', response.statusText);
-      } else {
-        const updatedCartData = await response.json();
-        console.log('Item added to cart successfully');
-        setCart((prevState)=>[...prevState, updatedCartData]);
-      }
-    } catch (error) {
-      console.error('Error adding item to cart:', error.message);
-    }
-  };
 
   return (
     loaded ? (
@@ -126,7 +62,7 @@ const ProductPage = () => {
               : null
             }
             <br/>
-            <button className="backbutton" style={{marginTop:"10px"}} onClick={handleCart}>Add to Cart 🛒</button>
+            <button className="backbutton" style={{marginTop:"10px"}} onClick={()=>{addToCart(product)}}>Add to Cart 🛒</button>
             <p>{product.description}</p>
           </div>
         </div>

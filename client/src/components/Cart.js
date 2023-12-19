@@ -37,15 +37,17 @@ const Cart = () => {
 
   return (
     <div>
-      {/* {
-        loading ? */}
-        {/* <div>Loading</div>
-        : */}
+      {
+        cart.length == 0 ?
+        <div>
+          <h2>Cart is empty</h2>
+        </div>
+        :
         <div>
           <h3>Cart</h3>
           {renderCart()}
         </div>
-      {/* } */}
+      }
     </div>
   )
 }
