@@ -15,6 +15,7 @@ import AllProducts from './components/AllProducts';
 import Deals from './components/Deals';
 import Popular from './components/Popular';
 import ProductPage from './components/ProductPage';
+import Checkout from './components/Checkout';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -56,13 +57,10 @@ const App = () => {
         const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
   
         const cartData = await response.json();
-        console.log(cartData)
         setCart(cartData);
-        console.log(cart)
       } catch (error) {
         console.error('Error fetching cart:', error);
       } finally {
-        console.log(cart)
         setLoading(false)
       }
     };
@@ -156,6 +154,7 @@ const App = () => {
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
         <Route path='/categories' element={<Contact />} />
+        <Route path='/checkout' element={<Checkout />}/>
         <Route path='/deals' element={<Deals/>}/>
         <Route path='/popular' element={<Popular/>}/>
         <Route path='/employee-login' element={<EmployeeLogin/>}/>

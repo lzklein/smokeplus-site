@@ -18,7 +18,7 @@ const ProductPage = () => {
         const response = await fetch(`${API_BASE_URL}/api/products/${productId}`);
         if (response.ok) {
           const productData = await response.json();
-          console.log(productData);
+          // console.log(productData);
           setProduct(productData);
           setLoaded(true);
         } else {
@@ -56,7 +56,7 @@ const ProductPage = () => {
           console.error('Failed to fetch sizes');
         }
       } catch (error) {
-        console.error('Error fetching flavors or sizes:', error);
+        // console.error('Error fetching flavors or sizes:', error);
       }
     };
 
@@ -78,9 +78,15 @@ const ProductPage = () => {
             {sizes.length > 0 && (
               <div>
                 <p>Size Options:</p>
-                <select onChange={(e)=>{navigate(`/products/${e.target.value}`)}}>
+                <select
+                  onChange={(e) => {
+                    const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
+                    navigate(`/products/${selectedId}`);
+                  }}
+                  defaultValue={product.sizes}
+                >
                   {sizes.map((sizeProduct) => (
-                    <option key={sizeProduct.id} value={sizeProduct.id} selected={sizeProduct.sizes === product.sizes}>
+                    <option key={sizeProduct.id} value={sizeProduct.sizes} data-id={sizeProduct.id}>
                       {sizeProduct.sizes}
                     </option>
                   ))}
@@ -90,9 +96,15 @@ const ProductPage = () => {
             {flavors.length > 0 && (
               <div>
                 <p>Flavors:</p>
-                <select onChange={(e)=>{navigate(`/products/${e.target.value}`)}}>
+                <select
+                  onChange={(e) => {
+                    const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
+                    navigate(`/products/${selectedId}`);
+                  }}
+                  defaultValue={product.flavors}
+                >
                   {flavors.map((flavorProduct) => (
-                    <option key={flavorProduct.id} value={flavorProduct.id} selected={flavorProduct.flavors === product.flavors}>
+                    <option key={flavorProduct.id} value={flavorProduct.flavors} data-id={flavorProduct.id}>
                       {flavorProduct.flavors}
                     </option>
                   ))}
