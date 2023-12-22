@@ -12,7 +12,6 @@ const CartCard = ({sessionId, setCart, item, onDelete, setTotal}) => {
               const response = await fetch(`${API_BASE_URL}/api/products/${item.product}`);
               if (response.ok) {
                 const productData = await response.json();
-                console.log(productData)
                 setProduct(productData);
                 setTotal((prevTotal) => prevTotal + productData.price * item.quantity);
                 setLoaded(true)
@@ -27,32 +26,34 @@ const CartCard = ({sessionId, setCart, item, onDelete, setTotal}) => {
     },[])
 
     const moreQuantity = async () => {
-      // console.log(item)
-      console.log(item.id)
-      const response = await fetch(`${API_BASE_URL}/api/cart/${item.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: item.quantity + 1,
-        }),
-      });
-    
-      if (!response.ok) {
-        console.error('Failed to update cart item:', response.statusText);
-      } else {
-        console.log('Cart item updated successfully');
-        // Fetch updated cart items after successful update
-        const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
-        const updatedCartData = await updatedResponse.json();
-        setCart(updatedCartData);
-        setTotal((prevTotal) => prevTotal += product.price);
+      if (item.quantity < product.quantity){
+        const response = await fetch(`${API_BASE_URL}/api/cart/${item.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            quantity: item.quantity + 1,
+          }),
+        });
+      
+        if (!response.ok) {
+          console.error('Failed to update cart item:', response.statusText);
+        } else {
+          console.log('Cart item updated successfully');
+          // Fetch updated cart items after successful update
+          const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
+          const updatedCartData = await updatedResponse.json();
+          setCart(updatedCartData);
+          setTotal((prevTotal) => prevTotal += product.price);
+        }
+      }
+      else { 
+        alert('No more in stock')
       }
     };
 
     const lessQuantity = async () => {
-      // console.log(item)
       if (item.quantity > 1) {
         const response = await fetch(`${API_BASE_URL}/api/cart/${item.id}`, {
           method: 'PATCH',

@@ -1,8 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import { SessionContext } from '../App'; 
 import CartCard from './CartCard';
+import { v4 as uuidv4 } from 'uuid';
+
 
 const Cart = () => {
+  const navigate = useNavigate();
   const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
   const [total, setTotal] = useState(0);
 
@@ -35,6 +39,24 @@ const Cart = () => {
     ));
   }
 
+  function uuidToNumber(uuid) {
+    const hexString = uuid.replace(/-/g, '').slice(0, 6);
+    const numericValue = parseInt(hexString, 16);
+    
+    return numericValue.toString().padStart(6, '0');
+  }
+  
+
+  const order = {
+    id : uuidToNumber(uuidv4()),
+    cart : cart,
+    userId : sessionId
+  }
+
+  const handleScheduleOrder = () => {
+    navigate('/checkout', { state: { order: order } });
+  }
+  
   return (
     <div>
       {
@@ -47,7 +69,7 @@ const Cart = () => {
           <h2 style={{marginTop:'40px', marginBottom:'50px'}}>Cart</h2>
           {renderCart()}
           <h3>Subtotal: ${total.toFixed(2)}</h3>
-          <button className="logbutton">Place Order</button>
+          <button className="logbutton" onClick={handleScheduleOrder}>Schedule Order</button>
         </div>
       }
     </div>
