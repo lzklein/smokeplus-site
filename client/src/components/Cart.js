@@ -31,7 +31,7 @@ const Cart = () => {
 
   const renderCart = () => {
     return cart.map((item) => (
-      <CartCard key={item.id} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} />
+      <CartCard key={item.id} sessionId = {sessionId} setCart = {setCart} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} />
     ));
   }
 
@@ -39,14 +39,15 @@ const Cart = () => {
     <div>
       {
         cart.length === 0 ?
-        <div>
+        <div style={{marginTop:"100px", marginBottom:"400px"}}>
           <h2>Cart is empty</h2>
         </div>
         :
-        <div>
-          <h3>Cart</h3>
+        <div className='cart-container'>
+          <h2 style={{marginTop:'40px', marginBottom:'50px'}}>Cart</h2>
           {renderCart()}
-          <h3>Total: ${total.toFixed(2)}</h3>
+          <h3>Subtotal: ${total.toFixed(2)}</h3>
+          <button className="logbutton">Place Order</button>
         </div>
       }
     </div>

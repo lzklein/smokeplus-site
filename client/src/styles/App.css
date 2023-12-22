@@ -8,7 +8,7 @@
 @import './NewProductForm.css';
 @import './ProductCard.css';
 @import './ProductPage.css';
-@import './CartCard.css';
+@import './Cart.css';
 
 /* tailwind */
 @import 'tailwindcss/base';
