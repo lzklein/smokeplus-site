@@ -28,6 +28,8 @@ const Cart = sequelize.define('Cart', {
         type: DataTypes.INTEGER,
         allowNull:false
     }
-});
+},{
+    tableName: 'Cart', 
+  });
 
 module.exports = Cart;
