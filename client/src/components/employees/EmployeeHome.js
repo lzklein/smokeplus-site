@@ -1,12 +1,10 @@
 import React, { createContext, useState, useEffect } from 'react';
 import { Link, Routes, Route } from 'react-router-dom';
-import cow from '../../img/cow.gif';
 // routes
 
 const EmployeeHome = () => {
   return (
     <div><h1>Smoke Plus Employees Portal</h1>
-          <img src={cow} style={{"height":"100px"}}/>
       <nav>
         <ul>
           <li><Link to="/inbox">Inbox</Link></li>
