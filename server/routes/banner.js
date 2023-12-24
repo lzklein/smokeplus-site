@@ -17,14 +17,16 @@ const upload = multer({ storage });
 
 // image upload
 router.post('/upload', upload.single('image'), (req, res) => {
+  console.log('uploading image')
   const { filename } = req.file;
   res.json({ success: true, filename });
 });
 
 // image delete
 router.post('/delete', (req, res) => {
+  console.log('deleting image')
   const { filename } = req.body;
-  const imagePath = path.join(__dirname, 'banner', filename);
+  const imagePath = path.join(__dirname, '..', 'banner', filename);
 
   fs.unlinkSync(imagePath);
 
