@@ -7,7 +7,13 @@ const Checkout = () => {
 
     console.log(order)
   return (
-    <div>Checkout</div>
+    <div>
+      <h2>Checkout</h2>
+      <h3>
+        Pickup Time?
+      </h3>
+      {/* ASAP or SCHEDULE TIME (ASAP default to ~ 10 minutes from now) */}
+    </div>
   )
 }
 
