@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Set up storage for multer
 const storage = multer.diskStorage({
-  destination: 'banner/', 
+  destination: path.join(__dirname, '..', 'banner'), 
   filename: (req, file, callback) => {
     callback(null, Date.now() + path.extname(file.originalname));
   },
@@ -15,18 +15,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// Endpoint for handling image uploads
+// image upload
 router.post('/upload', upload.single('image'), (req, res) => {
   const { filename } = req.file;
   res.json({ success: true, filename });
 });
 
-// Endpoint for handling image deletions
+// image delete
 router.post('/delete', (req, res) => {
   const { filename } = req.body;
   const imagePath = path.join(__dirname, 'banner', filename);
 
-  // Delete the file
   fs.unlinkSync(imagePath);
 
   res.json({ success: true, filename });
