@@ -9,29 +9,58 @@ const BannerEdit = ({ bannerImages }) => {
     localStorage.setItem('bannerImages', JSON.stringify(updatedBannerImages));
   }, [updatedBannerImages]);
 
-  const handleDelete = (index) => {
+  const handleDelete = async (index) => {
     const isConfirmed = window.confirm('Are you sure you want to delete this image?');
-    
+
     if (isConfirmed) {
-      const newImages = [...updatedBannerImages];
-      newImages.splice(index, 1);
-      setUpdatedBannerImages(newImages);
+      try {
+        const response = await fetch('/api/banner/delete', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ filename: updatedBannerImages[index] }),
+        });
+
+        if (response.ok) {
+          const newImages = [...updatedBannerImages];
+          newImages.splice(index, 1);
+          setUpdatedBannerImages(newImages);
+        } else {
+          console.error('Failed to delete image');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
     }
   };
 
-  const handleAddNewImage = () => {
+  const handleAddNewImage = async () => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.jpg, .jpeg, .gif, .png'; // Specify accepted file formats
 
-    input.addEventListener('change', (event) => {
+    input.addEventListener('change', async (event) => {
       const file = event.target.files[0];
       if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setUpdatedBannerImages([reader.result, ...updatedBannerImages]);
-        };
-        reader.readAsDataURL(file);
+        try {
+          const formData = new FormData();
+          formData.append('image', file);
+
+          const response = await fetch('/api/banner/upload', {
+            method: 'POST',
+            body: formData,
+          });
+
+          if (response.ok) {
+            const { filename } = await response.json();
+            setUpdatedBannerImages([filename, ...updatedBannerImages]);
+          } else {
+            console.error('Failed to upload image');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+        }
       }
     });
 
@@ -44,14 +73,14 @@ const BannerEdit = ({ bannerImages }) => {
       <button className="backbutton" onClick={() => navigate(-1)}>
         {"<< Back"}
       </button>
-      <br/>
+      <br />
       <button className="backbutton" onClick={handleAddNewImage} style={{ marginBottom: "10px" }}>
         + Add New Image
       </button>
       <div className="bannercards">
         {updatedBannerImages.map((image, index) => (
           <div key={index} className="bannercard">
-            <img src={image} alt={`Banner ${index + 1}`} className="bannerimg"/>
+            <img src={image} alt={`Banner ${index + 1}`} className="bannerimg" />
             <button className="backbutton" onClick={() => handleDelete(index)} style={{ marginBottom: "5px", marginTop: "2px" }}>
               &uarr; Delete &uarr;
             </button>
