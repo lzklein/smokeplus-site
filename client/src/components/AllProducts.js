@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import ProductCard from './ProductCard';
+import { SessionContext } from '../App'; 
 
 const AllProducts = () => {
+  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-
-  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
   useEffect(() => {
     const fetchProducts = async () => {
