@@ -49,7 +49,6 @@ const App = () => {
       localStorage.setItem('sessionId', currentSession);
     }
     setSessionId(currentSession)
-    fetchBannerImages();
   }, []);
 
   useEffect(()=>{
@@ -57,9 +56,10 @@ const App = () => {
       try {
         console.log("sessionId:",sessionId)
         const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
-  
         const cartData = await response.json();
-        setCart(cartData);
+        setCart(cartData);    
+        await fetchBannerImages();
+
       } catch (error) {
         console.error('Error fetching cart:', error);
       } finally {
@@ -148,7 +148,6 @@ const App = () => {
       console.error('Error:', error);
     }
   };
-  
   
   return (
     <SessionContext.Provider value={{sessionId, cart, setCart, API_BASE_URL, addToCart}}>
