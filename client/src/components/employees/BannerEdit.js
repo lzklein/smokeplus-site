@@ -13,7 +13,7 @@ const BannerEdit = ({ bannerImages }) => {
 
   const handleDelete = async (index) => {
     const isConfirmed = window.confirm('Are you sure you want to delete this image?');
-
+  
     if (isConfirmed) {
       try {
         const response = await fetch(`${API_BASE_URL}/api/banner/delete`, {
@@ -21,9 +21,9 @@ const BannerEdit = ({ bannerImages }) => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ filename: updatedBannerImages[index] }),
+          body: JSON.stringify({ filename: updatedBannerImages[index].name }),
         });
-
+  
         if (response.ok) {
           const newImages = [...updatedBannerImages];
           newImages.splice(index, 1);
@@ -39,7 +39,7 @@ const BannerEdit = ({ bannerImages }) => {
 
   const handleAddNewImage = async () => {
     const file = await selectFile();
-    
+  
     if (file) {
       try {
         const formData = new FormData();
@@ -52,7 +52,14 @@ const BannerEdit = ({ bannerImages }) => {
   
         if (response.ok) {
           const { filename } = await response.json();
-          setUpdatedBannerImages([filename, ...updatedBannerImages]);
+  
+          const newImage = {
+            file: URL.createObjectURL(file),
+            name: filename,
+          };
+  
+          console.log('Upload successful', filename);
+          setUpdatedBannerImages([newImage, ...updatedBannerImages]);
         } else {
           console.error('Failed to upload image');
         }
@@ -61,6 +68,7 @@ const BannerEdit = ({ bannerImages }) => {
       }
     }
   };
+  
   
   const selectFile = () => {
     return new Promise((resolve) => {
@@ -77,7 +85,7 @@ const BannerEdit = ({ bannerImages }) => {
     });
   };
   
-
+  console.log(updatedBannerImages)
   return (
     <div>
       <h2>Banner Editor</h2>
@@ -91,7 +99,7 @@ const BannerEdit = ({ bannerImages }) => {
       <div className="bannercards">
         {updatedBannerImages.map((image, index) => (
           <div key={index} className="bannercard">
-            <img src={image} alt={`Banner ${index + 1}`} className="bannerimg" />
+            <img src={image.file} alt={`Banner ${index + 1}, ${image}`} className="bannerimg" />
             <button className="backbutton" onClick={() => handleDelete(index)} style={{ marginBottom: "5px", marginTop: "2px" }}>
               &uarr; Delete &uarr;
             </button>
