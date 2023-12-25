@@ -38,6 +38,7 @@ const App = () => {
 
   const [sessionId, setSessionId] = useState('')
   const [loading, setLoading] = useState(true);
+  const [bannerImages, setBannerImages] = useState([]);
   const [cart, setCart] = useState([])
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -48,6 +49,7 @@ const App = () => {
       localStorage.setItem('sessionId', currentSession);
     }
     setSessionId(currentSession)
+    fetchBannerImages();
   }, []);
 
   useEffect(()=>{
@@ -132,9 +134,20 @@ const App = () => {
     }
   };
 
-  // ! Temp banner, change to useEffect fetch backend banner images
-  const importAll = (r) => r.keys().map(r);
-  const bannerImages = importAll(require.context('./img/banner', false, /\.(png|gif)$/));
+  // banner images
+  const fetchBannerImages = async () => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/banner/images`);
+      if (response.ok) {
+        const data = await response.json();
+        setBannerImages(data.bannerImages);
+      } else {
+        console.error('Failed to fetch banner images');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
   
   
   return (
