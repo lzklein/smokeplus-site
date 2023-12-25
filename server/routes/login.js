@@ -1,8 +1,8 @@
 const express = require('express');
-const loginRouter = express.Router();
+const router = express.Router();
 
 // Login route
-loginRouter.post('/', (req, res) => {
+router.post('/', (req, res) => {
   console.log("Login route triggered");
   
   const { username, password } = req.body;
@@ -18,4 +18,4 @@ loginRouter.post('/', (req, res) => {
   }
 });
 
-module.exports = loginRouter;
+module.exports = router;
