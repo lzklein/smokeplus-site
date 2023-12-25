@@ -34,7 +34,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Route to flavors of product
+// get flavors of product
 router.get('/:productName/flavors', async (req, res) => {
   const productName = req.params.productName;
 
@@ -57,7 +57,7 @@ router.get('/:productName/flavors', async (req, res) => {
   }
 });
 
-// Route to get sizes for a specific product
+// get sizes for product
 router.get('/:productName/sizes', async (req, res) => {
   const productName = req.params.productName;
 
@@ -83,12 +83,8 @@ router.get('/:productName/sizes', async (req, res) => {
 // Create a new product
 router.post('/', async (req, res) => {
     console.log("Posting!")
-    console.log('Request Body:', req.body);
 
     const { name, categories, sizes, flavors, price, quantity, description, image, id } = req.body;
-
-    console.log("New Product:", name,categories,price,quantity,description,image,id,sizes,flavors)
-    console.log("New Product:", name,categories,price,quantity,description,image,id,sizes,flavors)
 
     try {
       const newProduct = await Product.create({
