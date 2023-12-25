@@ -33,7 +33,7 @@ const generateSessionId = () => {
 };
 
 // TODO sessionid create/check on open
-// TODO Order, Check Order, Related Items, Inbox, Categories, Banners, Deals/Popular, excel, finish css
+// TODO Order, Check Order, Related Items, Inbox, Categories, Deals/Popular, excel, finish css
 const App = () => {
 
   const [sessionId, setSessionId] = useState('')
