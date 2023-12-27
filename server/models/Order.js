@@ -20,9 +20,7 @@ const Order = sequelize.define('Order', {
         type: DataTypes.DATE, 
         allowNull: true, 
     },
-},{
-    timestamps: false, 
-}
+},
 );
 
 module.exports = Order;

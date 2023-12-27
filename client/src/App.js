@@ -33,6 +33,7 @@ const generateSessionId = () => {
 };
 
 // TODO sessionid create/check on open
+// todo delete product and cart tables and rebuild with CASCADE onDelete and onUpdate
 // TODO Order, Check Order, Related Items, Inbox, Categories, Deals/Popular, excel, finish css
 const App = () => {
 
