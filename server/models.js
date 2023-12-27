@@ -7,6 +7,7 @@ const Cart = require('./models/Cart');
 const Order = require('./models/Order');
 
 // relationships
+Product.hasMany(Cart, { foreignKey: 'product', onUpdate: 'CASCADE', onDelete: 'CASCADE' });
 Cart.belongsTo(Product, { foreignKey: 'product' });
 
 // Export

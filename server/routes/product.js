@@ -1,5 +1,5 @@
 const express = require('express');
-const { sequelize, Product } = require('../models'); 
+const { sequelize, Product,Cart } = require('../models'); 
 
 const router = express.Router();
 
@@ -136,11 +136,16 @@ router.put('/:id', async (req, res) => {
 
 // Delete a product
 router.delete('/:id', async (req, res) => {
-    console.log("Deleting!")
+  console.log("Deleting!")
   const productId = req.params.id;
-
+  console.log(productId)
   try {
+    const deletedCarts = await Cart.destroy({
+      where: { product: productId },
+    });
+
     const product = await Product.findByPk(productId);
+    console.log(product)
     if (product) {
       await product.destroy();
       res.status(204).end();
