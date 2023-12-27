@@ -14,7 +14,7 @@ const ProductCard = ({ product, handleDeleteProduct }) => {
       </p>
       <br/>
       <button className="backbutton" onClick={() => handleDeleteProduct(product.id)}> Delete </button>
-      <button className="backbutton" style={{ "margin-left": "3px" }}> Edit </button>
+      <button className="backbutton" style={{ marginLeft: "3px" }}> Edit </button>
     </div>
   );
 }
