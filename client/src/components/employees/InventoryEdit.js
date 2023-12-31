@@ -9,6 +9,7 @@ const InventoryEdit = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });
+  const [editProductData, setEditProductData] = useState(null); // Track product data for editing
   const [products, setProducts] = useState([]);
 
   const openModal = () => setIsModalOpen(true);
@@ -37,6 +38,14 @@ const InventoryEdit = () => {
     }
   };
 
+  const handleEditProduct = (editedProduct) => {
+    // Handle the edited product, update state, etc.
+    // For example, update the product list with the edited product
+    setProducts((prevProducts) =>
+      prevProducts.map((product) => (product.id === editedProduct.id ? editedProduct : product))
+    );
+  };
+  
   const handleDeleteProduct = (productId) => {
     const isConfirmed = window.confirm("Are you sure you want to delete this item?")
     if(isConfirmed) {
@@ -84,8 +93,8 @@ const InventoryEdit = () => {
   const renderProducts = () => {
     return products.map((product) => {
       return(
-        <div>
-          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct}/>
+        <div key={product.id}>
+          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct} handleEditProduct={handleEditProduct}/>
         </div>
       )
     })

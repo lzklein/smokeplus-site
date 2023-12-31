@@ -148,13 +148,6 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
         id: parseInt(productUPC),
         image: productImage
       }
-    //   formData.append('name', productName);
-    //   formData.append('categories', JSON.stringify(productCategories));
-    //   formData.append('price', parseFloat(productPrice));
-    //   formData.append('quantity', parseInt(productQuantity));
-    //   formData.append('description', productDescription);
-    //   formData.append('id', parseInt(productUPC));
-    //   formData.append('image', submittedImage ? null : imageFile);
 
       console.log(formData)
       onSubmit(formData);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProductCard = ({ product, handleDeleteProduct }) => {
+const ProductCard = ({ product, handleDeleteProduct, handleEditProduct }) => {
 
   return (
     <div className="product-edit-card">
@@ -14,7 +14,7 @@ const ProductCard = ({ product, handleDeleteProduct }) => {
       </p>
       <br/>
       <button className="backbutton" onClick={() => handleDeleteProduct(product.id)}> Delete </button>
-      <button className="backbutton" style={{ marginLeft: "3px" }}> Edit </button>
+      <button className="backbutton" onClick={() => handleEditProduct()}style={{ marginLeft: "3px" }}> Edit </button>
     </div>
   );
 }
