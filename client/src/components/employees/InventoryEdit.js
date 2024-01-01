@@ -9,7 +9,6 @@ const InventoryEdit = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });
-  const [editProductData, setEditProductData] = useState(null); // Track product data for editing
   const [products, setProducts] = useState([]);
 
   const openModal = () => setIsModalOpen(true);
@@ -38,12 +37,30 @@ const InventoryEdit = () => {
     }
   };
 
-  const handleEditProduct = (editedProduct) => {
-    // Handle the edited product, update state, etc.
-    // For example, update the product list with the edited product
-    setProducts((prevProducts) =>
-      prevProducts.map((product) => (product.id === editedProduct.id ? editedProduct : product))
-    );
+  const handleEditProduct = async (productId, editedProductData) => {
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
+        method: 'PATCH', // Use PATCH method for updating existing resource
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(editedProductData),
+      });
+  
+      if (response.ok) {
+        console.log(`Product with ID ${productId} updated`);
+        // Update the products state with the edited product
+        setProducts((prevProducts) =>
+          prevProducts.map((product) =>
+            product.id === productId ? { ...product, ...editedProductData } : product
+          )
+        );
+      } else {
+        console.error(`Failed to update product with ID ${productId}:`, response.status);
+      }
+    } catch (error) {
+      console.error(`Error updating product with ID ${productId}:`, error);
+    }
   };
   
   const handleDeleteProduct = (productId) => {
@@ -93,8 +110,8 @@ const InventoryEdit = () => {
   const renderProducts = () => {
     return products.map((product) => {
       return(
-        <div key={product.id}>
-          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct} handleEditProduct={handleEditProduct}/>
+        <div>
+          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct}/>
         </div>
       )
     })

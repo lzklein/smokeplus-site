@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import EditProductForm from './EditProductForm'; // Import the new edit form component
 
 const ProductCard = ({ product, handleDeleteProduct, handleEditProduct }) => {
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const openEditModal = () => setIsEditModalOpen(true);
+  const closeEditModal = () => setIsEditModalOpen(false);
 
   return (
     <div className="product-edit-card">
@@ -10,11 +15,21 @@ const ProductCard = ({ product, handleDeleteProduct, handleEditProduct }) => {
         {product.name}{" "}{product.flavors}{" "}{product.sizes}
       </h4>
       <p>
-        Qty: {product.quantity} | ${parseFloat(product.price).toFixed(2)} 
+        Qty: {product.quantity} | ${parseFloat(product.price).toFixed(2)}
       </p>
-      <br/>
+      <br />
       <button className="backbutton" onClick={() => handleDeleteProduct(product.id)}> Delete </button>
-      <button className="backbutton" onClick={() => handleEditProduct()}style={{ marginLeft: "3px" }}> Edit </button>
+      <button className="backbutton" style={{ marginLeft: "3px" }} onClick={openEditModal}> Edit </button>
+
+      {/* Render the edit modal if open */}
+      {isEditModalOpen && (
+        <EditProductForm
+          isOpen={isEditModalOpen}
+          onClose={closeEditModal}
+          product={product}
+          handleEditProduct={handleEditProduct} // Pass the function to handle the edit
+        />
+      )}
     </div>
   );
 }
