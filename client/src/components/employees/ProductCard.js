@@ -1,11 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import EditProductForm from './EditProductForm'; // Import the new edit form component
+import Modal from 'react-modal';
 
-const ProductCard = ({ product, handleDeleteProduct, handleEditProduct }) => {
+const ProductCard = ({ product, handleDeleteProduct, onSubmit }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
+
+  useEffect(()=>{
+    Modal.setAppElement('#root');
+  },[])
 
   return (
     <div className="product-edit-card">
@@ -27,7 +32,7 @@ const ProductCard = ({ product, handleDeleteProduct, handleEditProduct }) => {
           isOpen={isEditModalOpen}
           onClose={closeEditModal}
           product={product}
-          handleEditProduct={handleEditProduct} // Pass the function to handle the edit
+          onSubmit={onSubmit}
         />
       )}
     </div>

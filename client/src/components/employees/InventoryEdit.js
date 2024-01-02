@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewProductForm from './NewProductForm';
 import ProductCard from './ProductCard';
+import Modal from 'react-modal';
 
 const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -104,15 +105,16 @@ const InventoryEdit = () => {
       }
     };
 
+    Modal.setAppElement('#root');
     fetchProducts();
   }, []);
 
   const renderProducts = () => {
     return products.map((product) => {
       return(
-        <div>
-          <ProductCard product={product} handleDeleteProduct={handleDeleteProduct}/>
-        </div>
+        <>
+          <ProductCard key={product.id} product={product} handleDeleteProduct={handleDeleteProduct} onSubmit={handleEditProduct}/>
+        </>
       )
     })
   }
