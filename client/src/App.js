@@ -157,7 +157,7 @@ const App = () => {
       Loading
     </div>
     :
-    <div className="App">
+    <div className="App" id='root'>
       <Header />
       <Routes>        
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
