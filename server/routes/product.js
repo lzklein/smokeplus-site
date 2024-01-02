@@ -107,23 +107,16 @@ router.post('/', async (req, res) => {
   
 
 // Update a product
-router.put('/:id', async (req, res) => {
-    console.log("Patching!")
+router.patch('/:id', async (req, res) => {
+  console.log("Patching!");
 
   const productId = req.params.id;
-  const { name, categories, price, quantity, description, image } = req.body;
-
+  const productChanges = req.body; // Object containing fields to be updated
+  console.log(productChanges)
   try {
     const product = await Product.findByPk(productId);
     if (product) {
-      await product.update({
-        name,
-        categories,
-        price,
-        quantity,
-        description,
-        image,
-      });
+      await product.update(productChanges);
       res.json(product);
     } else {
       res.status(404).json({ error: 'Product not found' });
@@ -133,6 +126,7 @@ router.put('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Delete a product
 router.delete('/:id', async (req, res) => {

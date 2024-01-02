@@ -38,29 +38,36 @@ const InventoryEdit = () => {
     }
   };
 
-  const handleEditProduct = async (productId, editedProductData) => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
-        method: 'PATCH', // Use PATCH method for updating existing resource
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(editedProductData),
-      });
-  
-      if (response.ok) {
-        console.log(`Product with ID ${productId} updated`);
-        // Update the products state with the edited product
-        setProducts((prevProducts) =>
-          prevProducts.map((product) =>
-            product.id === productId ? { ...product, ...editedProductData } : product
-          )
-        );
-      } else {
-        console.error(`Failed to update product with ID ${productId}:`, response.status);
+  const handleEditProduct = async (productId, productChanges) => {
+    console.log(productId, productChanges)
+    if(Object.keys(productChanges).length > 0){
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
+          method: 'PATCH', 
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(productChanges),
+        });
+    
+        if (response.ok) {
+          console.log(`Product with ID ${productId} updated`);
+          // Update the products state with the edited product
+          setProducts((prevProducts) =>
+            prevProducts.map((product) =>
+              product.id === productId ? { ...product, ...productChanges } : product
+            )
+          );
+        } else {
+          console.error(`Failed to update product with ID ${productId}:`, response.status);
+        }
+      } catch (error) {
+        console.error(`Error updating product with ID ${productId}:`, error);
       }
-    } catch (error) {
-      console.error(`Error updating product with ID ${productId}:`, error);
+    }
+    else{
+      console.log('no changes made')
+      alert('No changes made')
     }
   };
   

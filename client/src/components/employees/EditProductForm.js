@@ -131,15 +131,13 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             changedFields[key] = editedProduct[key];
           }
         }
-        const patchProduct = {
-          originalId,
-          ...changedFields
-        };
+        // const patchProduct = {
+        //   ...changedFields
+        // };
         // Reset errors, submit patchProduct, close modal
-        console.log(patchProduct)
-        return;
+        console.log(changedFields)
+        onSubmit(originalId, changedFields);
         setErrors({});
-        onSubmit(patchProduct);
         onClose();
       };
 
