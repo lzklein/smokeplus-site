@@ -104,7 +104,6 @@ router.post('/', async (req, res) => {
       res.status(500).json({ error: 'Internal Server Error' });
     }
   });
-  
 
 // Update a product
 router.patch('/:id', async (req, res) => {
@@ -126,7 +125,6 @@ router.patch('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 // Delete a product
 router.delete('/:id', async (req, res) => {
