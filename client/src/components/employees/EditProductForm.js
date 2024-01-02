@@ -6,13 +6,76 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
     const [errors, setErrors] = useState({});
     const [productCategories, setProductCategories] = useState(['']);
     const [loaded, setLoaded] = useState(false);
+    const [originalId, setOriginalId] = useState('');
 
     useEffect(() => {
         setEditedProduct({ ...product });
         setProductCategories(Array.isArray(product.categories) ? [...product.categories] : [product.categories]);
+        setOriginalId(product.id)
         setLoaded(true);
-    }, [product]);
+    }, []);
 
+    const validateForm = () => {
+        // Log current form values
+        console.log('productName:', editedProduct.name);
+        console.log('productCategories:', productCategories);
+        console.log('productSizes:',editedProduct.sizes);
+        console.log('productFlavors:',editedProduct.flavors);
+        console.log('productPrice:', editedProduct.price);
+        console.log('productQuantity:', editedProduct.quantity);
+        console.log('productDescription:', editedProduct.description);
+        console.log('productUPC:', editedProduct.id);
+        console.log('productImage:', editedProduct.image);
+        
+        const newErrors = {
+            name: editedProduct.name.trim() === '' ? 'This field must be filled out' : '',
+            categories: productCategories.map((category) =>
+            category.trim() === '' ? 'This field must be filled out' : ''
+            ),
+            // ! These ones null ok
+            // sizes: productSizes.trim() === '' ? 'This field must be filled out' : '',  
+            // flavors: productFlavors.trim() === '' ? 'This field must be filled out' : '',
+            price: !/^\d+(\.\d{1,2})?$/.test(editedProduct.price)
+            ? 'Enter a valid price (up to 2 decimal places)'
+            : '',
+            quantity: !/^\d+$/.test(editedProduct.quantity)
+            ? 'Enter a valid quantity (whole number)'
+            : '',
+            description: editedProduct.description.trim() === '' ? 'This field must be filled out' : '',
+            upc: !/^\d+$/.test(editedProduct.id) ? 'Enter a valid UPC (whole number)' : '',
+            image: editedProduct.image.trim() === '' ? 'This field must be filled out' : ''
+        };
+        
+        // Special handling for arrays
+        if (productCategories.some((category) => category.trim() === '')) {
+            newErrors.categories = ['All categories must be filled out'];
+        } else {
+            newErrors.categories = [];
+        }
+        
+        // Log current errors
+        console.log('New Errors:', newErrors);
+        
+        // Set errors state
+        setErrors(newErrors);
+        
+        // Log current state after setting errors
+        console.log('Current Errors State:', errors);
+        
+        // Check if any field has an error
+        const hasError = Object.values(newErrors).some((error) => {
+            if (Array.isArray(error)) {
+            return error.length > 0; // Check if array has elements
+            }
+            return error !== ''; // For non-array values, check if it's not an empty string
+        }) || newErrors.categories.length > 0;
+        
+        // Log values used to determine hasError
+        console.log('Values for hasError:', Object.values(newErrors));
+        console.log('Has Error:', hasError);
+        
+        return hasError;
+        };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -57,14 +120,28 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!editedProduct.name || editedProduct.name.trim() === '') {
-            setErrors({ name: 'Name is required' });
-            return;
+        // validate
+        if (validateForm()) {
+          return;
         }
+        // changes
+        const changedFields = {};
+        for (const key in editedProduct) {
+          if (editedProduct[key] !== product[key]) {
+            changedFields[key] = editedProduct[key];
+          }
+        }
+        const patchProduct = {
+          originalId,
+          ...changedFields
+        };
+        // Reset errors, submit patchProduct, close modal
+        console.log(patchProduct)
+        return;
         setErrors({});
-        onSubmit(editedProduct);
+        onSubmit(patchProduct);
         onClose();
-    };
+      };
 
   
     return (
