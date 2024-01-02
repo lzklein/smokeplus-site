@@ -6,52 +6,73 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
     const [errors, setErrors] = useState({});
     const [productCategories, setProductCategories] = useState(['']);
     const [loaded, setLoaded] = useState(false);
-  
+
     useEffect(() => {
-      setEditedProduct({ ...product });
-      setLoaded(true);
+        setEditedProduct({ ...product });
+        setProductCategories(Array.isArray(product.categories) ? [...product.categories] : [product.categories]);
+        setLoaded(true);
     }, [product]);
-  
+
+
     const handleChange = (e) => {
-      const { name, value } = e.target;
-      setEditedProduct((prevProduct) => ({
-        ...prevProduct,
-        [name]: value,
-      }));
+        const { name, value } = e.target;
+        setEditedProduct((prevProduct) => ({
+            ...prevProduct,
+            [name]: value,
+        }));
     };
-  
+
     const handleAddCategory = () => {
-      setProductCategories([...productCategories, '']);
+        setProductCategories([...productCategories, '']);
     };
-  
+
     const handleRemoveCategoryAtIndex = (index) => {
-      const updatedCategories = [...productCategories];
-      updatedCategories.splice(index, 1);
-      setProductCategories(updatedCategories);
-    };
-  
+        const updatedCategories = [...productCategories];
+        updatedCategories.splice(index, 1);
+      
+        setProductCategories(updatedCategories);
+      
+        // Remove the category from editedProduct
+        setEditedProduct((prevProduct) => ({
+          ...prevProduct,
+          categories: updatedCategories.filter(Boolean), // Remove empty categories
+        }));
+      };
+      
+
     const handleChangeCategory = (index, value) => {
-      const updatedCategories = [...productCategories];
-      updatedCategories[index] = value;
-      setProductCategories(updatedCategories);
+        setProductCategories((prevCategories) => {
+            const updatedCategories = [...prevCategories];
+            updatedCategories[index] = value;
+
+            setEditedProduct((prevProduct) => ({
+            ...prevProduct,
+            categories: updatedCategories,
+            }));
+
+            return updatedCategories;
+        });
     };
-  
+
+
     const handleSubmit = (e) => {
-      e.preventDefault();
-      if (!editedProduct.name || editedProduct.name.trim() === '') {
-        setErrors({ name: 'Name is required' });
-        return;
-      }
-      setErrors({});
-      onSubmit(editedProduct);
-      onClose();
+        e.preventDefault();
+        if (!editedProduct.name || editedProduct.name.trim() === '') {
+            setErrors({ name: 'Name is required' });
+            return;
+        }
+        setErrors({});
+        onSubmit(editedProduct);
+        onClose();
     };
+
   
     return (
         <Modal isOpen={isOpen} onRequestClose={onClose}>
         {isOpen && (
           <>
             <h2>Edit Product</h2>
+            <button type="submit" onClick={()=>{console.log(editedProduct)}}>Boop</button>
             {loaded ? (
               <div className="form-container">
                 <form onSubmit={handleSubmit}>
@@ -70,41 +91,37 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                     </label>
                   </div>
   
-                  {/* Categories */}
-                  {productCategories && (
-                    <div className="form-group">
-                      <label>
-                        Categories:
-                        {productCategories.map((category, index) => (
-                          <div key={index}>
-                            <input
-                              type="text"
-                              value={category}
-                              onChange={(e) => handleChangeCategory(index, e.target.value)}
-                              className={(errors.categories && errors.categories[index]) ? 'error' : ''}
-                            />
-                            {index > 0 && (
-                              <button
-                                type="button"
-                                className="backbutton"
-                                onClick={() => handleRemoveCategoryAtIndex(index)}
-                              >
-                                -
-                              </button>
-                            )}
-                            {index === productCategories.length - 1 && (
-                              <button className="backbutton" type="button" onClick={handleAddCategory}>
-                                +
-                              </button>
-                            )}
-                            {errors.categories && errors.categories[index] && (
-                              <span className="error-message">{errors.categories[index]}</span>
-                            )}
-                          </div>
-                        ))}
-                      </label>
-                    </div>
-                  )}
+                {/* Categories */}
+                {productCategories.map((category, index) => (
+                  <div key={index} className="form-group">
+                    <label>
+                      Category {index + 1}:
+                      <input
+                        type="text"
+                        value={category}
+                        onChange={(e) => handleChangeCategory(index, e.target.value)}
+                        className={(errors.categories && errors.categories[index]) ? 'error' : ''}
+                      />
+                      {index > 0 && (
+                        <button
+                          type="button"
+                          className="backbutton"
+                          onClick={() => handleRemoveCategoryAtIndex(index)}
+                        >
+                          -
+                        </button>
+                      )}
+                      {index === productCategories.length - 1 && (
+                        <button className="backbutton" type="button" onClick={handleAddCategory}>
+                          +
+                        </button>
+                      )}
+                      {errors.categories && errors.categories[index] && (
+                        <span className="error-message">{errors.categories[index]}</span>
+                      )}
+                    </label>
+                  </div>
+                ))}
   
                   {/* Sizes */}
                   <div className="form-group">
@@ -185,8 +202,8 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                       UPC:
                       <input
                         type="number"
-                        name="upc"
-                        value={editedProduct.upc}
+                        name="id"
+                        value={editedProduct.id}
                         onChange={handleChange}
                         // Add validation and styling as needed
                       />
