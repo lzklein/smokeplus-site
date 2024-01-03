@@ -9,6 +9,16 @@ const Cart = () => {
   const navigate = useNavigate();
   const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
   const [total, setTotal] = useState(0);
+  const [readyTimeMin, setReadyTimeMin] = useState('');
+  const [readyTimeMax, setReadyTimeMax] = useState('');
+
+  useEffect(() => {
+    const currentTime = new Date();
+    const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000); // Adding 10 minutes in milliseconds
+    const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000); // Adding 10 minutes in milliseconds
+    setReadyTimeMin(addMinMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+    setReadyTimeMax(addMaxMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+  }, [cart, total]);
 
   const handleDelete = async (itemId) => {
     try {
@@ -54,7 +64,7 @@ const Cart = () => {
   }
 
   const handleScheduleOrder = () => {
-    navigate('/checkout', { state: { order: order } });
+    navigate('/checkout', { state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax } });
   }
   
   return (
@@ -69,7 +79,8 @@ const Cart = () => {
           <h2 style={{marginTop:'40px', marginBottom:'50px'}}>Cart</h2>
           {renderCart()}
           <h3>Subtotal: ${total.toFixed(2)}</h3>
-          <button className="logbutton" onClick={handleScheduleOrder}>Schedule Order</button>
+          <h4>Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}</h4>
+          <button className="logbutton" onClick={handleScheduleOrder}>Place Order</button>
         </div>
       }
     </div>
