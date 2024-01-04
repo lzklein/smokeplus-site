@@ -45,7 +45,7 @@ const Cart = () => {
 
   const renderCart = () => {
     return cart.map((item) => (
-      <CartCard key={item.id} sessionId = {sessionId} setCart = {setCart} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} />
+      <CartCard key={item.id} sessionId = {sessionId} setCart = {setCart} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} url={API_BASE_URL} order={false}/>
     ));
   }
 
