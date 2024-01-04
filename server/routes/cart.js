@@ -87,4 +87,29 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Delete by user
+router.delete('/deleteBySessionId/:id', async (req, res) => {
+  console.log("Deleting!");
+  const userId = req.params.id; // Assuming the ID here corresponds to the user ID
+
+  try {
+    // Find all cart items associated with the user ID
+    const cartItems = await Cart.findAll({
+      where: {
+        user: userId,
+      },
+    });
+
+    // Delete each cart item
+    for (const cartItem of cartItems) {
+      await cartItem.destroy();
+    }
+
+    res.status(204).end(); // Respond with 204 (No Content) as the deletion was successful
+  } catch (error) {
+    console.error('Error deleting cart items:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
