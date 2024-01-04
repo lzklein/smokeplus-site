@@ -42,12 +42,12 @@ router.post('/', async (req, res) => {
     console.log('Request Body:', req.body);
 
     const { id, userId, cart } = req.body;
-
+    console.log("cart:",cart)
     try {
       const newOrder = await Order.create({
         id,
         user:userId, 
-        cart
+        cart:JSON.stringify(cart)
       });
       res.status(201).json(newOrder);
     } catch (error) {
@@ -75,8 +75,8 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Auto Delete 1 hour
-cron.schedule('0 * * * *', async () => {
+// Auto Delete Old Orders
+cron.schedule('* * * * *', async () => {
   console.log('Running scheduled task to delete orders older than 1 hour...');
 
   try {
@@ -84,11 +84,11 @@ cron.schedule('0 * * * *', async () => {
     const oneHourAgo = new Date();
     oneHourAgo.setHours(oneHourAgo.getHours() - 1);
 
-    // Delete orders older than 1 hour
+    // Delete orders equal to or older than 1 hour
     await Order.destroy({
       where: {
         createdAt: {
-          [sequelize.Op.lt]: oneHourAgo,
+          [Op.lte]: oneHourAgo,
         },
       },
     });

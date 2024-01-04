@@ -13,7 +13,7 @@ const Order = sequelize.define('Order', {
         allowNull: false,
     },
     cart: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+        type: DataTypes.STRING,
         allowNull: false
     },
     pickupTime: {
