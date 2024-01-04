@@ -64,7 +64,7 @@ const Checkout = () => {
 
     // If not loaded, you might want to show a loading indicator
     if (!loaded) {
-        return <div>Loading...</div>;
+        return <h1>Placing Order...</h1>;
     }
 
     return (
