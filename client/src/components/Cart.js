@@ -71,8 +71,8 @@ const Cart = () => {
     <div>
       {
         cart.length === 0 ?
-        <div style={{marginTop:"100px", marginBottom:"400px"}}>
-          <h2>Cart is empty</h2>
+        <div style={{marginTop:"100px", marginBottom:"500px"}}>
+          <h1>Cart is empty</h1>
         </div>
         :
         <div className='cart-container'>
