@@ -1,5 +1,7 @@
 const express = require('express');
 const { sequelize, Order } = require('../models'); 
+const cron = require('node-cron');
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -39,14 +41,13 @@ router.post('/', async (req, res) => {
     console.log("Posting!")
     console.log('Request Body:', req.body);
 
-    const { id, user, cart, pickupTime } = req.body;
+    const { id, userId, cart } = req.body;
 
     try {
       const newOrder = await Order.create({
         id,
-        user, 
-        cart,
-        pickupTime
+        user:userId, 
+        cart
       });
       res.status(201).json(newOrder);
     } catch (error) {
@@ -71,6 +72,30 @@ router.delete('/:id', async (req, res) => {
   } catch (error) {
     console.error('Error deleting order:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Auto Delete 1 hour
+cron.schedule('0 * * * *', async () => {
+  console.log('Running scheduled task to delete orders older than 1 hour...');
+
+  try {
+    // Calculate the timestamp 1 hour ago
+    const oneHourAgo = new Date();
+    oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+
+    // Delete orders older than 1 hour
+    await Order.destroy({
+      where: {
+        createdAt: {
+          [sequelize.Op.lt]: oneHourAgo,
+        },
+      },
+    });
+
+    console.log('Scheduled task completed.');
+  } catch (error) {
+    console.error('Error running scheduled task:', error);
   }
 });
 
