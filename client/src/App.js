@@ -32,9 +32,7 @@ const generateSessionId = () => {
   return uuidv4();
 };
 
-// TODO sessionid create/check on open
-// todo delete product and cart tables and rebuild with CASCADE onDelete and onUpdate
-// TODO Order, Check Order, Related Items, Inbox, Categories, Deals/Popular, excel, finish css
+// TODO Check Order, Related Items, Inbox, Categories, Deals/Popular, excel, finish css
 const App = () => {
 
   const [sessionId, setSessionId] = useState('')
