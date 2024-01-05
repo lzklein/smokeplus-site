@@ -1,5 +1,6 @@
 const express = require('express');
 const { sequelize, Product,Cart } = require('../models'); 
+const { Op } = require('sequelize');
 
 const router = express.Router();
 
@@ -79,6 +80,32 @@ router.get('/:productName/sizes', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+// Get random related products
+router.post('/related-products/:category', async (req, res) => {
+  const category = req.params.category;
+  console.log('getting related products!')
+  try {
+    const currentProductId = req.body.productId; 
+    const relatedProducts = await Product.findAll({
+      where: {
+        categories: category,
+        id: {
+          [Op.ne]: currentProductId, 
+        },
+      },
+      order: sequelize.literal('RANDOM()'),
+      limit: 4,
+    });
+
+    res.json(relatedProducts);
+  } catch (error) {
+    console.error('Error fetching related products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 // Create a new product
 router.post('/', async (req, res) => {
