@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../App';
+import ProductCard from './ProductCard';
 
 const ProductPage = () => {
   const { sessionId, cart, setCart, API_BASE_URL, addToCart } = useContext(SessionContext);
@@ -9,6 +10,7 @@ const ProductPage = () => {
   const [loaded, setLoaded] = useState(false);
   const [flavors, setFlavors] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [relatedProducts, setRelatedProducts] = useState([]);
 
   const navigate = useNavigate();
 
@@ -18,7 +20,7 @@ const ProductPage = () => {
         const response = await fetch(`${API_BASE_URL}/api/products/${productId}`);
         if (response.ok) {
           const productData = await response.json();
-          // console.log(productData);
+          productData.categories = productData.categories.split(',');
           setProduct(productData);
           setLoaded(true);
         } else {
@@ -33,35 +35,97 @@ const ProductPage = () => {
   }, [productId]);
 
   useEffect(() => {
-    const fetchFlavorsAndSizes = async () => {
-      try {
-        const flavorsResponse = await fetch(`${API_BASE_URL}/api/products/${product.name}/flavors`);
-        const sizesResponse = await fetch(`${API_BASE_URL}/api/products/${product.name}/sizes`);
-
-        if (flavorsResponse.ok) {
-          const flavorsData = await flavorsResponse.json();
-          // Filter out items without flavors
-          const filteredFlavors = flavorsData.filter((product) => product !== null && product !== undefined && product.flavors !== "");
-          setFlavors(filteredFlavors);
-        } else {
-          console.error('Failed to fetch flavors');
-        }
-
-        if (sizesResponse.ok) {
-          const sizesData = await sizesResponse.json();
-          // Filter out items without sizes
-          const filteredSizes = sizesData.filter((product) => product !== null && product !== undefined && product.sizes !== "");
-          setSizes(filteredSizes);
-        } else {
-          console.error('Failed to fetch sizes');
-        }
-      } catch (error) {
-        // console.error('Error fetching flavors or sizes:', error);
-      }
-    };
-
+    if(product){
       fetchFlavorsAndSizes();
+      fetchRelatedProduct();
+    }
   }, [product]);
+
+  const fetchFlavorsAndSizes = async () => {
+    try {
+      const flavorsResponse = await fetch(`${API_BASE_URL}/api/products/${product.name}/flavors`);
+      const sizesResponse = await fetch(`${API_BASE_URL}/api/products/${product.name}/sizes`);
+
+      if (flavorsResponse.ok) {
+        const flavorsData = await flavorsResponse.json();
+        // Filter out items without flavors
+        const filteredFlavors = flavorsData.filter((product) => product !== null && product !== undefined && product.flavors !== "");
+        setFlavors(filteredFlavors);
+      } else {
+        console.error('Failed to fetch flavors');
+      }
+
+      if (sizesResponse.ok) {
+        const sizesData = await sizesResponse.json();
+        // Filter out items without sizes
+        const filteredSizes = sizesData.filter((product) => product !== null && product !== undefined && product.sizes !== "");
+        setSizes(filteredSizes);
+      } else {
+        console.error('Failed to fetch sizes');
+      }
+    } catch (error) {
+      // console.error('Error fetching flavors or sizes:', error);
+    }
+  };
+
+  const fetchRelatedProduct = async () => {
+    const maxRetries = 5; // Set a maximum number of retries
+    let retryCount = 0;
+    const usedCategories = []; // Keep track of used categories
+  
+    while (retryCount < maxRetries && usedCategories.length < product.categories.length) {
+      const randomIndex = Math.floor(Math.random() * product.categories.length);
+      const randomCategory = product.categories[randomIndex];
+  
+      // Check if the category has already been used
+      if (!usedCategories.includes(randomCategory)) {
+        usedCategories.push(randomCategory); // Mark the category as used
+  
+        try {
+          const relatedResponse = await fetch(`${API_BASE_URL}/api/products/related-products/${randomCategory}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              productId: product.id,
+            }),
+          });
+  
+          if (relatedResponse.ok) {
+            const relatedData = await relatedResponse.json();
+            if (relatedData.length > 0) {
+              setRelatedProducts(relatedData);
+              return; // Exit the loop if related products are found
+            }
+          } else {
+            console.error('Fetch failed');
+          }
+        } catch (error) {
+          console.error('Error fetching related products:', error);
+        }
+      }
+  
+      retryCount++;
+    }
+  
+    // If no related products are found after maxRetries or all categories are used, handle it here
+    if (usedCategories.length === product.categories.length) {
+      console.error('All categories used, no related products found');
+    } else {
+      console.error('No related products found after multiple attempts');
+    }
+  };
+  
+    
+  const renderRelatedProducts = () => {
+    return relatedProducts.map((product) => {
+      return (<div key={product.id} className='productcard'>
+        <ProductCard product = {product} related={true}/>
+      </div>)
+    })
+  }
+
   return (
     loaded ? (
       <>
@@ -124,9 +188,9 @@ const ProductPage = () => {
             <p>{product.description}</p>
           </div>
         </div>
+        <h3 style={{ textAlign: 'left', marginLeft: '25%' }}>Related Items:</h3>
         <div className="related-products">
-          <h3 style={{ textAlign: 'left', marginLeft: '25%' }}>Related Items:</h3>
-          {/* {renderRelated()} */}
+          {relatedProducts ? renderRelatedProducts() : null}
         </div>
       </>
     ) : (
