@@ -4,7 +4,9 @@ const cron = require('node-cron');
 const { Op } = require('sequelize');
 
 const router = express.Router();
-
+// Import the io object
+const { test } = require('../server');
+console.log(test)
 // Get all
 router.get('/', async (req, res) => {
     console.log("Getting All!")
@@ -36,25 +38,29 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Post 
-router.post('/', async (req, res) => {
-    console.log("Posting!")
-    console.log('Request Body:', req.body);
+// // Post 
+// router.post('/', async (req, res) => {
+//   console.log("Posting!");
+//   console.log('Request Body:', req.body);
 
-    const { id, userId, cart } = req.body;
-    console.log("cart:",cart)
-    try {
-      const newOrder = await Order.create({
-        id,
-        user:userId, 
-        cart:JSON.stringify(cart)
-      });
-      res.status(201).json(newOrder);
-    } catch (error) {
-      console.error('Error creating product:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-  });
+//   const { id, userId, cart } = req.body;
+//   console.log("cart:", cart);
+//   try {
+//     const newOrder = await Order.create({
+//       id,
+//       user: userId,
+//       cart: JSON.stringify(cart),
+//     });
+
+//     // Emit a Socket.IO event when a new order is created
+//     io.emit('new-order', newOrder);
+
+//     res.status(201).json(newOrder);
+//   } catch (error) {
+//     console.error('Error creating product:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
 // Delete a product
 router.delete('/:id', async (req, res) => {
