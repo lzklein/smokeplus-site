@@ -32,8 +32,8 @@ export const SessionContext = createContext();
 const generateSessionId = () => {
   return uuidv4();
 };
-
-// TODO Related Items, Inbox, Categories, Deals/Popular, excel, finish css
+ 
+// TODO Related Items, Categories, Deals/Popular, excel, finish css
 const App = () => {
 
   const [sessionId, setSessionId] = useState('')
