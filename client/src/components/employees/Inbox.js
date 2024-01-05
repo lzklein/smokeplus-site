@@ -77,7 +77,7 @@ const Inbox = () => {
                 setLoaded(true);
 
                 // Trigger the notification and sound on successful fetch
-                showNotification('New Order Received');
+                //! showNotification('New Order Received');
             } else {
                 console.error('Failed to fetch orders:', response.status);
             }
