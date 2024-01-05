@@ -40,3 +40,9 @@
 .product-search{
     margin:10px
 }
+
+.related-products {
+  display: flex;
+  justify-content: center; /* Center the items horizontally */
+  overflow-x: auto;
+}
