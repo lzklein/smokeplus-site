@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-const CartCard = ({ sessionId, setCart, item, url, order }) => {
+const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   const [loaded, setLoaded] = useState(false);
   const [product, setProduct] = useState([]);
 
@@ -11,6 +11,9 @@ const CartCard = ({ sessionId, setCart, item, url, order }) => {
         if (response.ok) {
           const productData = await response.json();
           setProduct(productData);
+          if(!order){
+            setTotal((prevTotal) => prevTotal + productData.price * item.quantity);
+          }
           setLoaded(true);
         } else {
           console.error('Failed to fetch products:', response.status);
