@@ -33,7 +33,7 @@ const generateSessionId = () => {
   return uuidv4();
 };
 
-// TODO Categories, Deals/Popular, excel, finish css
+// TODO Deals/Popular, excel, finish css
 const App = () => {
 
   const [sessionId, setSessionId] = useState('')
