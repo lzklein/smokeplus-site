@@ -20,7 +20,7 @@ const Header = () => {
       <div className="right-nav">
         <NavRight cart={cart}/>
       </div>
-      <button className='logbutton' onClick={()=>{console.log(sessionId)}}>boop</button>
+      {/* <button className='logbutton' onClick={()=>{console.log(sessionId)}}>boop</button> */}
     </header>
   );
 }
