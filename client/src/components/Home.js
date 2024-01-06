@@ -11,14 +11,14 @@ const Home = ({bannerImages}) => {
       {/* Banner/Promo thing here */}
       <div>
         <div className="section">
-          <h3>Deals!</h3>
+          <h2>Deals!</h2>
           <Link className="see-all-link" to='/deals'>See All &raquo;</Link>
         </div>
         <Deals />
       </div>
       <div>
         <div className="section">
-          <h3>Popular!</h3>
+          <h2>Popular!</h2>
           <Link className="see-all-link" to='/popular'>See All &raquo;</Link>
         </div>
         <Popular />
