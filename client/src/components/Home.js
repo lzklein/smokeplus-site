@@ -8,7 +8,6 @@ const Home = ({bannerImages}) => {
   return (
     <div>
       <Banner images={bannerImages} />
-      {/* Banner/Promo thing here */}
       <div>
         <div className="section">
           <h2>Deals!</h2>
