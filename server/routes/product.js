@@ -86,13 +86,20 @@ router.post('/related-products/:category', async (req, res) => {
   const category = req.params.category;
   console.log('getting related products!')
   try {
-    const currentProductId = req.body.productId; 
+    let productIdCondition = {}; 
+
+    if (req.body.productId) {
+      productIdCondition = {
+        id: {
+          [Op.ne]: req.body.productId,
+        },
+      };
+    }
+
     const relatedProducts = await Product.findAll({
       where: {
         categories: category,
-        id: {
-          [Op.ne]: currentProductId, 
-        },
+        ...productIdCondition,
       },
       order: sequelize.literal('RANDOM()'),
       limit: 4,
