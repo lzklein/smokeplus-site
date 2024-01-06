@@ -121,7 +121,7 @@ const ProductPage = () => {
   const renderRelatedProducts = () => {
     return relatedProducts.map((product) => {
       return (<div key={product.id} className='productcard'>
-        <ProductCard product = {product} related={true}/>
+        <ProductCard product = {product}/>
       </div>)
     })
   }
