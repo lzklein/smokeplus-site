@@ -1,27 +1,28 @@
 import React from 'react'
 import CategoryCards from './CategoryCards';
+import { Link } from 'react-router-dom';
 
 const Categories = () => {
   return (
     <div>
-      <h1>Shop By Category</h1>
+      <h1 style={{marginTop:'40px', marginBottom:'40px'}}>Shop By Category</h1>
       <div className='section'>
-        <h3>Cigarettes</h3>
+        <h2>Cigarettes</h2>
         <Link className="see-all-link" to={{pathname:'/category/more', state:{category:'Cigarettes'}}}>See More &raquo;</Link>
       </div>
       <CategoryCards category='Cigarettes'/>
       <div className='section'>
-        <h3>Vapes</h3>
+        <h2>Vapes</h2>
         <Link className="see-all-link" to={{pathname:'/category/more', state:{category:'Vapes'}}}>See More &raquo;</Link>
       </div>   
       <CategoryCards category='Vapes'/>
       <div className='section'>
-        <h3>Tobacco</h3>
+        <h2>Tobacco</h2>
         <Link className="see-all-link" to={{pathname:'/category/more', state:{category:'Tobacco'}}}>See More &raquo;</Link>
       </div>    
       <CategoryCards category='Tobacco'/>
       <div className='section'>
-        <h3>General Merchandise</h3>
+        <h2>General Merchandise</h2>
         <Link className="see-all-link" to={{pathname:'/category/more', state:{category:'General Merchandise'}}}>See More &raquo;</Link>
       </div>
       <CategoryCards category='General Merchandise'/>
