@@ -25,9 +25,13 @@ const AllProducts = () => {
     fetchProducts();
   }, []);
 
+  const getProductSearchString = (product) => {
+    return `${product.name} ${product.flavors} ${product.sizes}`;
+  };
+
   const renderProducts = () => {
     const filteredProducts = allProducts.filter((product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase())
+      getProductSearchString(product).toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     return filteredProducts.map((product) => (
