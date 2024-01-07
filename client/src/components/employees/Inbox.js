@@ -38,6 +38,11 @@ const Inbox = () => {
       fetchOrders();
     });
 
+    socket.current.on('updateInbox', () => {
+      console.log('Order Expired');
+      fetchOrders();
+    });
+
     // Unmount
     return () => {
       if (socket.current) {
