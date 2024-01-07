@@ -1,7 +1,5 @@
 const express = require('express');
 const { sequelize, Order } = require('../models'); 
-const cron = require('node-cron');
-const { Op } = require('sequelize');
 
 const router = express.Router();
 // Import the io object
@@ -81,28 +79,28 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-// Auto Delete Old Orders
-cron.schedule('* * * * *', async () => {
-  console.log('Running scheduled task to delete orders older than 1 hour...');
+// // Auto Delete Old Orders
+// cron.schedule('* * * * *', async () => {
+//   console.log('Running scheduled task to delete orders older than 1 hour...');
 
-  try {
-    // Calculate the timestamp 1 hour ago
-    const oneHourAgo = new Date();
-    oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+//   try {
+//     // Calculate the timestamp 1 hour ago
+//     const oneHourAgo = new Date();
+//     oneHourAgo.setHours(oneHourAgo.getHours() - 1);
 
-    // Delete orders equal to or older than 1 hour
-    await Order.destroy({
-      where: {
-        createdAt: {
-          [Op.lte]: oneHourAgo,
-        },
-      },
-    });
+//     // Delete orders equal to or older than 1 hour
+//     await Order.destroy({
+//       where: {
+//         createdAt: {
+//           [Op.lte]: oneHourAgo,
+//         },
+//       },
+//     });
 
-    console.log('Scheduled task completed.');
-  } catch (error) {
-    console.error('Error running scheduled task:', error);
-  }
-});
+//     console.log('Scheduled task completed.');
+//   } catch (error) {
+//     console.error('Error running scheduled task:', error);
+//   }
+// });
 
 module.exports = router;
