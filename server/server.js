@@ -4,6 +4,9 @@ const socketIO = require('socket.io');
 const initRoutes = require('./routes');
 const { Order } = require('./models');
 const cors = require('cors');
+const cron = require('node-cron');
+const { Op } = require('sequelize');
+
 
 require('dotenv').config();
 
@@ -43,12 +46,16 @@ io.on('connection', (socket) => {
     io.emit('newOrder', order);
   });
 
+  socket.on('orderDelete', () => {
+    io.emit('updateInbox')
+  })
+
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
 });
 
-// Order Post with IO
+// Post order with io emit
 app.post('/api/orders', async (req, res) => {
   console.log("Posting!");
   console.log('Request Body:', req.body);
@@ -62,14 +69,38 @@ app.post('/api/orders', async (req, res) => {
       cart: JSON.stringify(cart),
     });
 
-    // Emit a Socket.IO event when a new order is created
-    console.log('emitting')
     io.emit('orderPost', newOrder);
 
     res.status(201).json(newOrder);
   } catch (error) {
     console.error('Error creating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Auto Delete Old Orders
+cron.schedule('* * * * *', async () => {
+  console.log('Running scheduled task to delete orders older than 1 hour...');
+
+  try {
+    // Calculate the timestamp 1 hour ago
+    const oneHourAgo = new Date();
+    oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+
+    // Delete orders equal to or older than 1 hour
+    const deletedOrdersCount = await Order.destroy({
+      where: {
+        createdAt: {
+          [Op.lte]: oneHourAgo,
+        },
+      },
+    });
+
+    console.log(`Scheduled task completed. Deleted ${deletedOrdersCount} orders.`);
+    io.emit('orderDelete');
+
+  } catch (error) {
+    console.error('Error running scheduled task:', error);
   }
 });
 
