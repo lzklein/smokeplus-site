@@ -26,6 +26,7 @@ import ExcelUploader from './components/employees/ExcelUploader';
 import BannerEdit from './components/employees/BannerEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
+import PickPopular from './components/employees/PickPopular';
 
 export const SessionContext = createContext();
 
@@ -39,6 +40,7 @@ const App = () => {
   const [sessionId, setSessionId] = useState('')
   const [loading, setLoading] = useState(true);
   const [bannerImages, setBannerImages] = useState([]);
+  const [authorized, setAuthorized] = useState(false);
   const [cart, setCart] = useState([])
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -150,7 +152,7 @@ const App = () => {
   };
   
   return (
-    <SessionContext.Provider value={{sessionId, cart, setCart, API_BASE_URL, addToCart}}>
+    <SessionContext.Provider value={{sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized}}>
     {loading?
     <div>
       Loading
@@ -162,6 +164,7 @@ const App = () => {
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path="/products/:productId" element={<ProductPage />} />
+        <Route path='./popular/edit' element={<PickPopular/>}/>
         <Route path='/cart' element={<Cart />} />
         <Route path='/order/:id' element={<OrderCheck />}/>
         <Route path='/order' element={<Order />} />
