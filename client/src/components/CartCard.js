@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   const [loaded, setLoaded] = useState(false);
   const [product, setProduct] = useState([]);
-
+  const [initSet, setInitSet] = useState(true);
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -11,9 +11,6 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         if (response.ok) {
           const productData = await response.json();
           setProduct(productData);
-          if(!order){
-            setTotal((prevTotal) => prevTotal + productData.price * item.quantity);
-          }
           setLoaded(true);
         } else {
           console.error('Failed to fetch products:', response.status);
@@ -24,6 +21,30 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     };
     fetchProduct();
   }, []);
+
+  useEffect(()=>{
+    if(!initSet){
+      if(!order){
+        console.log(product)
+        if(!!product.deals){
+          setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity)
+          setInitSet(true)
+          return;
+        }
+        else{
+          setTotal((prevTotal) => prevTotal + product.price * item.quantity)
+          setInitSet(true)
+          return;
+        }
+      }
+    }
+    setInitSet(false)
+  }, [product])
+
+  const getPrice = (fullPrice) => {
+    const discount = (product.deals * 0.01) * fullPrice;
+    return parseFloat(fullPrice - discount).toFixed(2);
+  }
 
   const moreQuantity = async () => {
     if (item.quantity < product.quantity) {
@@ -45,6 +66,16 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
+        if(!!product.deals){
+          setTotal((prevTotal) => {
+            // console.log('prevTotal:',prevTotal, typeof(prevTotal));
+            // console.log('price:',getPrice(product.price, typeof(getPrice(product.price))));
+            return prevTotal + parseFloat(getPrice(product.price));
+          });
+        }
+        else{
+          setTotal((prevTotal) => prevTotal + product.price);
+        }
       }
     } else {
       alert('No more in stock');
@@ -67,10 +98,15 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         console.error('Failed to update cart item:', response.statusText);
       } else {
         console.log('Cart item updated successfully');
-        // Fetch updated cart items after successful update
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
+        if(!!product.deals){
+          setTotal((prevTotal) => prevTotal - getPrice(product.price));
+        }
+        else{
+          setTotal((prevTotal) => prevTotal - product.price);
+        }
       }
     } else if (item.quantity === 1) {
       handleDelete();
@@ -95,7 +131,12 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
-      }
+        if(!!product.deals){
+          setTotal((prevTotal) => prevTotal - getPrice(product.price)*item.quantity)
+        }
+        else{
+          setTotal((prevTotal) => prevTotal - getPrice(product.price) * item.quantity);
+        }      }
     }
   };
 
@@ -124,7 +165,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
             </div>
           </div>
           <br />            
-          <p>${(product.price * item.quantity).toFixed(2)}</p>
+          {product.deals? <p>${getPrice(product.price)}</p> :<p>${(product.price * item.quantity).toFixed(2)}</p>}
           <button className="backbutton" onClick={handleDelete} style={{marginRight:'300px', marginLeft:'30px', marginTop:'16px'}}>Remove from Cart</button>
         </div>
       ) : (
