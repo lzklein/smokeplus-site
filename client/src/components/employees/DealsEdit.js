@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../../App';
 
 const DealsEdit = () => {
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { sessionId, cart, setCart, API_BASE_URL, authorized } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
@@ -86,6 +86,17 @@ const DealsEdit = () => {
       </li>
     ));
   };
+
+  if(!authorized){
+    return(
+      <div>
+        <h1>
+          ERROR
+        </h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    )
+  }
 
   return (
     <div>

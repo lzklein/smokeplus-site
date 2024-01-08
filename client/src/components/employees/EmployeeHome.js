@@ -12,6 +12,7 @@ const EmployeeHome = () => {
           <li className='employee-link'><Link to="/banner/edit">Edit Banner</Link></li>
           <li className='employee-link'><Link to='/inventory/edit'>Edit Inventory</Link></li> 
           <li className='employee-link'><Link to='/deals/edit'>Edit Deals</Link></li>
+          <li className='employee-link'><Link to='/popular/edit'>Select Popular Items</Link></li>
         </ul>
       </nav>
     </div>

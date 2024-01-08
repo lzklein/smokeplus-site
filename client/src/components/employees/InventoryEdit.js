@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewProductForm from './NewProductForm';
 import ProductCard from './ProductCard';
 import Modal from 'react-modal';
-
-const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
+import { SessionContext } from '../../App';
 
 const InventoryEdit = () => {
+  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });
@@ -124,6 +124,17 @@ const InventoryEdit = () => {
         </>
       )
     })
+  }
+
+  if(!authorized){
+    return(
+      <div>
+        <h1>
+          ERROR
+        </h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    )
   }
 
   return (

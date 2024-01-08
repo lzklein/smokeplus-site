@@ -9,7 +9,7 @@ import bell from './sfx/bell.mp3';
 
 const Inbox = () => {
   const navigate = useNavigate();
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
   const [orders, setOrders] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const socket = useRef(null);
@@ -134,6 +134,17 @@ const Inbox = () => {
     });
   };
 
+  if(!authorized){
+    return(
+      <div>
+        <h1>
+          ERROR
+        </h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    )
+  }
+
   if (loaded) {
     return (
       <div>
@@ -150,9 +161,6 @@ const Inbox = () => {
     <div>
       <h1>Inbox</h1>
       <p>Loading...</p>
-      <button className="backbutton" onClick={() => navigate(-1)}>
-        {"<< Back"}
-      </button>
     </div>
   );
 };

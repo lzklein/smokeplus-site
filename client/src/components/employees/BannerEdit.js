@@ -5,7 +5,7 @@ import { SessionContext } from '../../App';
 const BannerEdit = ({ bannerImages }) => {
   const navigate = useNavigate();
   const [updatedBannerImages, setUpdatedBannerImages] = useState(bannerImages);
-  const { API_BASE_URL } = useContext(SessionContext);
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
 
   useEffect(() => {
     localStorage.setItem('bannerImages', JSON.stringify(updatedBannerImages));
@@ -85,7 +85,17 @@ const BannerEdit = ({ bannerImages }) => {
     });
   };
   
-  console.log(updatedBannerImages)
+  if(!authorized){
+    return(
+      <div>
+        <h1>
+          ERROR
+        </h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    )
+  }
+
   return (
     <div>
       <h2>Banner Editor</h2>

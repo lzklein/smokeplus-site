@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
+import { SessionContext } from '../../App'; 
 import { useNavigate } from 'react-router-dom';
 
 const EmployeeLogin = () => {
+  const { sessionId, API_BASE_URL, setAuthorized} = useContext(SessionContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -13,7 +15,7 @@ const EmployeeLogin = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:5555/api/login', {
+      const response = await fetch(`http://${API_BASE_URL}/api/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -24,6 +26,7 @@ const EmployeeLogin = () => {
       if (response.ok) {
         setErrorMessage('');
         const data = await response.json();
+        setAuthorized(true);
         navigate('/employee');
         setFailCount(0)
       } else {

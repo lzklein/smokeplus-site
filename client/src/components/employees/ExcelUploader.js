@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import * as XLSX from 'xlsx';
+import { SessionContext } from '../../App';
 
 const ExcelUploader = () => {
+  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const navigate = useNavigate();
