@@ -14,8 +14,8 @@ const Cart = () => {
 
   useEffect(() => {
     const currentTime = new Date();
-    const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000); // Adding 10 minutes in milliseconds
-    const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000); // Adding 10 minutes in milliseconds
+    const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000); // Adding 10 minutes
+    const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000); // Adding 15 minutes
     setReadyTimeMin(addMinMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
     setReadyTimeMax(addMaxMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
   }, [cart, total]);

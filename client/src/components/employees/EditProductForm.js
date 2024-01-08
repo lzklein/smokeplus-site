@@ -32,9 +32,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             categories: productCategories.map((category) =>
             category.trim() === '' ? 'This field must be filled out' : ''
             ),
-            // ! These ones null ok
-            // sizes: productSizes.trim() === '' ? 'This field must be filled out' : '',  
-            // flavors: productFlavors.trim() === '' ? 'This field must be filled out' : '',
             price: !/^\d+(\.\d{1,2})?$/.test(editedProduct.price)
             ? 'Enter a valid price (up to 2 decimal places)'
             : '',
@@ -46,31 +43,23 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             image: editedProduct.image.trim() === '' ? 'This field must be filled out' : ''
         };
         
-        // Special handling for arrays
+        // category array handling
         if (productCategories.some((category) => category.trim() === '')) {
             newErrors.categories = ['All categories must be filled out'];
         } else {
             newErrors.categories = [];
         }
         
-        // Log current errors
         console.log('New Errors:', newErrors);
-        
-        // Set errors state
         setErrors(newErrors);
         
-        // Log current state after setting errors
-        console.log('Current Errors State:', errors);
-        
-        // Check if any field has an error
         const hasError = Object.values(newErrors).some((error) => {
             if (Array.isArray(error)) {
-            return error.length > 0; // Check if array has elements
+            return error.length > 0; 
             }
-            return error !== ''; // For non-array values, check if it's not an empty string
+            return error !== ''; 
         }) || newErrors.categories.length > 0;
         
-        // Log values used to determine hasError
         console.log('Values for hasError:', Object.values(newErrors));
         console.log('Has Error:', hasError);
         
@@ -95,10 +84,9 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
       
         setProductCategories(updatedCategories);
       
-        // Remove the category from editedProduct
         setEditedProduct((prevProduct) => ({
           ...prevProduct,
-          categories: updatedCategories.filter(Boolean), // Remove empty categories
+          categories: updatedCategories.filter(Boolean), 
         }));
       };
       
@@ -207,7 +195,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                         name="sizes"
                         value={editedProduct.sizes}
                         onChange={handleChange}
-                        // Add validation and styling as needed
                       />
                     </label>
                   </div>
@@ -221,7 +208,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                         name="flavors"
                         value={editedProduct.flavors}
                         onChange={handleChange}
-                        // Add validation and styling as needed
                       />
                     </label>
                   </div>
@@ -266,7 +252,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                         name="description"
                         value={editedProduct.description}
                         onChange={handleChange}
-                        // Add validation and styling as needed
                       />
                     </label>
                   </div>
@@ -280,7 +265,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                         name="id"
                         value={editedProduct.id}
                         onChange={handleChange}
-                        // Add validation and styling as needed
                       />
                     </label>
                   </div>
@@ -294,7 +278,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
                         name="image"
                         value={editedProduct.image}
                         onChange={handleChange}
-                        // Add validation and styling as needed
                       />
                     </label>
                     <img src={editedProduct.image} alt="Product Preview" className="imgpreview" />
