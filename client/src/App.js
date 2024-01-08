@@ -76,7 +76,7 @@ const App = () => {
       quantity: 1,
     }
     // console.log(cart)
-    cart.map((item)=>{console.log(item.product)})
+    // cart.map((item)=>{console.log(item.product)})
     // console.log(cartItem.product)
     const existingCartItem = cart.find((item) => item.product === cartItem.product);
     if(existingCartItem){
