@@ -43,12 +43,13 @@ const AllProducts = () => {
 
   return (
     <div>
-      <h1>All Products</h1>
+      <h1 style={{marginTop:'50px', marginBottom:'30px'}}>All Products</h1>
       <input
         type="text"
         placeholder="Search..."
         value={searchTerm}
         className="product-search"
+        style={{marginBottom:'40px'}}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
       <div className="productcard-container">{renderProducts()}</div>
