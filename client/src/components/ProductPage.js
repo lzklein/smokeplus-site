@@ -117,6 +117,11 @@ const ProductPage = () => {
     }
   };
   
+  const getPrice = () => {
+    const discount = (product.deals * 0.01) * product.price;
+    const discountedPrice = parseFloat(product.price - discount).toFixed(2);
+    return product.deals ? `$${discountedPrice}` : `$${parseFloat(product.price).toFixed(2)}`;
+  }
     
   const renderRelatedProducts = () => {
     return relatedProducts.map((product) => {
@@ -135,9 +140,19 @@ const ProductPage = () => {
           </div>
           <div className="product-right">
             <h2>{product.name}</h2>
-            <p style={{ marginBottom: '10px' }}>${parseFloat(product.price).toFixed(2)}</p>
-            {/* <button className='backbutton' onClick={()=>{console.log(flavors)}}>flavors</button>
-            <button className='backbutton' onClick={()=>{console.log(sizes)}}>sizes</button> */}
+            <p>
+              {product.deals ? (
+                <>             
+                  <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                    ${parseFloat(product.price).toFixed(2)}
+                  </span>
+                  <span style={{color: 'red',}}> {getPrice()} </span> 
+
+                </>
+              ) : (
+                <span>${parseFloat(product.price).toFixed(2)}</span>
+              )}
+            </p>
 
             {sizes.length > 0 && (
               <div>
