@@ -16,17 +16,7 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
     }, []);
 
     const validateForm = () => {
-        // Log current form values
-        console.log('productName:', editedProduct.name);
-        console.log('productCategories:', productCategories);
-        console.log('productSizes:',editedProduct.sizes);
-        console.log('productFlavors:',editedProduct.flavors);
-        console.log('productPrice:', editedProduct.price);
-        console.log('productQuantity:', editedProduct.quantity);
-        console.log('productDescription:', editedProduct.description);
-        console.log('productUPC:', editedProduct.id);
-        console.log('productImage:', editedProduct.image);
-        
+        // check for empty fields
         const newErrors = {
             name: editedProduct.name.trim() === '' ? 'This field must be filled out' : '',
             categories: productCategories.map((category) =>
