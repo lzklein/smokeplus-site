@@ -64,6 +64,10 @@ const Product = sequelize.define('Product', {
     type: DataTypes.INTEGER,
     defaultValue: 0,
   },
+  popular: {
+    type: DataTypes.BOOLEAN,
+    defaultValue: false
+  }
 });
 
 module.exports = Product;
