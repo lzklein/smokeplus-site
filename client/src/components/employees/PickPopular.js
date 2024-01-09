@@ -63,8 +63,8 @@ const PickPopular = () => {
   };
 
   const handleCheckboxChange = (productId, isPopular) => {
-    setAllProducts((prevProducts) =>
-      prevProducts.map((product) => {
+    setAllProducts(
+        allProducts.map((product) => {
         if (product.id === productId) {
           const updatedProduct = { ...product, popular: !product.popular };
 
@@ -166,6 +166,9 @@ const PickPopular = () => {
           Apply Popular
         </button>
       </form>
+      <button className="backbutton" onClick={() => navigate(-1)}>
+          {"<< Back"}
+        </button>
     </div>
   );
 };
