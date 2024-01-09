@@ -5,6 +5,8 @@ import { SessionContext } from '../../App';
 const PickPopular = () => {
   const { sessionId, cart, setCart, API_BASE_URL, authorized } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
+  const [popularProducts, setPopularProducts] = useState([]);
+  const [notPopularProducts, setNotPopularProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
@@ -17,7 +19,12 @@ const PickPopular = () => {
       const response = await fetch(`${API_BASE_URL}/api/products`);
       if (response.ok) {
         const productList = await response.json();
+        const initialPopularProducts = productList.filter(product => !!product.popular);
+        const initialNotPopularProducts = productList.filter(product => !product.popular);
+
         setAllProducts(productList);
+        setPopularProducts(initialPopularProducts);
+        setNotPopularProducts(initialNotPopularProducts);
       } else {
         console.error('Failed to fetch products:', response.status);
       }
@@ -30,9 +37,9 @@ const PickPopular = () => {
     return `${product.name} ${product.flavors} ${product.sizes}`;
   };
 
-  const handleDealChange = async (productId, value) => {
+  const handlePopularChange = async (productId, value) => {
     try {
-      const dealsValue = value === '' ? 0 : parseFloat(value);
+      const popularValue = value === '' ? 0 : parseFloat(value);
 
       const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
         method: 'PATCH',
@@ -40,52 +47,93 @@ const PickPopular = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          deals: dealsValue,
+          popular: popularValue,
         }),
       });
 
       if (response.ok) {
-        console.log(`Product ${productId} deals updated to ${dealsValue}`);
-        fetchProducts();
+        console.log(`Product ${productId} popularity updated to ${popularValue}`);
+        // You might choose to fetch products here if needed
       } else {
-        console.error('Failed to update product deals:', response.status);
+        console.error('Failed to update product popularity:', response.status);
       }
     } catch (error) {
-      console.error('Error updating product deals:', error);
+      console.error('Error updating product popularity:', error);
     }
   };
 
-  const renderProducts = () => {
-    const filteredProducts = allProducts.filter((product) =>
-      getProductSearchString(product).toLowerCase().includes(searchTerm.toLowerCase())
+  const handleCheckboxChange = (productId, isPopular) => {
+    setAllProducts((prevProducts) =>
+      prevProducts.map((product) => {
+        if (product.id === productId) {
+          const updatedProduct = { ...product, popular: !product.popular };
+
+          if (product.popular) {
+            setNotPopularProducts((prev) => [...prev, updatedProduct]);
+            setPopularProducts((prev) => prev.filter((p) => p.id !== productId));
+          } else {
+            setPopularProducts((prev) => [...prev, updatedProduct]);
+            setNotPopularProducts((prev) => prev.filter((p) => p.id !== productId));
+          }
+
+          return updatedProduct;
+        }
+
+        return product;
+      })
+    );
+  };
+
+  const handleApplyPopular = async () => {
+    // Patch products with popular set to 1
+    await Promise.all(
+      popularProducts.map(async (product) => {
+        await handlePopularChange(product.id, 1);
+      })
     );
 
+    // Patch products with popular set to 0
+    await Promise.all(
+      notPopularProducts.map(async (product) => {
+        await handlePopularChange(product.id, 0);
+      })
+    );
+
+    // Fetch the products again after making changes
+    fetchProducts();
+  };
+
+  const renderProducts = (products) => {
+    const filteredProducts = products.filter((product) =>
+      getProductSearchString(product).toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  
     return (
-        <div style={{ display: 'flex', justifyContent: 'center' }}>
-          <ul>
-            {filteredProducts.map((product) => (
-              <li key={product.id} style={{ display: 'flex', alignItems: 'center' }}>
-                <input type="checkbox" style={{ marginRight:'10px' }} />
-                <p>
-                  {product.name} {product.flavors} {product.sizes}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      );
-      
-    }
-      
-  if(!authorized){
-    return(
+      <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column' }}>
+        {filteredProducts.map((product) => (
+          <li key={product.id} style={{ marginBottom: '10px', marginLeft: '15vw' }}>
+            <label style={{ display: 'flex', alignItems: 'center', userSelect: 'none' }}>
+              <input
+                type="checkbox"
+                checked={product.popular}
+                onChange={() => handleCheckboxChange(product.id, product.popular)}
+              />
+              <span style={{ marginLeft: '5px' }}>{product.name} {product.flavors} {product.sizes}</span>
+            </label>
+          </li>
+        ))}
+      </ul>
+    );
+  };
+  
+
+  if (!authorized) {
+    return (
       <div>
-        <h1>
-          ERROR
-        </h1>
+        <h1>ERROR</h1>
         <h1>Unauthorized User</h1>
       </div>
-    )
+    );
   }
 
   return (
@@ -98,16 +146,26 @@ const PickPopular = () => {
         className="product-search"
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-          style={{margin:'20px'}}
+      <form onSubmit={(e) => e.preventDefault()} style={{ margin: '20px' }}>
+        <div style={{ display: 'flex' }}>
+          <div style={{ flex: 1 }}>
+          <h2 style={{ marginLeft: '2vw' }}>Not Popular Products</h2>
+            {renderProducts(notPopularProducts)}
+          </div>
+          <div style={{ flex: 1 }}>
+            <h2 style={{ marginLeft: '2vw' }}>Popular Products</h2>
+            {renderProducts(popularProducts)}
+          </div>
+        </div>
+        <button
+          type="button"
+          className="backbutton"
+          style={{ marginTop: '13px', marginLeft: '5px' }}
+          onClick={handleApplyPopular}
         >
-      <ul>{renderProducts()}</ul>
-
-          <button type='submit' className='backbutton' style={{marginTop:'13px', marginLeft:'5px'}}>Apply Popular</button>
-        </form>
+          Apply Popular
+        </button>
+      </form>
     </div>
   );
 };
