@@ -40,7 +40,8 @@ const App = () => {
   const [sessionId, setSessionId] = useState('')
   const [loading, setLoading] = useState(true);
   const [bannerImages, setBannerImages] = useState([]);
-  const [authorized, setAuthorized] = useState(false);
+  // ! Switch back to false before deploy
+  const [authorized, setAuthorized] = useState(true);
   const [cart, setCart] = useState([])
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
@@ -164,7 +165,7 @@ const App = () => {
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path="/products/:productId" element={<ProductPage />} />
-        <Route path='./popular/edit' element={<PickPopular/>}/>
+        <Route path='/popular/edit' element={<PickPopular/>}/>
         <Route path='/cart' element={<Cart />} />
         <Route path='/order/:id' element={<OrderCheck />}/>
         <Route path='/order' element={<Order />} />
