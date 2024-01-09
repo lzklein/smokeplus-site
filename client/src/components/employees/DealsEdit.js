@@ -100,7 +100,7 @@ const DealsEdit = () => {
 
   return (
     <div>
-      <h1>All Products</h1>
+      <h1>Edit Deals</h1>
       <input
         type="text"
         placeholder="Search..."
