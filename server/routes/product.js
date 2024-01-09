@@ -81,13 +81,12 @@ router.get('/:productName/sizes', async (req, res) => {
   }
 });
 
-// Get random related products
+// Get random products
 router.post('/related-products/:category', async (req, res) => {
   const category = req.params.category;
   console.log('getting related products!')
   try {
     let productIdCondition = {}; 
-
     if (req.body.productId) {
       productIdCondition = {
         id: {
@@ -96,10 +95,28 @@ router.post('/related-products/:category', async (req, res) => {
       };
     }
 
+    let popularCondition = {};
+    if (req.body.popular) {
+      popularCondition = {
+        popular: 1,
+      };
+    }
+
+    let dealsCondition = {};
+    if (req.body.deals) {
+      dealsCondition = {
+        deals: {
+          [Op.not]: 0,
+        }
+      };
+    }
+
     const relatedProducts = await Product.findAll({
       where: {
         categories: category,
         ...productIdCondition,
+        ...popularCondition,
+        ...dealsCondition,
       },
       order: sequelize.literal('RANDOM()'),
       limit: 4,
