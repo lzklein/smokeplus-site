@@ -81,10 +81,45 @@ router.get('/:productName/sizes', async (req, res) => {
   }
 });
 
+// Get all popular
+router.post('/popular', async (req, res) => {
+  console.log('getting popular products!');
+  try {
+    const popularProducts = await Product.findAll({
+      where: {
+        popular: 1,
+      },
+    });
+    res.json(popularProducts);
+  } catch (error) {
+    console.error('Error fetching related products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Get all deals
+router.post('/deals', async (req, res) => {
+  console.log('getting deals products!');
+  try {
+    const dealsProducts = await Product.findAll({
+      where: {
+        deals: {
+          [Op.not]: 0,
+        }      
+      },
+    });
+    res.json(dealsProducts);
+  } catch (error) {
+    console.error('Error fetching related products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 // Get random products
 router.post('/related-products/:category', async (req, res) => {
   const category = req.params.category;
-  console.log('getting related products!')
+  console.log('getting related products!');
   try {
     let productIdCondition = {}; 
     if (req.body.productId) {
@@ -96,14 +131,14 @@ router.post('/related-products/:category', async (req, res) => {
     }
 
     let popularCondition = {};
-    if (req.body.popular) {
+    if (category === 'popular') {
       popularCondition = {
         popular: 1,
       };
     }
 
     let dealsCondition = {};
-    if (req.body.deals) {
+    if (category === 'deals') {
       dealsCondition = {
         deals: {
           [Op.not]: 0,
@@ -113,23 +148,20 @@ router.post('/related-products/:category', async (req, res) => {
 
     const relatedProducts = await Product.findAll({
       where: {
-        categories: category,
         ...productIdCondition,
         ...popularCondition,
         ...dealsCondition,
+        ...(category !== 'deals' && category !== 'popular' && { categories: category }),
       },
       order: sequelize.literal('RANDOM()'),
       limit: 4,
     });
-
     res.json(relatedProducts);
   } catch (error) {
     console.error('Error fetching related products:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
-
 
 // Create a new product
 router.post('/', async (req, res) => {
