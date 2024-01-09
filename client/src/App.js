@@ -17,6 +17,8 @@ import Popular from './components/Popular';
 import ProductPage from './components/ProductPage';
 import Checkout from './components/Checkout';
 import OrderCheck from './components/OrderCheck';
+import PopularAll from './components/PopularAll';
+import DealsAll from './components/DealsAll';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -34,7 +36,7 @@ const generateSessionId = () => {
   return uuidv4();
 };
 
-// TODO Deals/Popular, excel, finish css
+// TODO excel, finish css
 const App = () => {
 
   const [sessionId, setSessionId] = useState('')
@@ -171,6 +173,8 @@ const App = () => {
         <Route path='/order' element={<Order />} />
         <Route path='/all' element={<AllProducts />} />
         <Route path='/categories' element={<Contact />} />
+        <Route path='/popular/all' element={<PopularAll/>}/>
+        <Route path='/deals/all' element={<DealsAll/>}/>
         <Route path='/checkout' element={<Checkout />}/>
         <Route path='/deals' element={<Deals/>}/>
         <Route path='/popular' element={<Popular/>}/>
