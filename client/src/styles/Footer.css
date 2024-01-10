@@ -19,6 +19,11 @@
     margin-top: 15px;
     width: 40%;
     padding-right:30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
   }
   
   .footer-left, .footer-center {
@@ -55,19 +60,30 @@
   
   #map-container {
     width: 100%;
-    max-width: 24vw; /* Set a maximum width relative to the viewport width */
+    max-width: 20vw; /* Set a maximum width relative to the viewport width */
     height: auto; /* Automatically adjust height */
+    margin-left: auto; /* Add this line to center the map-container */
+    margin-right: auto;
 }
    
+  #map-container {
+    max-width: 20vw;
+    width: 100%;
+    height: auto;
+  }
+
   .map-png {
     margin-left: 90px;
-    max-width: 24vw; 
-    max-height: 24vw;
-    width: auto; /* Automatically adjust width */
-    height: auto; /* Automatically adjust height */
+    max-width: 20vw;
+    max-height: 20vw;
+    width: auto;
+    height: auto;
   }
-  
+
   .foot-sub {
-    font-size : 12px;
+    font-size: 12px;
   }
-  
+
+  .map-address {
+    text-align: center;
+  }
