@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NewProductForm from './NewProductForm';
-import ProductCard from './ProductCard';
+import ProductCard from './ProductEditCard';
 import Modal from 'react-modal';
 import { SessionContext } from '../../App';
 
