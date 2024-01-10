@@ -74,11 +74,11 @@ const App = () => {
     fetchCartItems();
   },[sessionId])
   
-  const addToCart = (product) => {
+  const addToCart = (product, itemQuantity=1) => {
     const cartItem = {
       user: sessionId,
       product: product.id,
-      quantity: 1,
+      quantity: itemQuantity,
     }
     // console.log(cart)
     // cart.map((item)=>{console.log(item.product)})
