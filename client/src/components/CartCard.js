@@ -158,10 +158,15 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
             <img src={product.image} className='cart-img' alt={product.name} />
           </div>
           <div className='cart-right'>
-            <div className="number">
-              <span className="backbutton" onClick={lessQuantity} style={{marginTop:'12px', marginRight:'2px'}}>-</span>
-              <input type="text" style={{ maxWidth: '50px' }} readOnly value={item.quantity} />
-              <span className="backbutton" onClick={moreQuantity} style={{marginTop:'12px', marginLeft:'2px'}}>+</span>
+            <div className="cart-quantity">
+              <span className="minus" onClick={lessQuantity} style={{marginTop:'12px', marginRight:'-1px'}}>-</span>
+              <input
+                type="text"
+                className='counter'
+                readOnly
+                value={item.quantity}
+              />
+              <span className="plus" onClick={moreQuantity} style={{marginTop:'12px', marginLeft:'-1px'}}>+</span>
             </div>
           </div>
           <br />            
