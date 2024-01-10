@@ -47,7 +47,7 @@ const DealsAll = () => {
   }
 
   return (
-    <div className='related-products'>{renderCategoryProducts()}</div>
+    <div className="productcard-container">{renderCategoryProducts()}</div>
   );
 }
 
