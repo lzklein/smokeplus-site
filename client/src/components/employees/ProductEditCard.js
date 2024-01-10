@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 
 const ProductCard = ({ product, handleDeleteProduct, onSubmit }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-
+  
   const openEditModal = () => setIsEditModalOpen(true);
   const closeEditModal = () => setIsEditModalOpen(false);
 
