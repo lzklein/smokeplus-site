@@ -1,9 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const ProductCard = ({ product }) => {
   const { addToCart } = useContext(SessionContext);
+  const [carted, setCarted] = useState(false);
 
   const getPrice = () => {
     const discount = (product.deals * 0.01) * product.price;
@@ -11,7 +12,18 @@ const ProductCard = ({ product }) => {
     return product.deals ? `$${discountedPrice}` : `$${parseFloat(product.price).toFixed(2)}`;
   }
 
+  useEffect(() => {
+    let timeout;
+    if (carted) {
+      timeout = setTimeout(() => {
+        setCarted(false);
+      }, 2500); // 2.5 seconds
+    }
 
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [carted]);
 
   return (
     <div>
@@ -40,10 +52,11 @@ const ProductCard = ({ product }) => {
           )}
         </p>
       </Link>
-      <button className="logbutton" onClick={() => { addToCart(product) }}>
+      <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
         🛒 Add to Cart
       </button>
       <br />
+      {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
     </div>
   );
 };
