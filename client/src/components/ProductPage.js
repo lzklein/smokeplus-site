@@ -11,6 +11,7 @@ const ProductPage = () => {
   const [flavors, setFlavors] = useState([]);
   const [sizes, setSizes] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [itemQuantity, setItemQuantity] = useState(1);
 
   const navigate = useNavigate();
 
@@ -191,11 +192,20 @@ const ProductPage = () => {
               </div>
             )}
             <br />
+            <input 
+              name='itemQuantity'
+              type='number'  
+              style={{marginRight:'5px', maxWidth:'70px'}}
+              defaultValue={1}
+              min={1}
+              max={product.quantity}
+              onChange={(e) => setItemQuantity(parseInt(e.target.value, 10))}
+              />
             <button
               className="backbutton"
               style={{ marginTop: '10px' }}
               onClick={() => {
-                addToCart(product);
+                addToCart(product, itemQuantity);
               }}
             >
               Add to Cart 🛒
