@@ -188,12 +188,48 @@ router.post('/', async (req, res) => {
     }
   });
 
+  // Excel Quantity Updater
+router.patch('/excel', async (req, res) => {
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+  console.log("Patching Excel Data!");
+
+
+
+  const { id, quantity } = req.body; 
+  console.log(id, quantity);
+
+  try {
+    const product = await Product.findByPk(id);
+    if (product) {
+      // Subtract quantity from Product.quantity
+      const updatedQuantity = product.quantity - quantity;
+
+      const productChanges = {
+        quantity: updatedQuantity,
+      };
+
+      await product.update(productChanges);
+      res.json(product);
+    } else {
+      res.status(404).json({ error: 'Product not found' });
+    }
+  } catch (error) {
+    console.error('Error updating product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Update a product
 router.patch('/:id', async (req, res) => {
   console.log("Patching!");
 
   const productId = req.params.id;
-  const productChanges = req.body; // Object containing fields to be updated
+  const {productChanges} = req.body; 
   console.log(productChanges)
   try {
     const product = await Product.findByPk(productId);

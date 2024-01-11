@@ -12,7 +12,7 @@ const ExcelUploader = () => {
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
-
+  
     // Read the Excel file
     if (file) {
       const reader = new FileReader();
@@ -21,49 +21,37 @@ const ExcelUploader = () => {
         const workbook = XLSX.read(data, { type: 'binary' });
         const sheetName = workbook.SheetNames[0];
         const sheet = workbook.Sheets[sheetName];
-
-        // Skip the first 6 rows
+  
+        // Skip the first 7 rows
         const range = XLSX.utils.decode_range(sheet['!ref']);
-        range.s.r = 6; // start from the 7th row
-
+        range.s.r = 7; // start from the 8th row
+  
         const dataArr = [];
-        let foundUPC = false; // Track if the first "UPC" row has been found
-
+  
         for (let rowIndex = range.s.r; rowIndex <= range.e.r; rowIndex++) {
           const row = [];
-
+  
           let isEmptyRow = true;
-
+  
           for (let colIndex = range.s.c; colIndex <= range.e.c; colIndex++) {
             const cellAddress = { r: rowIndex, c: colIndex };
             const cellRef = XLSX.utils.encode_cell(cellAddress);
             const cell = sheet[cellRef];
             const cellValue = cell ? cell.v : null;
-
-            // Skip subsequent rows with "UPC" after the first "UPC" row
-            if (foundUPC && colIndex === range.s.c && cellValue === 'UPC') {
+  
+            // Skip rows where the first column is 'UPC' or the second column is 'CC CHARGE'
+            if (
+              (colIndex === range.s.c && cellValue === 'UPC') ||
+              (colIndex === range.s.c + 1 && cellValue === 'CC CHARGE') ||
+              (colIndex === range.s.c + 1 &&
+                (cellValue === null || cellValue === undefined || cellValue === ''))
+            ) {
               isEmptyRow = true;
               break;
             }
-
-            // Update foundUPC when the first "UPC" row is encountered
-            if (colIndex === range.s.c && cellValue === 'UPC') {
-              foundUPC = true;
-            }
-
+  
             row.push(cellValue);
-
-            // Check if it's the 2nd cell and has a value
-            if (
-              colIndex === range.s.c + 1 &&
-              (cellValue === null ||
-                cellValue === undefined ||
-                cellValue === '')
-            ) {
-              isEmptyRow = true;
-              break; // If the 2nd cell is empty, consider the row as empty and break out of the loop
-            }
-
+  
             // Check if it's one of the first 4 cells and has a value
             if (
               colIndex <= range.s.c + 2 &&
@@ -72,42 +60,78 @@ const ExcelUploader = () => {
               isEmptyRow = false;
             }
           }
-
+  
           // Only add the row if the first cell is not "UPC" and the first 4 cells are not all empty
           if (!isEmptyRow) {
             dataArr.push(row);
           }
         }
-
+  
         // Round numbers to two decimal places
         const roundedData = dataArr.map((row) =>
           row.map((cell) =>
             typeof cell === 'number' ? Number(cell.toFixed(2)) : cell
           )
         );
-
+  
         setExcelData(roundedData);
       };
       reader.readAsBinaryString(file);
     }
   };
+  
 
-  const handleSubmit = () => {
-    if (selectedFile) {
-      // You can perform additional logic here, such as sending the file to a server
-      // ! patch request to backend
-      // ! foreach row, do a patch on back
-      // ! treating each column as an item with index, find item where product.id == item[0]
-      // ? product.quantity -= item[4]
-      // ! if item don't exist (id not found), log error on side and print for manual fixing?
-      // ? if item id not found check product.name == item[1] maybe
-
-      alert("File submitted")
-      console.log('File submitted:', selectedFile);
+  const handleSubmit = async () => {
+    if (selectedFile && excelData) {
+      try {
+        const batchSize = 10; // 10 rows at a time
+        const totalRows = excelData.length;
+  
+        for (let start = 0; start < totalRows; start += batchSize) {
+          const end = Math.min(start + batchSize, totalRows);
+          const batch = excelData.slice(start, end);
+  
+          await Promise.all(batch.map(processRow));
+        }
+        console.log('File submitted:', selectedFile);
+        alert('Excel Uploaded!');
+      
+        setExcelData(null);
+        setSelectedFile(null);
+      } catch (error) {
+        console.error('Error during submission:', error);
+      }
     } else {
       console.log('No file selected');
     }
   };
+  
+  const processRow = async (row) => {
+    const productId = parseInt(row[0], 10);
+    const quantityToSubtract = parseInt(row[3], 10);
+  
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/products/excel/`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          id: productId,
+          quantity: quantityToSubtract
+        }),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`Failed to update product ${productId}`);
+      }
+  
+      console.log(`Product ${productId} updated successfully`);
+    } catch (error) {
+      console.error(`Error updating product ${productId}:`, error);
+    }
+  };
+  
 
   return (
     <div>
@@ -129,7 +153,11 @@ const ExcelUploader = () => {
             <thead>
               <tr>
                 {excelData[0].map((cell, index) => (
-                  index !== 5 && <th key={index}>{cell}</th>
+                  index !== 5 && (
+                    <th key={index} style={{ fontWeight: 'normal' }}>
+                      {cell}
+                    </th>
+                  )
                 ))}
               </tr>
             </thead>
@@ -137,7 +165,9 @@ const ExcelUploader = () => {
               {excelData.slice(1).map((row, rowIndex) => (
                 <tr key={rowIndex}>
                   {row.map((cell, cellIndex) => (
-                    cellIndex !== 5 && <td key={cellIndex}>{cell}</td>
+                    cellIndex !== 5 && (
+                      <td key={cellIndex}>{cell}</td>
+                    )
                   ))}
                 </tr>
               ))}
