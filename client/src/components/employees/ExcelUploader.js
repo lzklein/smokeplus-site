@@ -13,7 +13,6 @@ const ExcelUploader = () => {
     const file = event.target.files[0];
     setSelectedFile(file);
   
-    // Read the Excel file
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
@@ -95,7 +94,6 @@ const ExcelUploader = () => {
         }
         console.log('File submitted:', selectedFile);
         alert('Excel Uploaded!');
-      
         setExcelData(null);
         setSelectedFile(null);
       } catch (error) {
