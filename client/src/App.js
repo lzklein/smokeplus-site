@@ -1,6 +1,7 @@
 // imports
-import './styles/App.css';
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import './styles/computer/App.css';
+import './styles/mobile/App.css';
+import React, { createContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
