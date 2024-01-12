@@ -9,6 +9,7 @@
 @import './ProductCard.css';
 @import './ProductPage.css';
 @import './Cart.css';
+@import './SearchBar.css';
 
 /* tailwind imports*/
 @import 'tailwindcss/base';
