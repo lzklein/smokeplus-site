@@ -1,6 +1,7 @@
 const express = require('express');
 const { sequelize, Product,Cart } = require('../models'); 
 const { Op } = require('sequelize');
+const Fuse = require('fuse.js');
 
 const router = express.Router();
 
@@ -31,6 +32,29 @@ router.get('/:id', async (req, res) => {
     }
   } catch (error) {
     console.error('Error fetching product:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Fuzzy search for products
+router.get('/search/:query', async (req, res) => {
+  const searchQuery = req.params.query;
+
+  try {
+    const products = await Product.findAll();
+
+    // fuse parameters
+    const fuseOptions = {
+      keys: ['name', 'flavor', 'categories', 'sizes'],
+      threshold: 0.5,
+    };
+    
+    const fuse = new Fuse(products, fuseOptions);
+    const searchResults = fuse.search(searchQuery);
+
+    res.json(searchResults);
+  } catch (error) {
+    console.error('Error searching products:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
