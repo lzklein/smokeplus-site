@@ -20,6 +20,7 @@ import Checkout from './components/Checkout';
 import OrderCheck from './components/OrderCheck';
 import PopularAll from './components/PopularAll';
 import DealsAll from './components/DealsAll';
+import Search from './components/Search';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -165,6 +166,7 @@ const App = () => {
     <div className="App" id='root'>
       <Header />
       <Routes>        
+        <Route path='/search' element={<Search />} />
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path="/products/:productId" element={<ProductPage />} />
