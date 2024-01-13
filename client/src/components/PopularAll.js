@@ -47,7 +47,10 @@ const PopularAll = () => {
   }
 
   return (
-    <div className="productcard-container">{renderCategoryProducts()}</div>
+    <div>
+      <h1>Popular Products</h1>
+      <div className="productcard-container">{renderCategoryProducts()}</div>
+    </div>
   );
 }
 
