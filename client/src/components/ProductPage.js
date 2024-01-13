@@ -215,7 +215,7 @@ const ProductPage = () => {
             <p>{product.description}</p>
           </div>
         </div>
-        <h3 style={{ textAlign: 'left', marginLeft: '25%' }}>Related Items:</h3>
+        <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '25%' }}>Related Items:</h3>
         <div className="related-products">
           {relatedProducts ? renderRelatedProducts() : null}
         </div>

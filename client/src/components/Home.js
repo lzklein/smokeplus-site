@@ -21,7 +21,7 @@ const Home = ({bannerImages}) => {
         <Deals />
       </div>
       <div>
-        <div className="section">
+        <div className="section" style={{marginTop:'-50px'}}>
           <h2>Popular!</h2>
           <Link className="see-all-link" to='/popular/all'>See All &raquo;</Link>
         </div>
