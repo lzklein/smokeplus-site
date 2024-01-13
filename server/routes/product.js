@@ -105,6 +105,29 @@ router.get('/:productName/sizes', async (req, res) => {
   }
 });
 
+// routes.js
+router.get('/category/:category', async (req, res) => {
+  const category = req.params.category;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        categories: category,
+      },
+    });
+
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404).json({ error: 'Products not found for the specified category' });
+    }
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 // Get all popular
 router.post('/popular', async (req, res) => {
   console.log('getting popular products!');
