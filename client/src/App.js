@@ -21,6 +21,7 @@ import OrderCheck from './components/OrderCheck';
 import PopularAll from './components/PopularAll';
 import DealsAll from './components/DealsAll';
 import Search from './components/Search';
+import CategoryMore from './components/CategoryMore';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -167,6 +168,7 @@ const App = () => {
       <Header />
       <Routes>        
         <Route path='/search' element={<Search />} />
+        <Route path='/category/more/:category' element={<CategoryMore />} />
         <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
         <Route path='/deals/edit' element={<DealsEdit/>}/>
         <Route path="/products/:productId" element={<ProductPage />} />
