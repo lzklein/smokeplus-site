@@ -143,8 +143,8 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   if(!!order){
     return(
       <div className='cartcard'>
-        <img style={{marginLeft:'800px'}} src={product.image} className='cart-img' alt={product.name} />
-        <h3 style={{marginRight:'800px'}}>{product.name} {product.flavors} {product.sizes} - {item.quantity}</h3>
+        <img style={{marginLeft:'25vw'}} src={product.image} className='cart-img' alt={product.name} />
+        <h3 style={{marginRight:'25vw'}}>{product.name} {product.flavors} {product.sizes} - {item.quantity}</h3>
       </div>
     )
   }
