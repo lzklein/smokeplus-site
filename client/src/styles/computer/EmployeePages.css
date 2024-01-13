@@ -47,10 +47,21 @@
   color: rgba(0, 0, 0, .3);
 }
 
-.employee-link{
-  margin-bottom:10px;
-  font: weight 1000px;;
+.employee-link {
+  display: block;
+  font-weight: 400; 
+  font-size: 20px;
+  margin: 0 35vw 35px 35vw;
+  background-color: white;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
+  text-decoration: none; /* Remove default underline for links */
+  color: inherit; /* Inherit color from parent */
 }
+
+.employee-link:hover {
+  color: #16437E;
+}
+
 
 .employee-menu{
   margin:20px;
