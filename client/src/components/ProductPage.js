@@ -12,6 +12,7 @@ const ProductPage = () => {
   const [sizes, setSizes] = useState([]);
   const [relatedProducts, setRelatedProducts] = useState([]);
   const [itemQuantity, setItemQuantity] = useState(1);
+  const [carted, setCarted] = useState(false)
 
   const navigate = useNavigate();
 
@@ -208,11 +209,13 @@ const ProductPage = () => {
               style={{ marginTop: '10px' }}
               onClick={() => {
                 addToCart(product, itemQuantity);
+                setCarted(true);
               }}
             >
               Add to Cart 🛒
             </button>
-            <p>{product.description}</p>
+            {carted?<p style={{color:'green'}}>added to cart!</p>:<p>&nbsp;</p>}
+            <p style={{marginTop:'5px'}}>{product.description}</p>
           </div>
         </div>
         <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '25%' }}>Related Items:</h3>
