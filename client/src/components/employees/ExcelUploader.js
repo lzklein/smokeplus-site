@@ -179,6 +179,7 @@ const ExcelUploader = () => {
           Submit
         </button>
       )}
+      <div style={{marginBottom:'250px'}}></div>
     </div>
   );
 };
