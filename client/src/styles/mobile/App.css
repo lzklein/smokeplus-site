@@ -1,4 +1,12 @@
-body {
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import './Home.css';
+
+@media only screen and (max-width: 767px) {
+
+  body {
     background-color: whitesmoke;
   }
   
@@ -25,3 +33,4 @@ body {
   .App {
     text-align: center;
   }
+}
