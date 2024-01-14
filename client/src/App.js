@@ -1,9 +1,9 @@
 // imports
-import './styles/computer/App.css';
-import './styles/mobile/App.css';
 import React, { createContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
+
+import './styles/computer/App.css';
 
 // components
 import Header from './components/Header';
@@ -33,21 +33,26 @@ import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 import PickPopular from './components/employees/PickPopular';
 
+// css
+const loadMobileStyles = async () => {
+  await import('./styles/mobile/App.css');
+};
+
 export const SessionContext = createContext();
 
 const generateSessionId = () => {
   return uuidv4();
 };
 
-// TODO excel, finish css
 const App = () => {
-
-  const [sessionId, setSessionId] = useState('')
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [mobileLoading, setMobileLoading] = useState(true);
+  const [sessionId, setSessionId] = useState('');
   const [loading, setLoading] = useState(true);
   const [bannerImages, setBannerImages] = useState([]);
   // ! Switch back to false before deploy
   const [authorized, setAuthorized] = useState(true);
-  const [cart, setCart] = useState([])
+  const [cart, setCart] = useState([]);
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
 
   useEffect(() => {
@@ -56,47 +61,53 @@ const App = () => {
       currentSession = generateSessionId();
       localStorage.setItem('sessionId', currentSession);
     }
-    setSessionId(currentSession)
+    setSessionId(currentSession);
   }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        console.log("sessionId:",sessionId)
+        console.log('sessionId:', sessionId);
         const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
         const cartData = await response.json();
-        setCart(cartData);    
+        setCart(cartData);
         await fetchBannerImages();
-
       } catch (error) {
         console.error('Error fetching cart:', error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
     };
     fetchCartItems();
-  },[sessionId])
-  
-  const addToCart = (product, itemQuantity=1) => {
+  }, [sessionId]);
+
+  useEffect(() => {
+    const loadMobileStylesIfNeeded = async () => {
+      if (isMobile) {
+        await loadMobileStyles();
+        setMobileLoading(false);
+      }
+    };
+
+    loadMobileStylesIfNeeded();
+  }, [isMobile]);
+
+  const addToCart = (product, itemQuantity = 1) => {
     const cartItem = {
       user: sessionId,
       product: product.id,
       quantity: itemQuantity,
-    }
-    // console.log(cart)
-    // cart.map((item)=>{console.log(item.product)})
-    // console.log(cartItem.product)
+    };
+
     const existingCartItem = cart.find((item) => item.product === cartItem.product);
-    if(existingCartItem){
-      cartPatch(existingCartItem)
-    }
-    else{
+    if (existingCartItem) {
+      cartPatch(existingCartItem);
+    } else {
       cartPost(cartItem);
     }
-  }
+  };
 
   const cartPatch = async (cartItem) => {
-    // console.log(cartItem)
     const response = await fetch(`${API_BASE_URL}/api/cart/${cartItem.id}`, {
       method: 'PATCH',
       headers: {
@@ -106,43 +117,41 @@ const App = () => {
         quantity: cartItem.quantity + 1,
       }),
     });
-  
+
     if (!response.ok) {
       console.error('Failed to update cart item:', response.statusText);
     } else {
       console.log('Cart item updated successfully');
-      // Fetch updated cart items after successful update
       const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
       const updatedCartData = await updatedResponse.json();
       setCart(updatedCartData);
     }
   };
-  
+
   const cartPost = async (cartItem) => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/cart`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          cartItem, 
+          cartItem,
         }),
       });
-  
+
       if (!response.ok) {
         console.error('Failed to add item to cart:', response.statusText);
       } else {
         const updatedCartData = await response.json();
         console.log('Item added to cart successfully');
-        setCart((prevState)=>[...prevState, updatedCartData]);
+        setCart((prevState) => [...prevState, updatedCartData]);
       }
     } catch (error) {
       console.error('Error adding item to cart:', error.message);
     }
   };
 
-  // banner images
   const fetchBannerImages = async () => {
     try {
       const response = await fetch(`${API_BASE_URL}/api/banner/images`);
@@ -156,45 +165,51 @@ const App = () => {
       console.error('Error:', error);
     }
   };
-  
+
+  if(!!loading){
+    return(
+      <div>Loading</div>
+    )
+  }
+
   return (
-    <SessionContext.Provider value={{sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized}}>
-    {loading?
-    <div>
-      Loading
-    </div>
-    :
-    <div className="App" id='root'>
-      <Header />
-      <Routes>        
-        <Route path='/search' element={<Search />} />
-        <Route path='/category/more/:category' element={<CategoryMore />} />
-        <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
-        <Route path='/deals/edit' element={<DealsEdit/>}/>
-        <Route path="/products/:productId" element={<ProductPage />} />
-        <Route path='/popular/edit' element={<PickPopular/>}/>
-        <Route path='/cart' element={<Cart />} />
-        <Route path='/order/:id' element={<OrderCheck />}/>
-        <Route path='/order' element={<Order />} />
-        <Route path='/all' element={<AllProducts />} />
-        <Route path='/categories' element={<Contact />} />
-        <Route path='/popular/all' element={<PopularAll/>}/>
-        <Route path='/deals/all' element={<DealsAll/>}/>
-        <Route path='/checkout' element={<Checkout />}/>
-        <Route path='/deals' element={<Deals/>}/>
-        <Route path='/popular' element={<Popular/>}/>
-        <Route path='/employee-login' element={<EmployeeLogin/>}/>
-        <Route path='/employee' element={<EmployeeHome/>}/>
-        <Route path="/inventory/edit" element={<InventoryEdit/>} />
-        <Route path="/inbox" element={<Inbox/>} />
-        <Route path="/upload" element={<ExcelUploader/>} />
-        <Route path="/" element={<Home bannerImages={bannerImages}/>} />
-      </Routes>
-      <Footer />
-    </div>
-    }
+    <SessionContext.Provider
+      value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile }}
+    >
+      {loading || (isMobile && mobileLoading) ? (
+        <div>Loading</div>
+      ) : (
+        <div className="App" id="root">
+          <Header />
+          <Routes>
+          <Route path='/search' element={<Search />} />
+            <Route path='/category/more/:category' element={<CategoryMore />} />
+            <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
+            <Route path='/deals/edit' element={<DealsEdit/>}/>
+            <Route path="/products/:productId" element={<ProductPage />} />
+            <Route path='/popular/edit' element={<PickPopular/>}/>
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/order/:id' element={<OrderCheck />}/>
+            <Route path='/order' element={<Order />} />
+            <Route path='/all' element={<AllProducts />} />
+            <Route path='/categories' element={<Contact />} />
+            <Route path='/popular/all' element={<PopularAll/>}/>
+            <Route path='/deals/all' element={<DealsAll/>}/>
+            <Route path='/checkout' element={<Checkout />}/>
+            <Route path='/deals' element={<Deals/>}/>
+            <Route path='/popular' element={<Popular/>}/>
+            <Route path='/employee-login' element={<EmployeeLogin/>}/>
+            <Route path='/employee' element={<EmployeeHome/>}/>
+            <Route path="/inventory/edit" element={<InventoryEdit/>} />
+            <Route path="/inbox" element={<Inbox/>} />
+            <Route path="/upload" element={<ExcelUploader/>} />
+            <Route path="/" element={<Home bannerImages={bannerImages}/>} />
+          </Routes>
+          <Footer />
+        </div>
+      )}
     </SessionContext.Provider>
   );
-}
+};
 
 export default App;
