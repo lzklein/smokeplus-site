@@ -7,7 +7,7 @@ import { SessionContext } from '../App';
 // import '../styles/Header.css';
 
 const Header = () => {
-  const { sessionId, cart } = useContext(SessionContext);
+  const { sessionId, cart, isMobile } = useContext(SessionContext);
 
   return (
     <header className="header" style={{ userSelect: 'none' }}>
