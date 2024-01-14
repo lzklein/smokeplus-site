@@ -1,3 +1,9 @@
+/* tailwind */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* components */
 @import './Banner.css';
 @import './EmployeeLogin.css';
 @import './Footer.css';
@@ -10,11 +16,6 @@
 @import './ProductPage.css';
 @import './Cart.css';
 @import './SearchBar.css';
-
-/* tailwind imports*/
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
 
 body {
   background-color: whitesmoke;
