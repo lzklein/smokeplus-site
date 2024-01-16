@@ -35,8 +35,9 @@ import PickPopular from './components/employees/PickPopular';
 import Searchbar from './components/Searchbar';
 
 // css
-const loadMobileStyles = async () => {
-  await import('./styles/mobile/App.css');
+const loadMobileStyles = async (isMobile) => {
+  const cssFileName = isMobile ? 'mobile/App.css' : 'computer/App.css';
+  await import(`./styles/${cssFileName}`);
 };
 
 export const SessionContext = createContext();
