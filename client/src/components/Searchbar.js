@@ -8,8 +8,9 @@ const Searchbar = () => {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    // Navigate to /search with searchText as a query parameter
-    navigate(`/search?query=${encodeURIComponent(searchText)}`);
+    if(!!searchText){
+      navigate(`/search?query=${encodeURIComponent(searchText)}`);
+    }
   };
 
   const handleKeyDown = (e) => {
