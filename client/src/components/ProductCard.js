@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const ProductCard = ({ product }) => {
-  const { addToCart } = useContext(SessionContext);
+  const { addToCart, isMobile } = useContext(SessionContext);
   const [carted, setCarted] = useState(false);
 
   const getPrice = () => {
@@ -24,6 +24,43 @@ const ProductCard = ({ product }) => {
       clearTimeout(timeout);
     };
   }, [carted]);
+
+  if(isMobile){
+    return(
+      <div>
+      <Link to={`/products/${product.id}`}>
+        <img src={product.image} className='cardimage' alt={product.name} />
+        <h4>
+          {product.name} {product.flavors} {product.sizes}
+        </h4>
+        {!!product.deals?
+          <span style={{color: 'red',}}> {product.deals}% Off!</span>
+          :
+          <span>&nbsp;</span>
+          }
+
+        <p>
+          Qty: {product.quantity} | {product.deals ? (
+            <>             
+              <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                ${parseFloat(product.price).toFixed(2)}
+              </span>
+              <span style={{color: 'red',}}> {getPrice()} </span> 
+
+            </>
+          ) : (
+            <span>${parseFloat(product.price).toFixed(2)}</span>
+          )}
+        </p>
+      </Link>
+      <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
+        🛒 +
+      </button>
+      <br />
+      {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
+    </div>
+    )
+  }
 
   return (
     <div>

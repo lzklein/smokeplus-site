@@ -43,11 +43,15 @@ const Deals = () => {
   }
 
   if (products.length === 0) {
-    return <div>Oops No Products. Site Not Updated</div>;
+    return <div>
+      --Currently No Deals--
+    </div>;
   }
 
   return (
-    <div className='related-products'>{renderCategoryProducts()}</div>
+    <div className='related-products'>
+      {renderCategoryProducts()}
+      </div>
   );
 }
 
