@@ -1,13 +1,20 @@
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
 import NavLeft from './NavLeft';
 import NavRight from './NavRight';
 import { SessionContext } from '../App'; 
 
-// import '../styles/Header.css';
-
 const Header = () => {
   const { sessionId, cart, isMobile } = useContext(SessionContext);
+
+  if(isMobile){
+    return(
+      <header className="header" style={{ userSelect: 'none' }}>
+      <div className="left-nav">
+        <NavLeft />
+      </div>
+    </header>
+    )
+  }
 
   return (
     <header className="header" style={{ userSelect: 'none' }}>

@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Map from './Map';
-// import '../styles/Footer.css';
+import { SessionContext } from '../App'; 
 
 const Footer = () => {
+  const { isMobile } = useContext(SessionContext);
+
+  if(isMobile){
+    return(
+      <footer className='footer'>
+        <div>
+          {/* Right column content (map) */}
+          <div id="map-container">
+            <Map />
+          </div>
+          <p className='map-address' style={{marginLeft:'190px'}}>
+            SMOKE PLUS, 1222 Bronson Way N UNIT 110, Renton, WA 98057
+          </p>
+        </div>
+      </footer>
+    )
+  }
+
   return (
     <footer className="footer">
-
       <div className="footer-center" style={{marginLeft:'300px', marginTop:'20px'}}>
         <ul>
           <li><h4>Contact Us</h4></li>
