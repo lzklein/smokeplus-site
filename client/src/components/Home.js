@@ -12,7 +12,7 @@ const Home = ({bannerImages}) => {
   if(isMobile){
     return(
       <div>
-      {isMobile? <p>Mobile Mode Activated!!!!!</p>: null}
+        <Searchbar />
         <div>
           <div className="section" style={{marginTop:'30px'}}>
             <h2>Deals!</h2>
@@ -33,7 +33,6 @@ const Home = ({bannerImages}) => {
 
   return (
     <div>
-      {isMobile? <p>Mobile Mode Activated!!!!!</p>: null}
       <Searchbar />
       {bannerImages?      
        <Banner images={bannerImages} />
