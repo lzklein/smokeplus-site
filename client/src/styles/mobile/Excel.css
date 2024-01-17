@@ -1,0 +1,16 @@
+.excel-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.excel-table th, .excel-table td {
+  border: 1px solid #ddd; /* Light gray border */
+  padding: 8px;
+  min-width: 100px; /* Set a minimum width for the cells */
+  text-align: left; /* Align all text to the left */
+}
+
+.excelsubmitter{
+  margin: 15px;
+  margin-right: -100px;
+}

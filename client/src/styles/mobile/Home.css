@@ -1,0 +1,13 @@
+.section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-left: 5vw;
+    margin-right: 5vw;
+  }
+  
+  .see-all-link {
+    text-decoration: none;
+    color: #0077CC; /* Customize the color as needed */
+  }

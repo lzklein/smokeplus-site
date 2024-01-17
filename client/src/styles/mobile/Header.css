@@ -1,0 +1,38 @@
+/* header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background: linear-gradient(180deg,rgb(40,40,40) 0%, rgb(40,40,40) 90%, whitesmoke 96%);
+  }
+  
+  .left-nav, .right-nav, .logo {
+    padding: 10px;
+    flex-shrink: 0; /* Prevent these elements from growing beyond their content */
+  }
+
+  .headnav:hover {
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 1);
+  }
+
+  .left-nav, .right-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .left-nav a, .right-nav a, .logo a {
+    text-decoration: none;
+    color: white;
+    margin: 0 10px;
+  }
+  
+  .logo {
+    flex-grow: 1; /* Take up remaining space */
+  }
+
+  .logo a {
+    font-size: 1.5rem; /* Increase font size for the logo */
+  }

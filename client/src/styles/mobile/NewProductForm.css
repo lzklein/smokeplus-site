@@ -1,0 +1,21 @@
+.form-container {
+  display: flex;
+  align-items: flex-start;
+}
+
+.form-group {
+    margin-bottom: 15px;
+  }
+  
+input.error {
+  border: 1px solid red;
+  color: red;
+}
+
+.error-message {
+  color: red;
+}
+  
+.imgpreview {
+  max-width: 300px;
+}

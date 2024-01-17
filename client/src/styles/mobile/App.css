@@ -1,36 +1,47 @@
+/* tailwind */
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+/* components */
+@import './Banner.css';
+@import './EmployeeLogin.css';
+@import './Footer.css';
+@import './Header.css';
 @import './Home.css';
+@import './Excel.css';
+@import './EmployeePages.css';
+@import './NewProductForm.css';
+@import './ProductCard.css';
+@import './ProductPage.css';
+@import './Cart.css';
+@import './SearchBar.css';
 
-@media only screen and (max-width: 767px) {
+body {
+  background-color: whitesmoke;
+}
 
-  body {
-    background-color: whitesmoke;
-  }
-  
-  body h1 {
-    font-size:32px;
-    font-weight:bold;
-  }
-  
-  body h2 {
-    font-size:24px;
-    font-weight:bold;
-  }
-  
-  body h3 {
-    font-size:18px;
-    font-weight:bold;
-  }
-  
-  body h4 {
-    font-size:12px;
-    font-weight:bold;
-  }
-  
-  .App {
-    text-align: center;
-  }
+body h1 {
+  font-size:32px;
+  font-weight:bold;
+}
+
+body h2 {
+  font-size:24px;
+  font-weight:bold;
+}
+
+body h3 {
+  font-size:18px;
+  font-weight:bold;
+}
+
+body h4 {
+  font-size:12px;
+  font-weight:bold;
+}
+
+
+.App {
+  text-align: center;
 }
