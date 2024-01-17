@@ -3,8 +3,6 @@ import React, { createContext, useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
-import './styles/computer/App.css';
-
 // components
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -85,10 +83,8 @@ const App = () => {
 
   useEffect(() => {
     const loadMobileStylesIfNeeded = async () => {
-      if (isMobile) {
-        await loadMobileStyles();
-        setMobileLoading(false);
-      }
+      await loadMobileStyles(isMobile); // Pass isMobile here
+      setMobileLoading(false);
     };
 
     loadMobileStylesIfNeeded();
@@ -168,90 +164,49 @@ const App = () => {
     }
   };
 
-  if(!!loading){
-    return(
-      <div>Loading</div>
-    )
-  }
+  const routes = [
+    { path: '/search', element: <Search /> },
+    { path: '/category/more/:category', element: <CategoryMore /> },
+    { path: '/banner/edit', element: <BannerEdit bannerImages={bannerImages} /> },
+    { path: '/deals/edit', element: <DealsEdit /> },
+    { path: '/products/:productId', element: <ProductPage /> },
+    { path: '/popular/edit', element: <PickPopular /> },
+    { path: '/cart', element: <Cart /> },
+    { path: '/order/:id', element: <OrderCheck /> },
+    { path: '/order', element: <Order /> },
+    { path: '/all', element: <AllProducts /> },
+    { path: '/categories', element: <Contact /> },
+    { path: '/popular/all', element: <PopularAll /> },
+    { path: '/deals/all', element: <DealsAll /> },
+    { path: '/checkout', element: <Checkout /> },
+    { path: '/deals', element: <Deals /> },
+    { path: '/popular', element: <Popular /> },
+    { path: '/employee-login', element: <EmployeeLogin /> },
+    { path: '/employee', element: <EmployeeHome /> },
+    { path: '/inventory/edit', element: <InventoryEdit /> },
+    { path: '/inbox', element: <Inbox /> },
+    { path: '/upload', element: <ExcelUploader /> },
+    { path: '/', element: <Home bannerImages={bannerImages} /> },
+  ];
 
-  if (isMobile){
-    return (
-      <SessionContext.Provider
-        value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile }}
-      >
-        {loading || (isMobile && mobileLoading) ? (
-          <div>Loading</div>
-        ) : (
-          <div className="App" id="root">
-            <Searchbar/>
-            <Header />
-            <Routes>
-            <Route path='/search' element={<Search />} />
-              <Route path='/category/more/:category' element={<CategoryMore />} />
-              <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
-              <Route path='/deals/edit' element={<DealsEdit/>}/>
-              <Route path="/products/:productId" element={<ProductPage />} />
-              <Route path='/popular/edit' element={<PickPopular/>}/>
-              <Route path='/cart' element={<Cart />} />
-              <Route path='/order/:id' element={<OrderCheck />}/>
-              <Route path='/order' element={<Order />} />
-              <Route path='/all' element={<AllProducts />} />
-              <Route path='/categories' element={<Contact />} />
-              <Route path='/popular/all' element={<PopularAll/>}/>
-              <Route path='/deals/all' element={<DealsAll/>}/>
-              <Route path='/checkout' element={<Checkout />}/>
-              <Route path='/deals' element={<Deals/>}/>
-              <Route path='/popular' element={<Popular/>}/>
-              <Route path='/employee-login' element={<EmployeeLogin/>}/>
-              <Route path='/employee' element={<EmployeeHome/>}/>
-              <Route path="/inventory/edit" element={<InventoryEdit/>} />
-              <Route path="/inbox" element={<Inbox/>} />
-              <Route path="/upload" element={<ExcelUploader/>} />
-              <Route path="/" element={<Home bannerImages={bannerImages}/>} />
-            </Routes>
-            <Footer />
-          </div>
-        )}
-      </SessionContext.Provider>
-    );
+  if (!!loading) {
+    return <div>Loading</div>;
   }
 
   return (
     <SessionContext.Provider
       value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile }}
     >
-      {loading || (isMobile && mobileLoading) ? (
-        <div>Loading</div>
-      ) : (
-        <div className="App" id="root">
-          <Header />
-          <Routes>
-          <Route path='/search' element={<Search />} />
-            <Route path='/category/more/:category' element={<CategoryMore />} />
-            <Route path="/banner/edit" element={<BannerEdit bannerImages={bannerImages}/>} />
-            <Route path='/deals/edit' element={<DealsEdit/>}/>
-            <Route path="/products/:productId" element={<ProductPage />} />
-            <Route path='/popular/edit' element={<PickPopular/>}/>
-            <Route path='/cart' element={<Cart />} />
-            <Route path='/order/:id' element={<OrderCheck />}/>
-            <Route path='/order' element={<Order />} />
-            <Route path='/all' element={<AllProducts />} />
-            <Route path='/categories' element={<Contact />} />
-            <Route path='/popular/all' element={<PopularAll/>}/>
-            <Route path='/deals/all' element={<DealsAll/>}/>
-            <Route path='/checkout' element={<Checkout />}/>
-            <Route path='/deals' element={<Deals/>}/>
-            <Route path='/popular' element={<Popular/>}/>
-            <Route path='/employee-login' element={<EmployeeLogin/>}/>
-            <Route path='/employee' element={<EmployeeHome/>}/>
-            <Route path="/inventory/edit" element={<InventoryEdit/>} />
-            <Route path="/inbox" element={<Inbox/>} />
-            <Route path="/upload" element={<ExcelUploader/>} />
-            <Route path="/" element={<Home bannerImages={bannerImages}/>} />
-          </Routes>
-          <Footer />
-        </div>
-      )}
+      <div className="App" id="root">
+        {isMobile && <Searchbar />} {/* Render Searchbar only for mobile */}
+        <Header />
+        <Routes>
+          {routes.map(({ path, element }, index) => (
+            <Route key={index} path={path} element={element} />
+          ))}
+        </Routes>
+        <Footer />
+      </div>
     </SessionContext.Provider>
   );
 };
