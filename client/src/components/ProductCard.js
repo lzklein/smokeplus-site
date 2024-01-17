@@ -25,13 +25,21 @@ const ProductCard = ({ product }) => {
     };
   }, [carted]);
 
+  const getProductName = () => {
+    const productName = product.name + " " + product.flavors + " " + product.sizes
+    if (productName.length > 21){
+      return productName.slice(0, 20) + "..."
+    }
+    return productName
+  }
+
   if(isMobile){
     return(
       <div>
       <Link to={`/products/${product.id}`}>
         <img src={product.image} className='cardimage' alt={product.name} />
         <h4>
-          {product.name} {product.flavors} {product.sizes}
+          {getProductName()}
         </h4>
         {!!product.deals?
           <span style={{color: 'red',}}> {product.deals}% Off!</span>
