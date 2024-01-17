@@ -30,7 +30,6 @@ import BannerEdit from './components/employees/BannerEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 import PickPopular from './components/employees/PickPopular';
-import Searchbar from './components/Searchbar';
 
 // css
 const loadMobileStyles = async (isMobile) => {
@@ -198,7 +197,6 @@ const App = () => {
       value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile }}
     >
       <div className="App" id="root">
-        {isMobile && <Searchbar />} {/* Render Searchbar only for mobile */}
         <Header />
         <Routes>
           {routes.map(({ path, element }, index) => (
