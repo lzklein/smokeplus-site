@@ -3,8 +3,12 @@
     display: flex;
     align-items: center;
     justify-content: center; /* Center horizontally */
+    background: linear-gradient(to bottom, whitesmoke 85%, rgba(255, 255, 255, 0) 100%);
+    padding-top:15px;
+    padding-bottom:10px;
+    margin-bottom: -10px;
 }
-
+  
 .search-input {
     padding: 10px;
     border: 2.5px solid #ccc !important;
@@ -12,12 +16,12 @@
     font-size: 24px !important;
     margin-right: -5px; /* Overlapping margin to the right */
 }
-
+  
 .search-input:focus,
 .search-button:focus {
     outline: none !important;
 }
-
+  
 .search-button {
     padding: 12.5px 40px;
     background-color: #007bff;
@@ -28,7 +32,14 @@
     margin-left: -5px; /* Overlapping margin to the left */
     outline: none; /* Remove default outline */
 }
-
+  
 .search-button:hover {
     background-color: #0056b3; /* Adjust color on hover */
 }
+  
+.sticky {
+    position: sticky;
+    top: 0px; /* Adjust top position as needed */
+    z-index: 100; /* Set a high z-index to ensure it appears above other content */
+}
+  
