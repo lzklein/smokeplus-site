@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import { SessionContext } from '../App'; 
 
 const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
+  const { cart, API_BASE_URL, isMobile } = useContext(SessionContext);
   const [loaded, setLoaded] = useState(false);
   const [product, setProduct] = useState([]);
   const [initSet, setInitSet] = useState(true);
@@ -25,7 +27,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   useEffect(()=>{
     if(!initSet){
       if(!order){
-        console.log(product)
+        // console.log(product)
         if(!!product.deals){
           setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity)
           setInitSet(true)
@@ -140,6 +142,17 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     }
   };
 
+  const getProductName = () => {
+    const productName = product.name.toLowerCase() + " " + product.flavors.toLowerCase() + " " + product.sizes.toLowerCase();
+  
+    const formattedName = productName
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+
+    return formattedName;
+  };
+
   if(!!order){
     return(
       <div className='cartcard'>
@@ -153,31 +166,35 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     <div>
       {loaded ? (
         <div className='cartcard'>
-          <h3 style={{marginLeft:'300px'}}>{product.name} {product.flavors} {product.sizes}</h3>
+          <h3 style={isMobile ? { marginLeft: '10px' } : { marginLeft: '300px' }}>{getProductName()}</h3>
           <div className='cart-left'>
             <img src={product.image} className='cart-img' alt={product.name} />
           </div>
           <div className='cart-right'>
+            {isMobile && (
+              product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
+            )}
             <div className="cart-quantity">
-              <span className="minus" onClick={lessQuantity} style={{marginTop:'12px', marginRight:'-1px'}}>-</span>
+              <span className="minus" onClick={lessQuantity} style={{ marginTop: '12px', marginRight: '-1px' }}>-</span>
               <input
                 type="text"
                 className='counter'
                 readOnly
                 value={item.quantity}
               />
-              <span className="plus" onClick={moreQuantity} style={{marginTop:'12px', marginLeft:'-1px'}}>+</span>
+              <span className="plus" onClick={moreQuantity} style={{ marginTop: '12px', marginLeft: '-1px' }}>+</span>
             </div>
           </div>
-          <br />            
-          {product.deals? <p>${getPrice(product.price)}</p> :<p>${(product.price * item.quantity).toFixed(2)}</p>}
-          <button className="backbutton" onClick={handleDelete} style={{marginRight:'300px', marginLeft:'30px', marginTop:'16px'}}>Remove from Cart</button>
+          {!isMobile && <br />}
+          {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>)}
+          {isMobile? null: <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>Remove from Cart</button>}
         </div>
       ) : (
         <div>Loading...</div>
       )}
     </div>
   );
+  
 };
 
 export default CartCard;
