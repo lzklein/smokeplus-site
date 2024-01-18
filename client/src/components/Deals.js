@@ -32,8 +32,8 @@ const Deals = () => {
 
   const renderCategoryProducts = () => {
     return products.map((product) => {
-        return (<div key={product.id} className='productcard'>
-        <ProductCard product = {product} related={true}/>
+        return (<div key={product.id} className='productcard-compact'>
+        <ProductCard product = {product} compact={true}/>
       </div>)
     });
   };
