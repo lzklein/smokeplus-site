@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, compact }) => {
   const { addToCart, isMobile } = useContext(SessionContext);
   const [carted, setCarted] = useState(false);
 
@@ -26,14 +26,21 @@ const ProductCard = ({ product }) => {
   }, [carted]);
 
   const getProductName = () => {
-    const productName = product.name + " " + product.flavors + " " + product.sizes
-    if (productName.length > 21){
-      return productName.slice(0, 20) + "..."
+    const productName = product.name.toLowerCase() + " " + product.flavors.toLowerCase() + " " + product.sizes.toLowerCase();
+  
+    const formattedName = productName
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  
+    if (formattedName.length > 21) {
+      return formattedName.slice(0, 20) + "...";
     }
-    return productName
-  }
-
-  if(isMobile){
+  
+    return formattedName;
+  };
+  
+  if (isMobile &&compact){
     return(
       <div>
       <Link to={`/products/${product.id}`}>
@@ -48,7 +55,7 @@ const ProductCard = ({ product }) => {
           }
 
         <p>
-          Qty: {product.quantity} | {product.deals ? (
+          {product.deals ? (
             <>             
               <span style={{ textDecoration: 'line-through', color: 'grey' }}>
                 ${parseFloat(product.price).toFixed(2)}
@@ -62,7 +69,7 @@ const ProductCard = ({ product }) => {
         </p>
       </Link>
       <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
-        🛒 +
+        +Cart 🛒
       </button>
       <br />
       {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
@@ -70,6 +77,44 @@ const ProductCard = ({ product }) => {
     )
   }
 
+  if (isMobile) {
+    return (
+      <div className="productcard-container">
+        <Link to={`/products/${product.id}`} className="card-left">
+          <img src={product.image} className='cardimage' alt={product.name} />
+        </Link>
+        <div className="card-right">
+          <Link to={`/products/${product.id}`}>
+            <h4>{getProductName()}</h4>
+            {!!product.deals ? (
+              <span style={{ color: 'red' }}> {product.deals}% Off!</span>
+            ) : (
+              <span>&nbsp;</span>
+            )}
+            <p>
+              {product.deals ? (
+                <>
+                  <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                    ${parseFloat(product.price).toFixed(2)}
+                  </span>
+                  <span style={{ color: 'red' }}> {getPrice()} </span>
+                </>
+              ) : (
+                <span>${parseFloat(product.price).toFixed(2)}</span>
+              )}
+            </p>
+          </Link>
+          <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
+            +Cart 🛒
+          </button>
+          <br />
+          {carted ? <p style={{ color: 'green' }}>Added to Cart!</p> : <span>&nbsp;</span>}
+        </div>
+      </div>
+    );
+  }
+  
+  
   return (
     <div>
       <Link to={`/products/${product.id}`}>
