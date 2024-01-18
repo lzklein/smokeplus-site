@@ -3,7 +3,7 @@ import { SessionContext } from '../App';
 import ProductCard from './ProductCard';
 
 const Popular = () => {
-  const { sessionId, API_BASE_URL } = useContext(SessionContext);
+  const { sessionId, API_BASE_URL, isMobile } = useContext(SessionContext);
   const [products, setProducts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 
@@ -32,6 +32,14 @@ const Popular = () => {
 
   const renderCategoryProducts = () => {
     return products.map((product) => {
+        return (<div key={product.id} className='productcard'>
+        <ProductCard product = {product} compact={true}/>
+      </div>)
+    });
+  };
+
+  const renderCategoryProductsMobile = () => {
+    return products.map((product) => {
         return (<div key={product.id} className='productcard-compact'>
         <ProductCard product = {product} compact={true}/>
       </div>)
@@ -47,7 +55,9 @@ const Popular = () => {
   }
 
   return (
-    <div className='related-products'>{renderCategoryProducts()}</div>
+    <div className='related-products'>      
+      {isMobile? renderCategoryProductsMobile(): renderCategoryProducts()}
+    </div>
   );
 }
 
