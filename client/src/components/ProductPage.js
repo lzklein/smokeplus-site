@@ -136,12 +136,12 @@ const ProductPage = () => {
   if(isMobile){
     return (
       loaded ? (
-        <>
+        <div>
+          <h1 style={{marginTop:'25px'}}>{product.name}</h1>
           <div className='mobile-image'>
             <img src={product.image} alt={product.name} draggable='false' className="product-img" />
           </div>
           <br/>
-          <h2>{product.name}</h2>
           <p>
             {product.deals ? (
               <>             
@@ -176,7 +176,7 @@ const ProductPage = () => {
           )}
           {flavors.length > 0 && (
             <div>
-              <p>Flavors:</p>
+              <p style={{marginTop:'5px', marginBottom:'10px'}}>Flavors:</p>
               <select
                 onChange={(e) => {
                   const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
@@ -201,24 +201,24 @@ const ProductPage = () => {
             min={1}
             max={product.quantity}
             onChange={(e) => setItemQuantity(parseInt(e.target.value, 10))}
-            />
+          />
+          <br/>
           <button
             className="backbutton"
-            style={{ marginTop: '10px' }}
+            style={{ marginTop: '20px', padding:'15px' }}
             onClick={() => {
               addToCart(product, itemQuantity);
               setCarted(true);
             }}
-          >
-            Add to Cart 🛒
+          >Add to Cart 🛒
           </button>
-          {carted?<p style={{color:'green'}}>added to cart!</p>:<p>&nbsp;</p>}
+          {carted?<p style={{color:'green'}}>Added to cart!</p>:<p>&nbsp;</p>}
           <p style={{marginTop:'5px'}}>{product.description}</p>
-          <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '25%' }}>Related Items:</h3>
+          <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '10%' }}>Related Items:</h3>
           <div className="related-products">
             {relatedProducts ? renderRelatedProducts() : null}
           </div>
-        </>
+        </div>
       ) : (
         <div className="empty-space" style={{ margin: '5000px' }}>
           <h1>Loading</h1>
@@ -308,7 +308,7 @@ const ProductPage = () => {
             >
               Add to Cart 🛒
             </button>
-            {carted?<p style={{color:'green'}}>added to cart!</p>:<p>&nbsp;</p>}
+            {carted?<p style={{color:'green'}}>Added to cart!</p>:<p>&nbsp;</p>}
             <p style={{marginTop:'5px'}}>{product.description}</p>
           </div>
         </div>
