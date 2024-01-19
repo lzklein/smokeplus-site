@@ -1,6 +1,6 @@
 // imports
 import React, { createContext, useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 // components
@@ -53,6 +53,11 @@ const App = () => {
   const [authorized, setAuthorized] = useState(true);
   const [cart, setCart] = useState([]);
   const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
 
   useEffect(() => {
     let currentSession = localStorage.getItem('sessionId');
