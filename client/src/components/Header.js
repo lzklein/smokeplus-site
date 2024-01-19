@@ -1,5 +1,5 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import NavLeft from './NavLeft';
 import NavRight from './NavRight';
 import { SessionContext } from '../App'; 
@@ -9,11 +9,17 @@ const Header = () => {
   const { sessionId, cart, isMobile } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
+  const location = useLocation();
 
   const handleBurger = () => {
     setIsOpen(!isOpen);
     setHidden(!hidden);
   };
+
+  useEffect(() => {
+    setIsOpen(false);
+    setHidden(true);
+  }, [location.pathname]);
 
   if(isMobile){
     return(
