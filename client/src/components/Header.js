@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import NavLeft from './NavLeft';
 import NavRight from './NavRight';
 import { SessionContext } from '../App'; 
@@ -26,10 +27,9 @@ const Header = () => {
       </div>
       {!hidden && (
           <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
-            {/* Add your menu items or components here */}
-            <p>Menu Item 1</p>
-            <p>Menu Item 2</p>
-            {/* ... */}
+            <Link to="/all" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>All Products</Link>
+            <Link to="/categories" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>Top Categories</Link>
+            <Link to="/order" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>Order Status</Link>
           </div>
         )}
       <div className="right-nav" style={{ userSelect: 'none' }}>
