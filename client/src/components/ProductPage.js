@@ -4,7 +4,7 @@ import { SessionContext } from '../App';
 import ProductCard from './ProductCard';
 
 const ProductPage = () => {
-  const { sessionId, cart, setCart, API_BASE_URL, addToCart } = useContext(SessionContext);
+  const { sessionId, cart, setCart, API_BASE_URL, addToCart, isMobile } = useContext(SessionContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -126,13 +126,13 @@ const ProductPage = () => {
   }
     
   const renderRelatedProducts = () => {
-    return relatedProducts.map((product) => {
-      return (<div key={product.id} className='productcard'>
-        <ProductCard product = {product}/>
-      </div>)
-    })
-  }
-
+    return relatedProducts.map((product) => (
+      <div key={product.id} className={`productcard${isMobile ? '-compact' : ''}`}>
+        <ProductCard product={product} compact={isMobile} />
+      </div>
+    ));
+  };
+  
   return (
     loaded ? (
       <>
