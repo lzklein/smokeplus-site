@@ -127,12 +127,106 @@ const ProductPage = () => {
     
   const renderRelatedProducts = () => {
     return relatedProducts.map((product) => (
-      <div key={product.id} className={`productcard${isMobile ? '-compact' : ''}`}>
+      <div key={product.id} className={isMobile?'productcard-compact':'productcard'}>
         <ProductCard product={product} compact={isMobile} />
       </div>
     ));
   };
   
+  if(isMobile){
+    return (
+      loaded ? (
+        <>
+          <div className='mobile-image'>
+            <img src={product.image} alt={product.name} draggable='false' className="product-img" />
+          </div>
+          <br/>
+          <h2>{product.name}</h2>
+          <p>
+            {product.deals ? (
+              <>             
+                <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                  ${parseFloat(product.price).toFixed(2)}
+                </span>
+                <span style={{color: 'red',}}> {getPrice()} </span> 
+
+              </>
+            ) : (
+              <span>${parseFloat(product.price).toFixed(2)}</span>
+            )}
+          </p>
+  
+          {sizes.length > 0 && (
+            <div>
+              <p>Size Options:</p>
+              <select
+                onChange={(e) => {
+                  const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
+                  navigate(`/products/${selectedId}`);
+                }}
+                defaultValue={product.sizes}
+              >
+                {sizes.map((sizeProduct) => (
+                  <option key={sizeProduct.id} value={sizeProduct.sizes} data-id={sizeProduct.id}>
+                    {sizeProduct.sizes}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          {flavors.length > 0 && (
+            <div>
+              <p>Flavors:</p>
+              <select
+                onChange={(e) => {
+                  const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
+                  navigate(`/products/${selectedId}`);
+                }}
+                defaultValue={product.flavors}
+              >
+                {flavors.map((flavorProduct) => (
+                  <option key={flavorProduct.id} value={flavorProduct.flavors} data-id={flavorProduct.id}>
+                    {flavorProduct.flavors}
+                  </option>
+                ))}
+              </select>
+            </div>
+          )}
+          <br />
+          <input 
+            name='itemQuantity'
+            type='number'  
+            style={{marginRight:'5px', maxWidth:'70px'}}
+            defaultValue={1}
+            min={1}
+            max={product.quantity}
+            onChange={(e) => setItemQuantity(parseInt(e.target.value, 10))}
+            />
+          <button
+            className="backbutton"
+            style={{ marginTop: '10px' }}
+            onClick={() => {
+              addToCart(product, itemQuantity);
+              setCarted(true);
+            }}
+          >
+            Add to Cart 🛒
+          </button>
+          {carted?<p style={{color:'green'}}>added to cart!</p>:<p>&nbsp;</p>}
+          <p style={{marginTop:'5px'}}>{product.description}</p>
+          <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '25%' }}>Related Items:</h3>
+          <div className="related-products">
+            {relatedProducts ? renderRelatedProducts() : null}
+          </div>
+        </>
+      ) : (
+        <div className="empty-space" style={{ margin: '5000px' }}>
+          <h1>Loading</h1>
+        </div>
+      )
+    );
+  }
+
   return (
     loaded ? (
       <>
