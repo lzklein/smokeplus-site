@@ -17,10 +17,10 @@ const Search = () => {
         if (query) {
           const response = await fetch(`${API_BASE_URL}/api/products/search/${encodeURIComponent(query)}`);
           const data = await response.json();
-          console.log(data)
+          // console.log(data)
           setSearchResults(data);
           setLoaded(true)
-        } else {
+        } else { 
           // Handle case when there is no search query
           setSearchResults([]);
         }
