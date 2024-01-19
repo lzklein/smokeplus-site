@@ -8,8 +8,7 @@ const NavRight = ({cart}) => {
   if (isMobile){
     return (
       <div>
-          <Link to="/" style={{marginLeft:'30px', fontSize:'30px', fontWeight:'500'}}>SMOKE PLUS</Link>
-          <Link to="/cart" className="headnav" style={{ marginLeft:'25px', fontSize:'20px', fontWeight:'500'}}>Cart ({cart.length})</Link>
+          <Link to="/cart" className="headnav" style={{ marginLeft:'10px', fontSize:'20px', fontWeight:'500'}}>Cart ({cart.length})</Link>
       </div>
     )
   }

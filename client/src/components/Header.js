@@ -30,6 +30,7 @@ const Header = () => {
           <div className="hamburger-line"></div>
           <div className="hamburger-line"></div>
         </div>
+        <Link to="/" style={{marginLeft:'50px', fontSize:'30px', fontWeight:'500'}}>SMOKE PLUS</Link>
       </div>
       {!hidden && (
           <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
@@ -38,6 +39,7 @@ const Header = () => {
             <Link to="/order" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>Order Status</Link>
           </div>
         )}
+        
       <div className="right-nav" style={{ userSelect: 'none' }}>
         <NavRight cart={cart}/>
       </div>
