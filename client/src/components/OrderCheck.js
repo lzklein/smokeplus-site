@@ -17,8 +17,8 @@ const OrderCheck = () => {
 
   return (
     <div>
-        <h1>Your Order</h1>
-        <h2>Order Number {order.id}</h2>
+        <h1 style={{marginBottom:'10px'}}>Your Order</h1>
+        <h2 style={{marginBottom:'40px'}}>Order Number {order.id}</h2>
         {renderCard()}
     </div>
   )
