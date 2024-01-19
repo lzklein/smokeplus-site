@@ -44,7 +44,7 @@ const generateSessionId = () => {
 };
 
 const App = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 767);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 932);
   const [mobileLoading, setMobileLoading] = useState(true);
   const [sessionId, setSessionId] = useState('');
   const [loading, setLoading] = useState(true);
