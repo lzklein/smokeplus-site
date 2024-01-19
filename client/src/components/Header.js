@@ -7,9 +7,11 @@ import { SessionContext } from '../App';
 const Header = () => {
   const { sessionId, cart, isMobile } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   const handleBurger = () => {
     setIsOpen(!isOpen);
+    setHidden(!hidden);
   };
 
   if(isMobile){
@@ -22,6 +24,14 @@ const Header = () => {
           <div className="hamburger-line"></div>
         </div>
       </div>
+      {!hidden && (
+          <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
+            {/* Add your menu items or components here */}
+            <p>Menu Item 1</p>
+            <p>Menu Item 2</p>
+            {/* ... */}
+          </div>
+        )}
       <div className="right-nav" style={{ userSelect: 'none' }}>
         <NavRight cart={cart}/>
       </div>
