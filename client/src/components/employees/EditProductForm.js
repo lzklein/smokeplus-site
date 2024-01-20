@@ -125,7 +125,7 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
         {isOpen && (
           <>
             <h2>Edit Product</h2>
-            <button type="submit" onClick={()=>{console.log(editedProduct)}}>Boop</button>
+            {/* <button type="submit" onClick={()=>{console.log(editedProduct)}}>Boop</button> */}
             {loaded ? (
               <div className="form-container">
                 <form onSubmit={handleSubmit}>
