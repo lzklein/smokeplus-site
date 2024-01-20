@@ -119,9 +119,7 @@ const InventoryEdit = () => {
   const renderProducts = () => {
     return products.map((product) => {
       return(
-        <>
-          <ProductCard key={product.id} product={product} handleDeleteProduct={handleDeleteProduct} onSubmit={handleEditProduct}/>
-        </>
+        <ProductCard key={product.id} product={product} handleDeleteProduct={handleDeleteProduct} onSubmit={handleEditProduct}/>
       )
     })
   }
