@@ -33,17 +33,19 @@ const DealsEdit = () => {
   const handleDealChange = async (productId, value) => {
     try {
       const dealsValue = value === '' ? 0 : parseFloat(value);
-
+  
       const response = await fetch(`${API_BASE_URL}/api/products/${productId}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          deals: dealsValue,
+          productChanges: {
+            deals: dealsValue,
+          },
         }),
       });
-
+  
       if (response.ok) {
         console.log(`Product ${productId} deals updated to ${dealsValue}`);
         fetchProducts();
@@ -54,6 +56,7 @@ const DealsEdit = () => {
       console.error('Error updating product deals:', error);
     }
   };
+  
 
   const renderProducts = () => {
     const filteredProducts = allProducts.filter((product) =>
@@ -101,6 +104,10 @@ const DealsEdit = () => {
   return (
     <div>
       <h1>Edit Deals</h1>
+      <button className="backbutton" onClick={() => navigate(-1)}>
+        {"<< Back"}
+      </button>
+      <br/>
       <input
         type="text"
         placeholder="Search..."

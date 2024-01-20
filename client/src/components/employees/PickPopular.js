@@ -47,7 +47,9 @@ const PickPopular = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          popular: popularValue,
+          productChanges:{
+            popular: popularValue,
+          }
         }),
       });
 
