@@ -237,15 +237,6 @@ router.post('/', async (req, res) => {
 
   // Excel Quantity Updater
 router.patch('/excel', async (req, res) => {
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-  console.log("Patching Excel Data!");
-
-
 
   const { id, quantity } = req.body; 
   console.log(id, quantity);
