@@ -43,11 +43,20 @@
     border-bottom-right-radius: 8px; /* Add rounded corners to the bottom-right of the "next" button */
 }
 
-.banner button:hover {
+.banner button.next:hover {
+    background: linear-gradient(to left, 
+    rgba(166, 166, 166, 0.2) 0%, 
+    rgba(220, 220, 220, 0.2) 15%, 
+    rgba(220, 220, 220, 0.15) 70%, 
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.banner button.prev:hover {
     background: linear-gradient(to right, 
     rgba(166, 166, 166, 0.2) 0%, 
     rgba(220, 220, 220, 0.2) 15%, 
     rgba(220, 220, 220, 0.15) 70%, 
     rgba(255, 255, 255, 0) 100%
   );
-  }
+}
