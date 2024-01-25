@@ -1,6 +1,5 @@
-import React, { createContext, useState, useEffect } from 'react';
-import { Link, Routes, Route } from 'react-router-dom';
-// routes
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 const EmployeeHome = () => {
   return (
