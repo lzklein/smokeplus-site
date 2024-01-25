@@ -23,8 +23,7 @@ const ExcelUploader = () => {
   
         // Skip the first 7 rows
         const range = XLSX.utils.decode_range(sheet['!ref']);
-        range.s.r = 7; // start from the 8th row
-  
+        range.s.r = 7; 
         const dataArr = [];
   
         for (let rowIndex = range.s.r; rowIndex <= range.e.r; rowIndex++) {
@@ -60,7 +59,6 @@ const ExcelUploader = () => {
             }
           }
   
-          // Only add the row if the first cell is not "UPC" and the first 4 cells are not all empty
           if (!isEmptyRow) {
             dataArr.push(row);
           }
@@ -83,7 +81,7 @@ const ExcelUploader = () => {
   const handleSubmit = async () => {
     if (selectedFile && excelData) {
       try {
-        const batchSize = 10; // 10 rows at a time
+        const batchSize = 10; // patch 10 rows at a time
         const totalRows = excelData.length;
   
         for (let start = 0; start < totalRows; start += batchSize) {
