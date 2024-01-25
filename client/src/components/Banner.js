@@ -14,7 +14,7 @@ const Banner = ({ images }) => {
   };
 
   useEffect(() => {
-    const timer = setInterval(nextImage, 3000); // Change image every 3 seconds
+    const timer = setInterval(nextImage, 3000); // image change every 3 seconds
     return () => clearInterval(timer);
   }, [currentImageIndex]);
 

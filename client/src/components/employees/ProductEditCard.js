@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import EditProductForm from './EditProductForm'; // Import the new edit form component
+import EditProductForm from './EditProductForm';
 import Modal from 'react-modal';
 
 const ProductCard = ({ product, handleDeleteProduct, onSubmit }) => {
@@ -26,7 +26,6 @@ const ProductCard = ({ product, handleDeleteProduct, onSubmit }) => {
       <button className="backbutton" onClick={() => handleDeleteProduct(product.id)}> Delete </button>
       <button className="backbutton" style={{ marginLeft: "3px" }} onClick={openEditModal}> Edit </button>
 
-      {/* Render the edit modal if open */}
       {isEditModalOpen && (
         <EditProductForm
           isOpen={isEditModalOpen}

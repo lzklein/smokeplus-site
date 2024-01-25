@@ -1,7 +1,7 @@
 .cartcard {
     display: flex;
-    justify-content: space-between; /* Distribute space between cart-left and cart-right */
-    align-items: center; /* Center items vertically within the cartcard */
+    justify-content: space-between; 
+    align-items: center;
     margin-left: 1px; 
     margin-right: 1px;
     padding: 30px;
@@ -9,11 +9,11 @@
 }
 
 .cart-left {
-    flex: 1; /* Take up available space */
+    flex: 1;
 }
 
 .cart-right {
-    flex-shrink: 0; /* Don't shrink cart-right */
+    flex-shrink: 0;
 }
 
 .cart-img {

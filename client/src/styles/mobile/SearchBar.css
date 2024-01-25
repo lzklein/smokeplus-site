@@ -1,8 +1,7 @@
-/* Searchbar.css */
 .search-container {
     display: flex;
     align-items: center;
-    justify-content: center; /* Center horizontally */
+    justify-content: center;
     background: linear-gradient(to bottom, whitesmoke 85%, rgba(255, 255, 255, 0) 100%);
     padding-top:15px;
     padding-bottom:10px;
@@ -12,9 +11,9 @@
 .search-input {
     padding: 10px;
     border: 2.5px solid #ccc !important;
-    border-radius: 5px !important; /* Adjusted border radius */
+    border-radius: 5px !important;
     font-size: 24px !important;
-    margin-right: -5px; /* Overlapping margin to the right */
+    margin-right: -5px;
 }
   
 .search-input:focus,
@@ -29,17 +28,16 @@
     border-radius: 0 5px 5px 0;
     color: white;
     cursor: pointer;
-    margin-left: -5px; /* Overlapping margin to the left */
-    outline: none; /* Remove default outline */
+    margin-left: -5px;
+    outline: none; /* Remove default outline.. doesn't work*/ 
 }
   
 .search-button:hover {
-    background-color: #0056b3; /* Adjust color on hover */
+    background-color: #0056b3;
 }
   
 .sticky {
     position: sticky;
-    top: 0px; /* Adjust top position as needed */
-    z-index: 100; /* Set a high z-index to ensure it appears above other content */
+    top: 0px;
+    z-index: 100;
 }
-  

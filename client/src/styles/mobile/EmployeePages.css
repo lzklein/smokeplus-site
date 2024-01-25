@@ -54,8 +54,8 @@
   margin: 0 35vw 35px 35vw;
   background-color: white;
   box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
-  text-decoration: none; /* Remove default underline for links */
-  color: inherit; /* Inherit color from parent */
+  text-decoration: none;
+  color: inherit;
 }
 
 .employee-link:hover {

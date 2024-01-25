@@ -50,7 +50,6 @@ const ProductPage = () => {
 
       if (flavorsResponse.ok) {
         const flavorsData = await flavorsResponse.json();
-        // Filter out items without flavors
         const filteredFlavors = flavorsData.filter((product) => product !== null && product !== undefined && product.flavors !== "");
         setFlavors(filteredFlavors);
       } else {
@@ -59,29 +58,27 @@ const ProductPage = () => {
 
       if (sizesResponse.ok) {
         const sizesData = await sizesResponse.json();
-        // Filter out items without sizes
         const filteredSizes = sizesData.filter((product) => product !== null && product !== undefined && product.sizes !== "");
         setSizes(filteredSizes);
       } else {
         console.error('Failed to fetch sizes');
       }
     } catch (error) {
-      // console.error('Error fetching flavors or sizes:', error);
+      console.log('Error fetching flavors or sizes:', error);
     }
   };
 
   const fetchRelatedProduct = async () => {
-    const maxRetries = 5; // Set a maximum number of retries
+    const maxRetries = 5; 
     let retryCount = 0;
-    const usedCategories = []; // Keep track of used categories
+    const usedCategories = []; 
   
     while (retryCount < maxRetries && usedCategories.length < product.categories.length) {
       const randomIndex = Math.floor(Math.random() * product.categories.length);
       const randomCategory = product.categories[randomIndex];
   
-      // Check if the category has already been used
       if (!usedCategories.includes(randomCategory)) {
-        usedCategories.push(randomCategory); // Mark the category as used
+        usedCategories.push(randomCategory);
   
         try {
           const relatedResponse = await fetch(`${API_BASE_URL}/api/products/related-products/${randomCategory}`, {
@@ -98,7 +95,7 @@ const ProductPage = () => {
             const relatedData = await relatedResponse.json();
             if (relatedData.length > 0) {
               setRelatedProducts(relatedData);
-              return; // Exit the loop if related products are found
+              return;
             }
           } else {
             console.error('Fetch failed');
@@ -111,7 +108,6 @@ const ProductPage = () => {
       retryCount++;
     }
   
-    // If no related products are found after maxRetries or all categories are used, handle it here
     if (usedCategories.length === product.categories.length) {
       console.error('All categories used, no related products found');
     } else {

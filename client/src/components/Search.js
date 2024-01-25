@@ -11,17 +11,14 @@ const Search = () => {
   const query = new URLSearchParams(location.search).get('query');
 
   useEffect(() => {
-    // Fetch search results when the component mounts or when the search query changes
     const fetchSearchResults = async () => {
       try {
         if (query) {
           const response = await fetch(`${API_BASE_URL}/api/products/search/${encodeURIComponent(query)}`);
           const data = await response.json();
-          // console.log(data)
           setSearchResults(data);
           setLoaded(true)
         } else { 
-          // Handle case when there is no search query
           setSearchResults([]);
         }
       } catch (error) {

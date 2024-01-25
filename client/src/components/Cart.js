@@ -33,7 +33,6 @@ const Cart = () => {
         console.error('Failed to delete item:', response.statusText);
       } else {
         console.log('Item removed cart successfully');
-        // Fetch updated cart items after successful deletion
         const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);

@@ -55,7 +55,6 @@ const PickPopular = () => {
 
       if (response.ok) {
         console.log(`Product ${productId} popularity updated to ${popularValue}`);
-        // You might choose to fetch products here if needed
       } else {
         console.error('Failed to update product popularity:', response.status);
       }
@@ -87,21 +86,21 @@ const PickPopular = () => {
   };
 
   const handleApplyPopular = async () => {
-    // Patch products with popular set to 1
+    // checked as 1
     await Promise.all(
       popularProducts.map(async (product) => {
         await handlePopularChange(product.id, 1);
       })
     );
 
-    // Patch products with popular set to 0
+    // unchecked as 0
     await Promise.all(
       notPopularProducts.map(async (product) => {
         await handlePopularChange(product.id, 0);
       })
     );
 
-    // Fetch the products again after making changes
+    // update changes to page
     fetchProducts();
   };
 

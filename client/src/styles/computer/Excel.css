@@ -4,10 +4,10 @@
 }
 
 .excel-table th, .excel-table td {
-  border: 1px solid #ddd; /* Light gray border */
+  border: 1px solid #ddd;
   padding: 8px;
-  min-width: 100px; /* Set a minimum width for the cells */
-  text-align: left; /* Align all text to the left */
+  min-width: 100px;
+  text-align: left;
 }
 
 .excelsubmitter{

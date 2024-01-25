@@ -10,7 +10,7 @@
   
   .left-nav, .right-nav, .logo {
     padding: 10px;
-    flex-shrink: 0; /* Prevent these elements from growing beyond their content */
+    flex-shrink: 0;
   }
 
   .headnav:hover {
@@ -31,9 +31,9 @@
   }
   
   .logo {
-    flex-grow: 1; /* Take up remaining space */
+    flex-grow: 1;
   }
 
   .logo a {
-    font-size: 1.5rem; /* Increase font size for the logo */
+    font-size: 1.5rem;
   }

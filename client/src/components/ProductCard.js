@@ -17,7 +17,7 @@ const ProductCard = ({ product, compact }) => {
     if (carted) {
       timeout = setTimeout(() => {
         setCarted(false);
-      }, 2500); // 2.5 seconds
+      }, 2500); // message lasts 2.5 seconds
     }
 
     return () => {

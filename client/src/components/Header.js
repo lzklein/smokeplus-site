@@ -56,7 +56,6 @@ const Header = () => {
       <div className="right-nav" style={{ userSelect: 'none' }}>
         <NavRight cart={cart}/>
       </div>
-      {/* <button className='logbutton' onClick={()=>{console.log(sessionId)}}>boop</button> */}
     </header>
   );
 }

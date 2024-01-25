@@ -27,7 +27,6 @@ const Checkout = () => {
 
                 if (!orderResponse.ok) {
                     console.error('Failed to post order:', orderResponse.statusText);
-                    // Handle the error as needed
                     return;
                 }
 
@@ -43,7 +42,6 @@ const Checkout = () => {
 
                 if (!cartDeletionResponse.ok) {
                     console.error('Failed to delete cart:', cartDeletionResponse.statusText);
-                    // Handle the error as needed
                     return;
                 }
                 else {
@@ -52,7 +50,6 @@ const Checkout = () => {
 
                 console.log('Cart deleted successfully');
 
-                // Set loaded to true after both processes are completed
                 setLoaded(true);
             } catch (error) {
                 console.error('Error posting order and deleting cart:', error.message);
@@ -62,7 +59,6 @@ const Checkout = () => {
         postOrderAndDeleteCart();
     }, [order, sessionId, API_BASE_URL]);
 
-    // If not loaded, you might want to show a loading indicator
     if (!loaded) {
         return <h1>Placing Order...</h1>;
     }

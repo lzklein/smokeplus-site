@@ -64,14 +64,11 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         console.error('Failed to update cart item:', response.statusText);
       } else {
         console.log('Cart item updated successfully');
-        // Fetch updated cart items after successful update
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
         if(!!product.deals){
           setTotal((prevTotal) => {
-            // console.log('prevTotal:',prevTotal, typeof(prevTotal));
-            // console.log('price:',getPrice(product.price, typeof(getPrice(product.price))));
             return prevTotal + parseFloat(getPrice(product.price));
           });
         }
@@ -129,7 +126,6 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
         console.error('Failed to delete cart item:', response.statusText);
       } else {
         console.log('Cart item deleted successfully');
-        // Fetch updated cart items after successful delete
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);

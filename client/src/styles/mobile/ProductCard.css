@@ -61,7 +61,7 @@
 .card-right {
   flex-grow: 1;
   margin-top: 20px;
-  margin-left: 50px; /* Adjust margin as needed */
+  margin-left: 50px;
 }
 
 .productcard-container {
