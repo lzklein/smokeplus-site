@@ -7,7 +7,6 @@ const OrderCheck = () => {
     const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
     const location = useLocation();
     const order = location.state?.orderItem;  
-    console.log(order)
 
     const renderCard = () => {
         return order.cart.map((item) => (
