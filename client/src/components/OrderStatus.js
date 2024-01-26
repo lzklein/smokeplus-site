@@ -18,7 +18,6 @@ const OrderStatus = () => {
       if (response.ok) {
         const orderItem = await response.json();
         orderItem.cart = JSON.parse(orderItem.cart);
-        console.log(orderItem)
         navigate(`/order/${orderId}`, { state: { orderItem } });
       } else {
         console.error('Failed to find order:', response.status);

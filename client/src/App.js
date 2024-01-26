@@ -71,7 +71,6 @@ const App = () => {
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        console.log('sessionId:', sessionId);
         const response = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
         const cartData = await response.json();
         setCart(cartData);
