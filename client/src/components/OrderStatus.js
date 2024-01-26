@@ -8,7 +8,7 @@ const OrderStatus = () => {
   const navigate = useNavigate();
   const handleFindOrder = (e) => {
     e.preventDefault();
-    const orderSearch = e.target.children[2].value;
+    const orderSearch = document.getElementById('orderNumber').value;
     findOrder(orderSearch);
   }
 
@@ -35,7 +35,7 @@ const OrderStatus = () => {
         <h1 style={{marginTop:'60px', marginBottom:'100px'}}>Enter your order number:</h1>
         <br/>
         {error?<p style={{color:'red'}}>Order number not found</p>:<p>&nbsp;</p>}
-        <input type="text" placeholder="Order Number" style={{marginBottom:'30px', borderColor:error?'red':'initial'}}></input>
+        <input type="text" id="orderNumber" placeholder="Order Number" style={{marginBottom:'30px', borderColor:error?'red':'initial'}}></input>
         <br/>
         <button type="submit" className="logbutton" style={{marginBottom:'300px'}}>Check Order Status</button>
       </form>
