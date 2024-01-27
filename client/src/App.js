@@ -86,12 +86,12 @@ const App = () => {
   }, [sessionId]);
 
   useEffect(() => {
-    const loadMobileStylesIfNeeded = async () => {
-      await loadMobileStyles(isMobile); // Pass isMobile here
+    const loadIfMobile = async () => {
+      await loadMobileStyles(isMobile);
       setMobileLoading(false);
     };
 
-    loadMobileStylesIfNeeded();
+    loadIfMobile();
   }, [isMobile]);
 
   const addToCart = (product, itemQuantity = 1) => {
