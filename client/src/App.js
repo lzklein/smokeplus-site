@@ -52,7 +52,8 @@ const App = () => {
   // ! Switch back to false before deploy
   const [authorized, setAuthorized] = useState(true);
   const [cart, setCart] = useState([]);
-  const API_BASE_URL = 'http://localhost:5555'; // Update this with your actual base URL
+  // ! Website url here vv
+  const API_BASE_URL = 'http://localhost:5555';
   const location = useLocation();
 
   useEffect(() => {
