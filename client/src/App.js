@@ -90,7 +90,6 @@ const App = () => {
       await loadMobileStyles(isMobile);
       setMobileLoading(false);
     };
-
     loadIfMobile();
   }, [isMobile]);
 
