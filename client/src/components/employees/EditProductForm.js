@@ -109,10 +109,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             changedFields[key] = editedProduct[key];
           }
         }
-        // const patchProduct = {
-        //   ...changedFields
-        // };
-        // Reset errors, submit patchProduct, close modal
         console.log(changedFields)
         onSubmit(originalId, changedFields);
         setErrors({});
@@ -125,7 +121,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
         {isOpen && (
           <>
             <h2>Edit Product</h2>
-            {/* <button type="submit" onClick={()=>{console.log(editedProduct)}}>Boop</button> */}
             {loaded ? (
               <div className="form-container">
                 <form onSubmit={handleSubmit}>
