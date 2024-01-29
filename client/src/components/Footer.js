@@ -16,25 +16,25 @@ const Footer = () => {
       <div className="footer-center" style={{marginLeft:'20vw', marginTop:'25px'}}>
         <ul>
           <li>
-            <h4>Contact Us</h4>
+            <h4 style={{marginBottom:'50px'}}>Contact Us - (425) 264-5749</h4>
           </li>
-          <li>
+          {/* <li>
             <p style={{fontSize:'12px', marginBottom:'10px'}}> Phone (425) 264-5749</p>
-          </li>
+          </li> */}
           <li>
-            <h4>Follow us on Instagram!</h4>
+            <h4 onClick={()=>{window.open('https://www.instagram.com/smoke_plus_renton/?hl=en', '_blank')}} rel="noopener noreferrer" style={{marginBottom:'50px'}}>Follow us on Instagram!</h4>
           </li>
-          <li>
+          {/* <li>
             <a href="https://www.instagram.com/smoke_plus_renton/?hl=en" target="_blank" rel="noopener noreferrer" style={{fontSize:'12px'}}>
               Instagram
             </a>
-          </li>
+          </li> */}
           <li>
-            <h4>Employee Resources</h4>
+            <a href="/employee-login" >Employee Resources</a>
           </li>
-          <li>
+          {/* <li>
             <a href="/employee-login" style={{fontSize:'12px'}}>Login</a>
-          </li>
+          </li> */}
         </ul>
       </div>
       <div className="footer-right" style={{marginRight:'5vw'}}>
