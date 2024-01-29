@@ -71,7 +71,7 @@ const Inbox = () => {
       });
 
       // play sound
-      //! playSound(bell, 0.4);
+      // ! playSound(bell, 0.4);
     }
   }
 
