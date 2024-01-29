@@ -129,7 +129,7 @@ const ProductCard = ({ product, compact }) => {
           }
 
         <p>
-          Qty: {product.quantity} | {product.deals ? (
+          {product.quantity < 5 ? product.quantity : null} {product.deals ? (
             <>             
               <span style={{ textDecoration: 'line-through', color: 'grey' }}>
                 ${parseFloat(product.price).toFixed(2)}
