@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 
 //TODO add hover effect
+// ? Take hamburger from mobile and add to desktop
 const NavLeft = () => {
   return (
     <div>
