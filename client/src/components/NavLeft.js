@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 
-// add hover effect
+//TODO add hover effect
 const NavLeft = () => {
   return (
     <div>
