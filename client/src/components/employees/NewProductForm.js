@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
   const [productName, setProductName] = useState('');
   const [productCategories, setProductCategories] = useState(['']);
+  const [productSubcategories, setProductSubcategories] = useState(['']);
+  const [productBrands, setProductBrands] = useState('');
   const [productSizes, setProductSizes] = useState('');
   const [productFlavors, setProductFlavors] = useState('');
   const [productPrice, setProductPrice] = useState('');
@@ -14,8 +16,10 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
   const [errors, setErrors] = useState({
     name: '',
     categories: [],
-    sizes:[],
-    flavors:[],
+    subcategories: [],
+    brands: '',
+    sizes:'',
+    flavors:'',
     price: '',
     quantity: '',
     description: '',
@@ -30,6 +34,10 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       categories: productCategories.map((category) =>
         category.trim() === '' ? 'This field must be filled out' : ''
       ),
+      subcategories: productSubcategories.map((subcategory) =>
+      subcategory.trim() === '' ? 'This field must be filled out' : ''
+      ),
+      brands: productBrands.trim() === '' ? 'This field must be filled out' : '',
       price: !/^\d+(\.\d{1,2})?$/.test(productPrice)
         ? 'Enter a valid price (up to 2 decimal places)'
         : '',
@@ -45,6 +53,11 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       newErrors.categories = ['All categories must be filled out'];
     } else {
       newErrors.categories = [];
+    }
+    if (productSubcategories.some((subcategory) => subcategory.trim() === '')) {
+      newErrors.subcategories = ['All subcategories must be filled out'];
+    } else {
+      newErrors.subcategories = [];
     }
   
     setErrors(newErrors);
@@ -62,7 +75,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     return hasError;
   };
   
-  // category
+  // category & subcategory + - buttons
   const handleAddCategory = () => {
     setProductCategories([...productCategories, '']);
   };
@@ -78,11 +91,29 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     updatedCategories[i] = value;
     setProductCategories(updatedCategories);
   };
+
+  const handleAddSubcategory = () => {
+    setProductSubcategories([...productSubcategories, '']);
+  };
+
+  const handleRemoveSubcategory = (i) => {
+    const updatedSubcategories = [...productSubcategories];
+    updatedSubcategories.splice(i, 1);
+    setProductSubcategories(updatedSubcategories);
+  };
+
+  const handleChangeSubcategory = (i, value) => {
+    const updatedSubcategories = [...productSubcategories];
+    updatedSubcategories[i] = value;
+    setProductSubcategories(updatedSubcategories);
+  };
   
 
   const closeModal = () => {
     setProductName('');
     setProductCategories(['']);
+    setProductSubcategories(['']);
+    setProductBrands('');
     setProductSizes('');
     setProductFlavors('');
     setProductPrice('');
@@ -104,6 +135,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
     console.log('Form data valid:', {
         name: productName,
         categories: productCategories,
+        subcategories:productSubcategories,
+        brands:productBrands,
         sizes:productSizes,
         flavors:productFlavors,
         price: productPrice,
@@ -116,6 +149,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
       const formData = {
         name: productName,
         categories: productCategories.join(","),
+        subcategories:productSubcategories.join(","),
+        brands:productBrands,
         sizes:productSizes,
         flavors:productFlavors,
         price: parseFloat(productPrice),
@@ -130,6 +165,8 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
 
       setProductName('');
       setProductCategories(['']);
+      setProductSubcategories(['']);
+      setProductBrands('');
       setProductSizes('');
       setProductFlavors('');
       setProductPrice('');
@@ -194,6 +231,47 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
                 </label>
               </div>
 
+              {/* Subcategories */}
+              <div className="form-group">
+                <label>
+                  Subcategories:
+                  {productSubcategories.map((subcategory, index) => (
+                    <div key={index}>
+                      <input
+                        type="text"
+                        value={subcategory}
+                        onChange={(e) => handleChangeSubcategory(index, e.target.value)}
+                        className={(errors.subcategories && errors.subcategories[index]) ? 'error' : ''}
+                      />
+                      {index > 0 && (
+                        <button type="button" className="backbutton" onClick={() => handleRemoveSubcategory(index)}>
+                          -
+                        </button>
+                      )}
+                      {index === productSubcategories.length - 1 && (
+                        <button className="backbutton" type="button" onClick={handleAddSubcategory}>
+                          +
+                        </button>
+                      )}
+                      {errors.subcategories && errors.subcategories[index] && <span className="error-message">{errors.subcategories[index]}</span>}
+                    </div>
+                  ))}
+                </label>
+              </div>
+
+              {/* Brand */}
+              <div className="form-group">
+                <label>
+                  Brand:
+                  <input
+                    type="text"
+                    value={productBrands}
+                    onChange={(e) => setProductBrands(e.target.value)}
+                  />
+                  {errors.brands && <span className="error-message">{errors.brands}</span>}
+                </label>
+              </div>
+
               {/* Sizes */}
               <div className="form-group">
                 <label>
@@ -210,7 +288,7 @@ const NewProductForm = ({ isOpen, onClose, onSubmit }) => {
               {/* Flavors */}
               <div className="form-group">
                 <label>
-                  flavors:
+                  Flavor:
                   <input
                     type="text"
                     value={productFlavors}
