@@ -214,12 +214,14 @@ router.post('/related-products/:category', async (req, res) => {
 router.post('/', async (req, res) => {
     console.log("Posting!")
 
-    const { name, categories, sizes, flavors, price, quantity, description, image, id } = req.body;
+    const { name, categories, subcategories, brands, sizes, flavors, price, quantity, description, image, id } = req.body;
 
     try {
       const newProduct = await Product.create({
         name,
         categories,
+        subcategories,
+        brands,
         price,
         quantity,
         description,
