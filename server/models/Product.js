@@ -19,6 +19,23 @@ const Product = sequelize.define('Product', {
       }
     },
   },
+  subcategories: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    set(value) {
+      if (Array.isArray(value)) {
+        this.setDataValue('subcategories', value.join(','));
+      } else if (typeof value === 'string') {
+        this.setDataValue('subcategories', value);
+      } else {
+        console.warn('Invalid value type for subcategories:', typeof value);
+      }
+    },
+  },
+  brands: {
+    type: DataTypes.STRING, 
+    allowNull: true,
+  },
   sizes: {
     type: DataTypes.STRING, 
     allowNull: true,
