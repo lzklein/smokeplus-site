@@ -16,6 +16,7 @@
 @import './ProductPage.css';
 @import './Cart.css';
 @import './SearchBar.css';
+@import './Hamburger.css';
 
 body {
   background-color: whitesmoke;

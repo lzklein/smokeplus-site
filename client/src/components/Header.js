@@ -50,6 +50,11 @@ const Header = () => {
   return (
     <header className="header" style={{ userSelect: 'none' }}>
       <div className="left-nav">
+        <div className={`hamburger-container ${isOpen ? 'open' : ''}`} onClick={handleBurger}>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+          <div className="hamburger-line"></div>
+        </div>
         <NavLeft />
       </div>
 
