@@ -62,19 +62,20 @@
     margin-left: 0;
 }
 
- #menuToggle
- {
-   display: block;
-   position: relative;
-   top: 50px;
-   left: 50px;
-   
-   z-index: 1;
-   
-   -webkit-user-select: none;
-   user-select: none;
- }
- 
+#menuToggle {
+    display: block;
+    position: fixed; 
+    top: 30px; 
+    left: 18px; 
+    z-index: 1;
+    -webkit-user-select: none;
+    user-select: none;
+    padding: 8px 5px 3px 5px;
+    background-color: rgb(40,40,40);
+    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px; */
+    border-radius: 4px; 
+}
+
  #menuToggle a
  {
    text-decoration: none;
@@ -171,25 +172,22 @@
   * Make this absolute positioned
   * at the top left of the screen
   */
- #menu
- {
-   position: absolute;
-   width: 300px;
-   margin: -100px 0 0 -50px;
-   padding: 50px;
-   padding-top: 125px;
-   
-   background: #ededed;
-   list-style-type: none;
-   -webkit-font-smoothing: antialiased;
-   /* to stop flickering of text in safari */
-   
-   transform-origin: 0% 0%;
-   transform: translate(-100%, 0);
-   
-   transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
- }
- 
+  #menu {
+    position: fixed;
+    width: 300px;
+    top: 0;
+    left: 0;
+    padding: 50px;
+    padding-top: 50px; /* Adjust this value */
+    height: 100vh;
+    background: #ededed;
+    list-style-type: none;
+    -webkit-font-smoothing: antialiased;
+    transform-origin: 0% 0%;
+    transform: translate(-100%, 0);
+    transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1.0);
+  }
+  
  #menu li
  {
    padding: 10px 0;
