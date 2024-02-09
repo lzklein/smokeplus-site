@@ -11,6 +11,13 @@ const Header = () => {
   const [hidden, setHidden] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const [openCategory, setOpenCategory] = useState('');
+  const [openSubcategory, setOpenSubcategory] = useState('');
+  const [categoryData, setCategoryData] = useState({});
+
+  useEffect(()=>{
+
+  },[])
 
   const handleBurger = () => {
     setIsOpen(!isOpen);
@@ -22,7 +29,25 @@ const Header = () => {
     setIsOpen(false);
     setHidden(true);
   }, [location.pathname]);
-  
+
+  const handleCategory = (e) => {
+    if(e.target.value == openCategory){
+      setOpenCategory('')
+    }
+    else{
+      setOpenCategory(e.target.value)
+    }
+  }
+
+  const handleSubcategory = (e) => {
+    if(e.target.value == openCategory){
+      setOpenSubcategory('')
+    }
+    else{
+      setOpenSubcategory(e.target.value)
+    }
+  }
+
   if(isMobile){
     return(
       <header className="header" style={{ userSelect: 'none' }}>
