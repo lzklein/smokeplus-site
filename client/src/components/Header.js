@@ -6,17 +6,28 @@ import { SessionContext } from '../App';
 
 
 const Header = () => {
-  const { cart, isMobile } = useContext(SessionContext);
+  const { API_BASE_URL, cart, isMobile } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const [openCategory, setOpenCategory] = useState('');
   const [openSubcategory, setOpenSubcategory] = useState('');
-  const [categoryData, setCategoryData] = useState({});
+  const [categoriesData, setCategoriesData] = useState({});
 
   useEffect(()=>{
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/products/hamburger/category`);
+        const data = await response.json();
+        console.log(data)
+        setCategoriesData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
+    fetchCategories();
   },[])
 
   const handleBurger = () => {
