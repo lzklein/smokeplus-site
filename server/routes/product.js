@@ -36,6 +36,54 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Get hamburger categories
+router.get('/hamburger/category', async (req, res) => {
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+  console.log('hamburger time');
+
+  try {
+    const products = await Product.findAll({
+      attributes: ['categories', 'subcategories', 'brands'],
+    });
+
+    if (products.length > 0) {
+      const categories = {};
+
+      products.forEach(product => {
+        const { categories: productCategories, subcategories, brands } = product;
+
+        // categories
+        if (!categories[productCategories]) {
+          categories[productCategories] = {};
+        }
+
+        // subcategories
+        if (!categories[productCategories][subcategories]) {
+          categories[productCategories][subcategories] = [];
+        }
+
+        // brands
+        if (!categories[productCategories][subcategories].includes(brands)) {
+          categories[productCategories][subcategories].push(brands);
+        }
+      });
+
+      res.json(categories);
+    } else {
+      res.status(404).json({ error: 'No products found' });
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 // Fuzzy search for products
 router.get('/search/:query', async (req, res) => {
   const searchQuery = req.params.query;
