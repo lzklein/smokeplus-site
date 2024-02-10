@@ -38,14 +38,6 @@ router.get('/:id', async (req, res) => {
 
 // Get hamburger categories
 router.get('/hamburger/category', async (req, res) => {
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
-  console.log('hamburger time');
 
   try {
     const products = await Product.findAll({
