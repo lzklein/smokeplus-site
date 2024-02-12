@@ -30,7 +30,7 @@ const Footer = () => {
             </a>
           </li> */}
           <li>
-            <a href="/employee-login" >Employee Resources</a>
+            <a href="/employee-login" >Employee Login</a>
           </li>
           {/* <li>
             <a href="/employee-login" style={{fontSize:'12px'}}>Login</a>
