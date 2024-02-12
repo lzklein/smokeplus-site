@@ -86,9 +86,12 @@ const Header = () => {
   }, [location.pathname]);
 
   const renderCategories = () => {
-    return categoriesData.map((category) => (
+    return categoriesData.map((category, index) => (
       <div key={category.category} className="category-container">
-        <li onClick={() => handleCategory(category.category)}>
+        <li
+          className={index === 0 ? 'first-li' : 'other-li'}
+          onClick={() => handleCategory(category.category)}
+        >
           {openCategory === category.category ? '▼ ' : '▶ '} {category.category}
           <Link
             to={`/category/more/${category.category}`}
@@ -102,7 +105,7 @@ const Header = () => {
       </div>
     ));
   };
-
+  
   const renderSubcategories = (category) => {
     return category.subcategories.map((subcategory) => (
       <div key={subcategory.subcategory} className='subcategory-container'>
