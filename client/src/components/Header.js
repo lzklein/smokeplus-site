@@ -4,7 +4,7 @@ import NavLeft from './NavLeft';
 import NavRight from './NavRight';
 import { SessionContext } from '../App'; 
 
-
+// ▶ ▼
 const Header = () => {
   const { API_BASE_URL, cart, isMobile } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +13,7 @@ const Header = () => {
   const location = useLocation();
   const [openCategory, setOpenCategory] = useState('');
   const [openSubcategory, setOpenSubcategory] = useState('');
-  const [categoriesData, setCategoriesData] = useState({});
+  const [categoriesData, setCategoriesData] = useState([]);
 
   useEffect(()=>{
     const fetchCategories = async () => {
@@ -51,12 +51,18 @@ const Header = () => {
   }
 
   const handleSubcategory = (e) => {
-    if(e.target.value == openCategory){
+    if(e.target.value == openSubcategory){
       setOpenSubcategory('')
     }
     else{
       setOpenSubcategory(e.target.value)
     }
+  }
+
+  const renderCategories = () => {
+    return categoriesData.map((category) => {
+      return <div>▶{category.category}</div>
+    })
   }
 
   if(isMobile){
@@ -97,10 +103,7 @@ const Header = () => {
             <span></span>
 
             <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''}>
-              <a href="#"><li>Home</li></a>
-              <a href="#"><li>About</li></a>
-              <a href="#"><li>Info</li></a>
-              <a href="#"><li>Contact</li></a>
+              {renderCategories()}
             </ul>
           </div>
         </nav>
