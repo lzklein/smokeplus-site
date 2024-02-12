@@ -36,7 +36,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Get hamburger categories
+// Get hamburger categories as an array
 router.get('/hamburger/category', async (req, res) => {
 
   try {
@@ -45,28 +45,38 @@ router.get('/hamburger/category', async (req, res) => {
     });
 
     if (products.length > 0) {
-      const categories = {};
+      const categoriesArray = [];
 
       products.forEach(product => {
         const { categories: productCategories, subcategories, brands } = product;
 
-        // categories
-        if (!categories[productCategories]) {
-          categories[productCategories] = {};
-        }
+        const existingCategory = categoriesArray.find(item => item.category === productCategories);
 
-        // subcategories
-        if (!categories[productCategories][subcategories]) {
-          categories[productCategories][subcategories] = [];
-        }
+        if (existingCategory) {
+          const existingSubcategory = existingCategory.subcategories.find(item => item.subcategory === subcategories);
 
-        // brands
-        if (!categories[productCategories][subcategories].includes(brands)) {
-          categories[productCategories][subcategories].push(brands);
+          if (existingSubcategory) {
+            if (!existingSubcategory.brands.includes(brands)) {
+              existingSubcategory.brands.push(brands);
+            }
+          } else {
+            existingCategory.subcategories.push({
+              subcategory: subcategories,
+              brands: [brands],
+            });
+          }
+        } else {
+          categoriesArray.push({
+            category: productCategories,
+            subcategories: [{
+              subcategory: subcategories,
+              brands: [brands],
+            }],
+          });
         }
       });
 
-      res.json(categories);
+      res.json(categoriesArray);
     } else {
       res.status(404).json({ error: 'No products found' });
     }
@@ -75,6 +85,7 @@ router.get('/hamburger/category', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Fuzzy search for products
 router.get('/search/:query', async (req, res) => {
