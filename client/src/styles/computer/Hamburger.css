@@ -1,7 +1,7 @@
  /* HamburgerIcon.css */
 .hamburger-container {
     position: absolute;
-    top: 20px;
+    top: 30px;
     left: 20px;
     z-index: 1000;
     display: flex;
@@ -65,8 +65,8 @@
 #menuToggle {
     display: block;
     position: fixed; 
-    top: 30px; 
-    left: 18px; 
+    top: 34px; 
+    left: 12px; 
     z-index: 1;
     -webkit-user-select: none;
     user-select: none;
