@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import NavLeft from './NavLeft';
 import NavRight from './NavRight';
-import { SessionContext } from '../App'; 
+import { SessionContext } from '../App';
 
-// ▶ ▼
 const Header = () => {
   const { API_BASE_URL, cart, isMobile } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
@@ -14,13 +13,31 @@ const Header = () => {
   const [openCategory, setOpenCategory] = useState('');
   const [openSubcategory, setOpenSubcategory] = useState('');
   const [categoriesData, setCategoriesData] = useState([]);
+  const menuRef = useRef(null);
 
-  useEffect(()=>{
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target) &&
+        !event.target.classList.contains('menuToggle')
+      ) {
+        closeBurgerMenu();
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     const fetchCategories = async () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/products/hamburger/category`);
         const data = await response.json();
-        console.log(data)
         setCategoriesData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -28,10 +45,9 @@ const Header = () => {
     };
 
     fetchCategories();
-  },[])
+  }, []);
 
   const handleBurger = () => {
-    console.log('boop')
     setIsOpen(!isOpen);
     setHidden(!hidden);
     setIsMenuOpen(!isMenuOpen);
@@ -43,22 +59,20 @@ const Header = () => {
   }, [location.pathname]);
 
   const handleCategory = (input) => {
-    if(input == openCategory){
-      setOpenCategory('')
+    if (input === openCategory) {
+      setOpenCategory('');
+    } else {
+      setOpenCategory(input);
     }
-    else{
-      setOpenCategory(input)
-    }
-  }
+  };
 
   const handleSubcategory = (input) => {
-    if(input == openSubcategory){
-      setOpenSubcategory('')
+    if (input === openSubcategory) {
+      setOpenSubcategory('');
+    } else {
+      setOpenSubcategory(input);
     }
-    else{
-      setOpenSubcategory(input)
-    }
-  }
+  };
 
   const closeBurgerMenu = () => {
     setIsOpen(false);
@@ -69,33 +83,39 @@ const Header = () => {
   useEffect(() => {
     closeBurgerMenu();
   }, [location.pathname]);
-  
+
   const renderCategories = () => {
     return categoriesData.map((category) => (
       <div key={category.category} className="category-container">
         <li onClick={() => handleCategory(category.category)}>
           {openCategory === category.category ? '▼ ' : '▶ '} {category.category}
-          <Link to={`/category/more/${category.category}`} onClick={()=>{setIsMenuOpen(false)}} className="category-link">&raquo;</Link>
+          <Link
+            to={`/category/more/${category.category}`}
+            onClick={() => setIsMenuOpen(false)}
+            className="category-link"
+          >
+            &raquo;
+          </Link>
         </li>
-        {openCategory === category.category?
-        renderSubcategories(category):
-        null
-        }
+        {openCategory === category.category ? renderSubcategories(category) : null}
       </div>
     ));
   };
-  
+
   const renderSubcategories = (category) => {
     return category.subcategories.map((subcategory) => (
       <div key={subcategory.subcategory}>
         <li onClick={() => handleSubcategory(subcategory.subcategory)}>
           {openSubcategory === subcategory.subcategory ? '▼ ' : '▶ '} {subcategory.subcategory}
-          <Link to={`/subcategory/more/${subcategory.subcategory}`} onClick={() => setIsMenuOpen(false)} className="category-link">&raquo;</Link>
+          <Link
+            to={`/subcategory/more/${subcategory.subcategory}`}
+            onClick={() => setIsMenuOpen(false)}
+            className="category-link"
+          >
+            &raquo;
+          </Link>
         </li>
-        {openSubcategory === subcategory.subcategory?
-        renderBrands(subcategory):
-        null
-        }
+        {openSubcategory === subcategory.subcategory ? renderBrands(subcategory) : null}
       </div>
     ));
   };
@@ -104,37 +124,59 @@ const Header = () => {
     return subcategory.brands.map((brand) => (
       <div key={brand}>
         <li>
-          <Link to={`/brand/more/${brand}`} onClick={() => setIsMenuOpen(false)} className="category-link"> {brand} &raquo;</Link>
+          <Link to={`/brand/more/${brand}`} onClick={() => setIsMenuOpen(false)} className="category-link">
+            {' '}
+            {brand} &raquo;
+          </Link>
         </li>
       </div>
     ));
   };
-  
 
-  if(isMobile){
-    return(
+  if (isMobile) {
+    return (
       <header className="header" style={{ userSelect: 'none' }}>
-      <div className="left-nav">
-        <div className={`hamburger-container ${isOpen ? 'open' : ''}`} onClick={handleBurger}>
-          <div className="hamburger-line"></div>
-          <div className="hamburger-line"></div>
-          <div className="hamburger-line"></div>
+        <div className="left-nav">
+          <div className={`hamburger-container ${isOpen ? 'open' : ''}`} onClick={handleBurger}>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+            <div className="hamburger-line"></div>
+          </div>
+          <Link to="/" style={{ marginLeft: '50px', fontSize: '30px', fontWeight: '500' }}>
+            SMOKE PLUS
+          </Link>
         </div>
-        <Link to="/" style={{marginLeft:'50px', fontSize:'30px', fontWeight:'500'}}>SMOKE PLUS</Link>
-      </div>
-      {!hidden && (
+        {!hidden && (
           <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
-            <Link to="/all" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>All Products</Link>
-            <Link to="/categories" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>Top Categories</Link>
-            <Link to="/order" className="hamburger-link" style={{marginRight:'100px', fontSize:'20px', fontWeight:'500'}}>Order Status</Link>
+            <Link
+              to="/all"
+              className="hamburger-link"
+              style={{ marginRight: '100px', fontSize: '20px', fontWeight: '500' }}
+            >
+              All Products
+            </Link>
+            <Link
+              to="/categories"
+              className="hamburger-link"
+              style={{ marginRight: '100px', fontSize: '20px', fontWeight: '500' }}
+            >
+              Top Categories
+            </Link>
+            <Link
+              to="/order"
+              className="hamburger-link"
+              style={{ marginRight: '100px', fontSize: '20px', fontWeight: '500' }}
+            >
+              Order Status
+            </Link>
           </div>
         )}
-        
-      <div className="right-nav" style={{ userSelect: 'none' }}>
-        <NavRight cart={cart}/>
-      </div>
-    </header>
-    )
+
+        <div className="right-nav" style={{ userSelect: 'none' }}>
+          <NavRight cart={cart} />
+        </div>
+      </header>
+    );
   }
 
   return (
@@ -142,13 +184,13 @@ const Header = () => {
       <div className="left-nav">
         <nav role="navigation">
           <div id="menuToggle">
-            <input type="checkbox" checked={isMenuOpen}  onClick={handleBurger}/>
+            <input type="checkbox" checked={isMenuOpen} onClick={handleBurger} className="menuToggle" readOnly/>
 
-            <span  onClick={handleBurger}></span>
-            <span  onClick={handleBurger}></span>
-            <span  onClick={handleBurger}></span>
+            <span onClick={handleBurger} className="menuToggle"></span>
+            <span onClick={handleBurger} className="menuToggle"></span>
+            <span onClick={handleBurger} className="menuToggle"></span>
 
-            <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''}>
+            <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''} ref={menuRef}>
               {renderCategories()}
             </ul>
           </div>
@@ -157,10 +199,10 @@ const Header = () => {
       </div>
 
       <div className={`right-nav ${isMenuOpen ? 'isMenuOpen' : ''}`} style={{ userSelect: 'none' }}>
-        <NavRight cart={cart}/>
+        <NavRight cart={cart} />
       </div>
     </header>
   );
-}
+};
 
 export default Header;
