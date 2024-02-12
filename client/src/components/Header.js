@@ -31,6 +31,7 @@ const Header = () => {
   },[])
 
   const handleBurger = () => {
+    console.log('boop')
     setIsOpen(!isOpen);
     setHidden(!hidden);
     setIsMenuOpen(!isMenuOpen);
@@ -41,29 +42,45 @@ const Header = () => {
     setHidden(true);
   }, [location.pathname]);
 
-  const handleCategory = (e) => {
-    if(e.target.value == openCategory){
+  const handleCategory = (input) => {
+    if(input == openCategory){
       setOpenCategory('')
     }
     else{
-      setOpenCategory(e.target.value)
+      setOpenCategory(input)
     }
   }
 
-  const handleSubcategory = (e) => {
-    if(e.target.value == openSubcategory){
+  const handleSubcategory = (input) => {
+    if(input == openSubcategory){
       setOpenSubcategory('')
     }
     else{
-      setOpenSubcategory(e.target.value)
+      setOpenSubcategory(input)
     }
   }
 
+  const closeBurgerMenu = () => {
+    setIsOpen(false);
+    setHidden(true);
+    setIsMenuOpen(false);
+  };
+
+  useEffect(() => {
+    closeBurgerMenu();
+  }, [location.pathname]);
+  
   const renderCategories = () => {
-    return categoriesData.map((category) => {
-      return <div>▶{category.category}</div>
-    })
-  }
+    return categoriesData.map((category) => (
+      <div key={category.category} className="category-container">
+        <li onClick={() => handleCategory(category.category)}>
+          {openCategory === category.category ? '▼ ' : '▶ '} {category.category}
+          <Link to={`/category/more/${category.category}`} onClick={()=>{setIsMenuOpen(false)}} className="category-link">&raquo;</Link>
+        </li>
+      </div>
+    ));
+  };
+  
 
   if(isMobile){
     return(
@@ -95,12 +112,12 @@ const Header = () => {
     <header className="header" style={{ userSelect: 'none' }}>
       <div className="left-nav">
         <nav role="navigation">
-          <div id="menuToggle" onClick={handleBurger}>
-            <input type="checkbox" />
+          <div id="menuToggle">
+            <input type="checkbox" checked={isMenuOpen}  onClick={handleBurger}/>
 
-            <span></span>
-            <span></span>
-            <span></span>
+            <span  onClick={handleBurger}></span>
+            <span  onClick={handleBurger}></span>
+            <span  onClick={handleBurger}></span>
 
             <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''}>
               {renderCategories()}
