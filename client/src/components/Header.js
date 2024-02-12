@@ -77,6 +77,35 @@ const Header = () => {
           {openCategory === category.category ? '▼ ' : '▶ '} {category.category}
           <Link to={`/category/more/${category.category}`} onClick={()=>{setIsMenuOpen(false)}} className="category-link">&raquo;</Link>
         </li>
+        {openCategory === category.category?
+        renderSubcategories(category):
+        null
+        }
+      </div>
+    ));
+  };
+  
+  const renderSubcategories = (category) => {
+    return category.subcategories.map((subcategory) => (
+      <div key={subcategory.subcategory}>
+        <li onClick={() => handleSubcategory(subcategory.subcategory)}>
+          {openSubcategory === subcategory.subcategory ? '▼ ' : '▶ '} {subcategory.subcategory}
+          <Link to={`/subcategory/more/${subcategory.subcategory}`} onClick={() => setIsMenuOpen(false)} className="category-link">&raquo;</Link>
+        </li>
+        {openSubcategory === subcategory.subcategory?
+        renderBrands(subcategory):
+        null
+        }
+      </div>
+    ));
+  };
+
+  const renderBrands = (subcategory) => {
+    return subcategory.brands.map((brand) => (
+      <div key={brand}>
+        <li>
+          <Link to={`/brand/more/${brand}`} onClick={() => setIsMenuOpen(false)} className="category-link"> {brand} &raquo;</Link>
+        </li>
       </div>
     ));
   };
