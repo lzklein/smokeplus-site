@@ -5,7 +5,7 @@ import NavRight from './NavRight';
 import { SessionContext } from '../App';
 
 const Header = () => {
-  const { API_BASE_URL, cart, isMobile } = useContext(SessionContext);
+  const { API_BASE_URL, cart, isMobile, isModal } = useContext(SessionContext);
   const [isOpen, setIsOpen] = useState(false);
   const [hidden, setHidden] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -38,6 +38,7 @@ const Header = () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/products/hamburger/category`);
         const data = await response.json();
+        console.log(data)
         setCategoriesData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -183,17 +184,21 @@ const Header = () => {
     <header className="header" style={{ userSelect: 'none' }}>
       <div className="left-nav">
         <nav role="navigation">
-          <div id="menuToggle">
-            <input type="checkbox" checked={isMenuOpen} onClick={handleBurger} className="menuToggle" readOnly/>
+          {
+            isModal? null:          
+            <div id="menuToggle">
+              <input type="checkbox" checked={isMenuOpen} onClick={handleBurger} className="menuToggle" readOnly/>
 
-            <span onClick={handleBurger} className="menuToggle"></span>
-            <span onClick={handleBurger} className="menuToggle"></span>
-            <span onClick={handleBurger} className="menuToggle"></span>
+              <span onClick={handleBurger} className="menuToggle"></span>
+              <span onClick={handleBurger} className="menuToggle"></span>
+              <span onClick={handleBurger} className="menuToggle"></span>
 
-            <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''} ref={menuRef}>
-              {renderCategories()}
-            </ul>
-          </div>
+              <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''} ref={menuRef}>
+                {renderCategories()}
+              </ul>
+            </div>
+          }
+
         </nav>
         <NavLeft />
       </div>

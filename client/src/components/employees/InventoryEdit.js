@@ -6,14 +6,20 @@ import Modal from 'react-modal';
 import { SessionContext } from '../../App';
 
 const InventoryEdit = () => {
-  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
+  const { sessionId, API_BASE_URL, authorized, setIsModal } = useContext(SessionContext);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });
   const [products, setProducts] = useState([]);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = () => {
+    setIsModalOpen(true);
+    setIsModal(true);
+  }
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setIsModal(false);
+  }
 
   const handleNewProductSubmit = async (newProductData) => {
     console.log(newProductData)

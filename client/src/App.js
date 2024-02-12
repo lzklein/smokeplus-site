@@ -49,6 +49,7 @@ const App = () => {
   const [sessionId, setSessionId] = useState('');
   const [loading, setLoading] = useState(true);
   const [bannerImages, setBannerImages] = useState([]);
+  const [isModal, setIsModal] = useState(false);
   // ! Switch back to false before deploy
   const [authorized, setAuthorized] = useState(true);
   const [cart, setCart] = useState([]);
@@ -198,7 +199,7 @@ const App = () => {
 
   return (
     <SessionContext.Provider
-      value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile }}
+      value={{ sessionId, cart, setCart, API_BASE_URL, addToCart, authorized, setAuthorized, isMobile, isModal, setIsModal }}
     >
       <div className="App" id="root">
         <Header />
