@@ -189,7 +189,6 @@
  #menu li
  {
    padding: 10px 0;
-   font-size: 20px;
  }
  
  /*
@@ -200,11 +199,58 @@
    transform: none;
  }
 
- .first-li {
-  margin-top: 30px;
-  margin-left: -25px;
- }
 
- .other-li {
-  margin-left: -25px;
- }
+ li {
+  position: relative;
+  list-style: none;
+}
+
+/* Style for the first-li and other-li */
+.first-li,
+.other-li {
+  padding-left: 25px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.first-li::before,
+.other-li::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -50px;
+  width: calc(100% + 100px);
+  border-bottom: 1.5px solid gray; 
+}
+
+/* Style for the subcategory-li and brand-li */
+.subcategory-li,
+.brand-li {
+  padding-left: 50px; 
+  font-size:16px;
+}
+
+.brand-li{
+  font-weight: 500;
+}
+
+.subcategory-li::before,
+.brand-li::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: -50px;
+  width: calc(100% + 100px);
+  border-bottom: 1px solid lightgrey;
+}
+
+.first-li{
+  margin-top: 25px;
+}
+
+.first-li:hover,
+.other-li:hover,
+.subcategory-li:hover,
+.brand-li:hover {
+  color: red; /* Change the color to your desired underline color on hover */
+}

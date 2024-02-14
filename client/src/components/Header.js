@@ -112,7 +112,7 @@ const Header = () => {
   const renderSubcategories = (category) => {
     return category.subcategories.map((subcategory) => (
       <div key={subcategory.subcategory} className='subcategory-container'>
-        <li onClick={() => handleSubcategory(subcategory.subcategory)}>
+        <li onClick={() => handleSubcategory(subcategory.subcategory)} className='subcategory-li'>
           {openSubcategory === subcategory.subcategory ? '▼ ' : '▶ '} {subcategory.subcategory}
           <Link
             to={`/subcategory/more/${subcategory.subcategory}`}
@@ -130,7 +130,7 @@ const Header = () => {
   const renderBrands = (subcategory) => {
     return subcategory.brands.map((brand) => (
       <div key={brand} className='brand-container'>
-        <li>
+        <li className='brand-li'>
           <Link to={`/brand/more/${brand}`} onClick={() => setIsMenuOpen(false)} className="category-link">
             {' '}
             {brand} &raquo;
