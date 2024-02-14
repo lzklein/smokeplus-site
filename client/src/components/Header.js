@@ -38,7 +38,6 @@ const Header = () => {
       try {
         const response = await fetch(`${API_BASE_URL}/api/products/hamburger/category`);
         const data = await response.json();
-        console.log(data)
         setCategoriesData(data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -79,6 +78,10 @@ const Header = () => {
     setIsOpen(false);
     setHidden(true);
     setIsMenuOpen(false);
+    setTimeout(() => {
+      setOpenCategory('');
+      setOpenSubcategory('');
+    }, 500);
   };
 
   useEffect(() => {
@@ -190,7 +193,7 @@ const Header = () => {
           {
             isModal? null:          
             <div id="menuToggle">
-              <input type="checkbox" checked={isMenuOpen} onClick={handleBurger} className="menuToggle" readOnly/>
+              <input type="checkbox" checked={isMenuOpen} onChange={() => (isMenuOpen ? closeBurgerMenu() : handleBurger())} className="menuToggle" readOnly/>
 
               <span onClick={handleBurger} className="menuToggle"></span>
               <span onClick={handleBurger} className="menuToggle"></span>
