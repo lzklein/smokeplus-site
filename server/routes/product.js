@@ -156,7 +156,7 @@ router.get('/:productName/sizes', async (req, res) => {
   }
 });
 
-// routes.js
+// get all categories
 router.get('/category/:category', async (req, res) => {
   const category = req.params.category;
 
@@ -171,6 +171,50 @@ router.get('/category/:category', async (req, res) => {
       res.json(products);
     } else {
       res.status(404).json({ error: 'Products not found for the specified category' });
+    }
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// get all subcategories
+router.get('/subcategory/:subcategory', async (req, res) => {
+  const subcategory = req.params.subcategory;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        subcategories: subcategory,
+      },
+    });
+
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404).json({ error: 'Products not found for the specified subcategory' });
+    }
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// get all brands
+router.get('/brand/:brand', async (req, res) => {
+  const brand = req.params.brand;
+
+  try {
+    const products = await Product.findAll({
+      where: {
+        brands: brand,
+      },
+    });
+
+    if (products.length > 0) {
+      res.json(products);
+    } else {
+      res.status(404).json({ error: 'Products not found for the specified brand' });
     }
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -288,7 +332,7 @@ router.post('/', async (req, res) => {
     }
   });
 
-  // Excel Quantity Updater
+// Excel Quantity Updater
 router.patch('/excel', async (req, res) => {
 
   const { id, quantity } = req.body; 
