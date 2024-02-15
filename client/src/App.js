@@ -20,6 +20,8 @@ import PopularAll from './components/PopularAll';
 import DealsAll from './components/DealsAll';
 import Search from './components/Search';
 import CategoryMore from './components/CategoryMore';
+import SubcategoryMore from './components/SubcategoryMore';
+import BrandMore from './components/BrandMore';
 
 // employee components
 import EmployeeLogin from './components/employees/EmployeeLogin';
@@ -171,6 +173,8 @@ const App = () => {
   const routes = [
     { path: '/search', element: <Search /> },
     { path: '/category/more/:category', element: <CategoryMore /> },
+    { path: '/subcategory/more/:subcategory', element: <SubcategoryMore /> },
+    { path: '/brand/more/:brand', element: <BrandMore /> },
     { path: '/banner/edit', element: <BannerEdit bannerImages={bannerImages} /> },
     { path: '/deals/edit', element: <DealsEdit /> },
     { path: '/products/:productId', element: <ProductPage /> },
