@@ -234,7 +234,7 @@ const ProductPage = () => {
           </div>
           <div className="product-right">
             <h2>{product.name}</h2>
-            <p>
+            <p style={{marginBottom:'10px'}}>
               {product.deals ? (
                 <>             
                   <span style={{ textDecoration: 'line-through', color: 'grey' }}>
