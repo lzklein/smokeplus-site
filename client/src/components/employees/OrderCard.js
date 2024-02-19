@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from '../../App';
 
 const OrderCard = ({ order, onComplete }) => {
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { API_BASE_URL } = useContext(SessionContext);
   const [hidden, setHidden] = useState(true);
   const [products, setProducts] = useState([]);
 

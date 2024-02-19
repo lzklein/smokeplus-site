@@ -3,7 +3,7 @@ import { SessionContext } from '../App';
 import ProductCard from './ProductCard';
 
 const CategoryCards = ({ category }) => {
-  const { sessionId, cart, setCart, API_BASE_URL, isMobile } = useContext(SessionContext);
+  const { API_BASE_URL, isMobile } = useContext(SessionContext);
   const [products, setProducts] = useState([]);
   const [loaded, setLoaded] = useState(false);
 

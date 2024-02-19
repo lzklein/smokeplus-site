@@ -2,7 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { SessionContext } from '../App'; 
 
 const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
-  const { cart, API_BASE_URL, isMobile } = useContext(SessionContext);
+  const { isMobile } = useContext(SessionContext);
   const [loaded, setLoaded] = useState(false);
   const [product, setProduct] = useState([]);
   const [initSet, setInitSet] = useState(true);

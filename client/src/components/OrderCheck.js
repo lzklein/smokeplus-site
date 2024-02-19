@@ -4,7 +4,7 @@ import CartCard from './CartCard'
 import { SessionContext } from '../App'; 
 
 const OrderCheck = () => {
-    const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+    const { sessionId, setCart, API_BASE_URL } = useContext(SessionContext);
     const location = useLocation();
     const order = location.state?.orderItem;  
 

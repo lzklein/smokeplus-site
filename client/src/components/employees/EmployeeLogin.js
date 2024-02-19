@@ -3,7 +3,7 @@ import { SessionContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 
 const EmployeeLogin = () => {
-  const { sessionId, API_BASE_URL, setAuthorized} = useContext(SessionContext);
+  const { API_BASE_URL, setAuthorized} = useContext(SessionContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);

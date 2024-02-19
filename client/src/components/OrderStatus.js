@@ -3,7 +3,7 @@ import {useNavigate} from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const OrderStatus = () => {
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { API_BASE_URL } = useContext(SessionContext);
   const [error, setError] = useState('')
   const navigate = useNavigate();
   const handleFindOrder = (e) => {

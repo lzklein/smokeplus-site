@@ -5,7 +5,7 @@ import { SessionContext } from '../App';
 import { useParams } from 'react-router-dom';
 
 const BrandMore = () => {
-  const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+  const { API_BASE_URL } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const { brand } = useParams();

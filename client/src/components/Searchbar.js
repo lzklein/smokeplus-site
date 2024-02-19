@@ -5,7 +5,7 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { SessionContext } from '../App';
 
 const Searchbar = () => {
-  const { addToCart, isMobile } = useContext(SessionContext);
+  const { isMobile } = useContext(SessionContext);
   const [searchText, setSearchText] = useState('');
   const navigate = useNavigate();
 

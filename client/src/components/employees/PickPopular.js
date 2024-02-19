@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../../App';
 
 const PickPopular = () => {
-  const { sessionId, cart, setCart, API_BASE_URL, authorized } = useContext(SessionContext);
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
   const [popularProducts, setPopularProducts] = useState([]);
   const [notPopularProducts, setNotPopularProducts] = useState([]);

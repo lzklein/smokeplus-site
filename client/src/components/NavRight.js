@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { SessionContext } from '../App'; 
 
 const NavRight = ({cart}) => {
-  const { sessionId, isMobile } = useContext(SessionContext);
+  const { isMobile } = useContext(SessionContext);
 
   if (isMobile){
     return (

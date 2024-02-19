@@ -6,7 +6,7 @@ import Modal from 'react-modal';
 import { SessionContext } from '../../App';
 
 const InventoryEdit = () => {
-  const { sessionId, API_BASE_URL, authorized, setIsModal } = useContext(SessionContext);
+  const { API_BASE_URL, authorized, setIsModal } = useContext(SessionContext);
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteConfirmation, setDeleteConfirmation] = useState({ isOpen: false, productId: null });

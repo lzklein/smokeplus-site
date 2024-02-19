@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../../App';
 
 const DealsEdit = () => {
-  const { sessionId, cart, setCart, API_BASE_URL, authorized } = useContext(SessionContext);
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [allProducts, setAllProducts] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();

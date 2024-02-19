@@ -4,7 +4,7 @@ import { SessionContext } from '../App';
 import ProductCard from './ProductCard';
 
 const ProductPage = () => {
-  const { sessionId, cart, setCart, API_BASE_URL, addToCart, isMobile } = useContext(SessionContext);
+  const { API_BASE_URL, addToCart, isMobile } = useContext(SessionContext);
   const { productId } = useParams();
   const [product, setProduct] = useState(null);
   const [loaded, setLoaded] = useState(false);

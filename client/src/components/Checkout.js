@@ -4,7 +4,7 @@ import { SessionContext } from '../App';
 
 const Checkout = () => {
     const location = useLocation();
-    const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
+    const { sessionId, setCart, API_BASE_URL } = useContext(SessionContext);
     const [loaded, setLoaded] = useState(false);
     const minTime = location.state?.minTime;  
     const maxTime = location.state?.maxTime;  

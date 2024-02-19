@@ -9,7 +9,7 @@ import bell from './sfx/bell.mp3';
 
 const Inbox = () => {
   const navigate = useNavigate();
-  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [orders, setOrders] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const socket = useRef(null);
