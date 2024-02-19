@@ -53,10 +53,10 @@ const App = () => {
   const [bannerImages, setBannerImages] = useState([]);
   const [isModal, setIsModal] = useState(false);
   // ! Switch back to false before deploy
-  const [authorized, setAuthorized] = useState(true);
+  const [authorized, setAuthorized] = useState(false);
   const [cart, setCart] = useState([]);
   // ! Website url here vv
-  const API_BASE_URL = 'http://localhost:5555';
+  const API_BASE_URL = 'https://smokeplus-api.onrender.com';
   const location = useLocation();
 
   useEffect(() => {
