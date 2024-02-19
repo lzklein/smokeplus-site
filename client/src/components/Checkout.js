@@ -15,8 +15,6 @@ const Checkout = () => {
         const postOrderAndDeleteCart = async () => {
             try {
                 // Post the order
-                console.log('post order')
-                console.log(order)
                 const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
                     method: 'POST',
                     headers: {
@@ -30,7 +28,7 @@ const Checkout = () => {
                     return;
                 }
 
-                console.log('Order posted successfully');
+                // console.log('Order posted successfully');
 
                 // Delete the cart
                 const cartDeletionResponse = await fetch(`${API_BASE_URL}/api/cart/deleteBySessionId/${sessionId}`, {
@@ -48,7 +46,7 @@ const Checkout = () => {
                     setCart([]);
                 }
 
-                console.log('Cart deleted successfully');
+                // console.log('Cart deleted successfully');
 
                 setLoaded(true);
             } catch (error) {
