@@ -19,7 +19,7 @@ app.use(express.json());
 
 // Enable CORS for Express routes
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://smokeplus.onrender.com',
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -30,7 +30,7 @@ const server = http.createServer(app);
 // Enable CORS for Socket.IO
 const io = socketIO(server, {
   cors: {
-    origin: 'http://localhost:3000',
+    origin: 'https://smokeplus.onrender.com',
     methods: ['GET', 'POST'],
     credentials: true,
   }
