@@ -4,7 +4,7 @@ import * as XLSX from 'xlsx';
 import { SessionContext } from '../../App';
 
 const ExcelUploader = () => {
-  const { sessionId, API_BASE_URL, authorized } = useContext(SessionContext);
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [selectedFile, setSelectedFile] = useState(null);
   const [excelData, setExcelData] = useState(null);
   const navigate = useNavigate();
@@ -128,6 +128,16 @@ const ExcelUploader = () => {
     }
   };
   
+  if(!authorized){
+    return(
+      <div>
+        <h1>
+          ERROR
+        </h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    )
+  }
 
   return (
     <div>
