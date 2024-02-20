@@ -112,7 +112,7 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
         console.log('changes:',changedFields)
         onSubmit(originalId, changedFields);
         setErrors({});
-        onClose();``
+        onClose();
       };
 
   
