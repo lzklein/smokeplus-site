@@ -333,7 +333,7 @@ router.post('/', async (req, res) => {
   });
 
 // Excel Quantity Updater
-router.patch('/excel', async (req, res) => {
+router.patch('/excel/upload', async (req, res) => {
 
   const { id, quantity } = req.body; 
   console.log(id, quantity);
@@ -349,6 +349,7 @@ router.patch('/excel', async (req, res) => {
       };
 
       await product.update(productChanges);
+      console.log('success', product)
       res.json(product);
     } else {
       res.status(404).json({ error: 'Product not found' });

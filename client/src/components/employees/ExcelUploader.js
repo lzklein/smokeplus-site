@@ -107,7 +107,7 @@ const ExcelUploader = () => {
     const quantityToSubtract = parseInt(row[3], 10);
   
     try {
-      const response = await fetch(`${API_BASE_URL}/api/products/excel/`, {
+      const response = await fetch(`${API_BASE_URL}/api/products/excel/upload`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
