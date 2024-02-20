@@ -366,7 +366,7 @@ router.patch('/:id', async (req, res) => {
 
   const productId = req.params.id;
   console.log('id:', productId)
-  const {productChanges} = req.body; 
+  const productChanges = req.body; 
   console.log('changes', productChanges)
   try {
     const product = await Product.findByPk(productId);
