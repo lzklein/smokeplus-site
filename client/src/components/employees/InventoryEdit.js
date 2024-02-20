@@ -53,7 +53,7 @@ const InventoryEdit = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(productChanges),
+          body: JSON.stringify({ productChanges }),
         });
     
         if (response.ok) {
