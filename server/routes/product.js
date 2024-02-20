@@ -365,8 +365,9 @@ router.patch('/:id', async (req, res) => {
   console.log("Patching!");
 
   const productId = req.params.id;
+  console.log('id:', productId)
   const {productChanges} = req.body; 
-  console.log(productChanges)
+  console.log('changes', productChanges)
   try {
     const product = await Product.findByPk(productId);
     if (product) {
