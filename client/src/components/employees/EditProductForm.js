@@ -40,7 +40,7 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             newErrors.categories = [];
         }
         
-        console.log('New Errors:', newErrors);
+        // console.log('New Errors:', newErrors);
         setErrors(newErrors);
         
         const hasError = Object.values(newErrors).some((error) => {
@@ -50,8 +50,8 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             return error !== ''; 
         }) || newErrors.categories.length > 0;
         
-        console.log('Values for hasError:', Object.values(newErrors));
-        console.log('Has Error:', hasError);
+        // console.log('Values for hasError:', Object.values(newErrors));
+        // console.log('Has Error:', hasError);
         
         return hasError;
         };
@@ -109,10 +109,10 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             changedFields[key] = editedProduct[key];
           }
         }
-        console.log(changedFields)
+        console.log('changes:',changedFields)
         onSubmit(originalId, changedFields);
         setErrors({});
-        onClose();
+        onClose();``
       };
 
   
