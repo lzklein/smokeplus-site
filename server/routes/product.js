@@ -366,19 +366,16 @@ router.patch('/:id', async (req, res) => {
 
   const productId = req.params.id;
   console.log('id:', productId);
-  const { productChanges } = req.body;
+  let {productChanges} = req.body;
+
+  if (typeof req.body === 'object') {
+    productChanges = req.body;
+  }
 
   try {
     const product = await Product.findByPk(productId);
     if (product) {
-      if (typeof productChanges === 'object') {
-        // If productChanges is an object, update the product with its properties
-        await product.update(productChanges);
-      } else {
-        // If productChanges is a direct value, update the 'popular' field
-        await product.update({ popular: productChanges });
-      }
-
+      await product.update(productChanges);
       res.json(product);
     } else {
       res.status(404).json({ error: 'Product not found' });
@@ -388,7 +385,6 @@ router.patch('/:id', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 // Delete a product
 router.delete('/:id', async (req, res) => {
