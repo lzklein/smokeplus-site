@@ -128,30 +128,30 @@ const ProductPage = () => {
       </div>
     ));
   };
-  
-  if(isMobile){
+
+  if (isMobile) {
     return (
       loaded ? (
         <div>
-          <h1 style={{marginTop:'25px'}}>{product.name}</h1>
+          <h1 style={{ marginTop: '25px' }}>{product.name}</h1>
           <div className='mobile-image'>
             <img src={product.image} alt={product.name} draggable='false' className="product-img" />
           </div>
-          <br/>
+          <br />
           <p>
             {product.deals ? (
-              <>             
+              <>
                 <span style={{ textDecoration: 'line-through', color: 'grey' }}>
                   ${parseFloat(product.price).toFixed(2)}
                 </span>
-                <span style={{color: 'red',}}> {getPrice()} </span> 
+                <span style={{ color: 'red' }}> {getPrice()} </span>
 
               </>
             ) : (
               <span>${parseFloat(product.price).toFixed(2)}</span>
             )}
           </p>
-  
+
           {sizes.length > 0 && (
             <div>
               <p>Size Options:</p>
@@ -172,7 +172,7 @@ const ProductPage = () => {
           )}
           {flavors.length > 0 && (
             <div>
-              <p style={{marginTop:'5px', marginBottom:'10px'}}>Flavors:</p>
+              <p style={{ marginTop: '5px', marginBottom: '10px' }}>Flavors:</p>
               <select
                 onChange={(e) => {
                   const selectedId = e.target.options[e.target.selectedIndex].getAttribute('data-id');
@@ -189,28 +189,38 @@ const ProductPage = () => {
             </div>
           )}
           <br />
-          <input 
+          <input
             name='itemQuantity'
-            type='number'  
-            style={{marginRight:'5px', maxWidth:'70px'}}
+            type='number'
+            style={{ marginRight: '5px', maxWidth: '70px' }}
             defaultValue={1}
             min={1}
             max={product.quantity}
             onChange={(e) => setItemQuantity(parseInt(e.target.value, 10))}
           />
-          <br/>
-          <button
-            className="backbutton"
-            style={{ marginTop: '20px', padding:'15px' }}
-            onClick={() => {
-              addToCart(product, itemQuantity);
-              setCarted(true);
-            }}
-          >Add to Cart 🛒
-          </button>
-          {carted?<p style={{color:'green'}}>Added to cart!</p>:<p>&nbsp;</p>}
-          <p style={{marginTop:'5px'}}>{product.description}</p>
-          <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '10%' }}>Related Items:</h3>
+          <br />
+          {product.quantity === 0 ? (
+            <button
+              className="backbutton"
+              style={{ marginTop: '20px', padding: '15px' }}
+              disabled
+            >Sold Out
+            </button>
+          ) : (
+            <button
+              className="backbutton"
+              style={{ marginTop: '20px', padding: '15px' }}
+              onClick={() => {
+                addToCart(product, itemQuantity);
+                setCarted(true);
+              }}
+            >Add to Cart 🛒
+            </button>
+          )}
+
+          {carted ? <p style={{ color: 'green' }}>Added to cart!</p> : <p>&nbsp;</p>}
+          <p style={{ marginTop: '5px' }}>{product.description}</p>
+          <h3 style={{ textAlign: 'left', marginTop: '80px', marginLeft: '10%' }}>Related Items:</h3>
           <div className="related-products">
             {relatedProducts ? renderRelatedProducts() : null}
           </div>
@@ -234,13 +244,13 @@ const ProductPage = () => {
           </div>
           <div className="product-right">
             <h2>{product.name}</h2>
-            <p style={{marginBottom:'10px'}}>
+            <p style={{ marginBottom: '10px' }}>
               {product.deals ? (
-                <>             
+                <>
                   <span style={{ textDecoration: 'line-through', color: 'grey' }}>
                     ${parseFloat(product.price).toFixed(2)}
                   </span>
-                  <span style={{color: 'red',}}> {getPrice()} </span> 
+                  <span style={{ color: 'red' }}> {getPrice()} </span>
 
                 </>
               ) : (
@@ -285,15 +295,15 @@ const ProductPage = () => {
               </div>
             )}
             <br />
-            <input 
+            <input
               name='itemQuantity'
-              type='number'  
-              style={{marginRight:'5px', maxWidth:'70px'}}
+              type='number'
+              style={{ marginRight: '5px', maxWidth: '70px' }}
               defaultValue={1}
               min={1}
               max={product.quantity}
               onChange={(e) => setItemQuantity(parseInt(e.target.value, 10))}
-              />
+            />
             <button
               className="backbutton"
               style={{ marginTop: '10px' }}
@@ -304,11 +314,11 @@ const ProductPage = () => {
             >
               Add to Cart 🛒
             </button>
-            {carted?<p style={{color:'green'}}>Added to cart!</p>:<p>&nbsp;</p>}
-            <p style={{marginTop:'5px'}}>{product.description}</p>
+            {carted ? <p style={{ color: 'green' }}>Added to cart!</p> : <p>&nbsp;</p>}
+            <p style={{ marginTop: '5px' }}>{product.description}</p>
           </div>
         </div>
-        <h3 style={{ textAlign: 'left', marginTop:'80px', marginLeft: '25%' }}>Related Items:</h3>
+        <h3 style={{ textAlign: 'left', marginTop: '80px', marginLeft: '25%' }}>Related Items:</h3>
         <div className="related-products">
           {relatedProducts ? renderRelatedProducts() : null}
         </div>

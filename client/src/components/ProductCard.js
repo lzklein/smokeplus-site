@@ -43,37 +43,73 @@ const ProductCard = ({ product, compact }) => {
   if (isMobile &&compact){
     return(
       <div>
-      <Link to={`/products/${product.id}`}>
-        <img src={product.image} className='cardimage' alt={product.name} />
-        <h4>
-          {getProductName()}
-        </h4>
-        {!!product.deals?
-          <span style={{color: 'red',}}> {product.deals}% Off!</span>
-          :
-          <span>&nbsp;</span>
-          }
+        {
+          product.quantity === 0?
+          <>
+            <Link to={`/products/${product.id}`} className="greyed-out">
+              <img src={product.image} className='cardimage' alt={product.name} />
+              <h4>{getProductName()}</h4>
+              {!!product.deals ? (
+                <span style={{ color: 'red' }}> {product.deals}% Off!</span>
+              ) : (
+                <span>&nbsp;</span>
+              )}
+        
+              <p>
+                {product.deals ? (
+                  <>             
+                    <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                      ${parseFloat(product.price).toFixed(2)}
+                    </span>
+                    <span style={{ color: 'red' }}> {getPrice()} </span> 
+                  </>
+                ) : (
+                  <span>${parseFloat(product.price).toFixed(2)}</span>
+                )}
+              </p>
+            </Link>
+            <button className="logbutton" disabled>
+              Sold Out
+            </button>
+            <br />
+            {carted ? <p style={{ color: 'green' }}>Added to Cart!</p> : <span>&nbsp;</span>}
+          </>
+          :<>
+            <Link to={`/products/${product.id}`}>
+              <img src={product.image} className='cardimage' alt={product.name} />
+              <h4>
+                {getProductName()}
+              </h4>
+              {!!product.deals?
+                <span style={{color: 'red',}}> {product.deals}% Off!</span>
+                :
+                <span>&nbsp;</span>
+                }
 
-        <p>
-          {product.deals ? (
-            <>             
-              <span style={{ textDecoration: 'line-through', color: 'grey' }}>
-                ${parseFloat(product.price).toFixed(2)}
-              </span>
-              <span style={{color: 'red',}}> {getPrice()} </span> 
+              <p>
+                {product.deals ? (
+                  <>             
+                    <span style={{ textDecoration: 'line-through', color: 'grey' }}>
+                      ${parseFloat(product.price).toFixed(2)}
+                    </span>
+                    <span style={{color: 'red',}}> {getPrice()} </span> 
 
-            </>
-          ) : (
-            <span>${parseFloat(product.price).toFixed(2)}</span>
-          )}
-        </p>
-      </Link>
-      <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
-        +Cart 🛒
-      </button>
-      <br />
-      {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
+                  </>
+                ) : (
+                  <span>${parseFloat(product.price).toFixed(2)}</span>
+                )}
+              </p>
+            </Link>
+            <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
+              +Cart 🛒
+            </button>
+            <br />
+            {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
+          </>
+        }
+
     </div>
+
     )
   }
 
