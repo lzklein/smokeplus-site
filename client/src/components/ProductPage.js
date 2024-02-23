@@ -209,16 +209,23 @@ const ProductPage = () => {
           ) : (
             <button
               className="backbutton"
-              style={{ marginTop: '20px', padding: '15px' }}
+              style={{
+                marginTop: '20px',
+                padding: '15px',
+                backgroundColor: carted ? 'green' : 'inherit',
+                color: carted ? 'white' : 'inherit',
+              }}
               onClick={() => {
                 addToCart(product, itemQuantity);
                 setCarted(true);
               }}
-            >Add to Cart 🛒
+              disabled={carted}
+            >
+              {carted ? 'Added to Cart!' : 'Add to Cart 🛒'}
             </button>
-          )}
 
-          {carted ? <p style={{ color: 'green' }}>Added to cart!</p> : <p>&nbsp;</p>}
+          )}
+          <p>&nbsp;</p>
           <p style={{ marginTop: '5px' }}>{product.description}</p>
           <h3 style={{ textAlign: 'left', marginTop: '80px', marginLeft: '10%' }}>Related Items:</h3>
           <div className="related-products">
@@ -306,15 +313,21 @@ const ProductPage = () => {
             />
             <button
               className="backbutton"
-              style={{ marginTop: '10px' }}
+              style={{
+                marginTop: '20px',
+                padding: '15px',
+                backgroundColor: carted ? 'green' : 'inherit',
+                color: carted ? 'white' : 'inherit',
+              }}
               onClick={() => {
                 addToCart(product, itemQuantity);
                 setCarted(true);
               }}
+              disabled={carted}
             >
-              Add to Cart 🛒
+              {carted ? 'Added to Cart!' : 'Add to Cart 🛒'}
             </button>
-            {carted ? <p style={{ color: 'green' }}>Added to cart!</p> : <p>&nbsp;</p>}
+            <p>&nbsp;</p>
             <p style={{ marginTop: '5px' }}>{product.description}</p>
           </div>
         </div>
