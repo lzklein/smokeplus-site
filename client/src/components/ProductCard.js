@@ -140,11 +140,19 @@ const ProductCard = ({ product, compact }) => {
               )}
             </p>
           </Link>
-          <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
+          <button 
+          className="logbutton" 
+          style={{
+            backgroundColor: carted ? 'green' : 'inherit',
+            color: carted ? 'green' : 'inherit',
+          }}
+          onClick={() => { addToCart(product); setCarted(true) }}
+          disabled={carted}
+          >
             +Cart 🛒
           </button>
           <br />
-          {carted ? <p style={{ color: 'green' }}>Added to Cart!</p> : <span>&nbsp;</span>}
+          <span>&nbsp;</span>
         </div>
       </div>
     );
@@ -178,11 +186,19 @@ const ProductCard = ({ product, compact }) => {
           )}
         </p>
       </Link>
-      <button className="logbutton" onClick={() => { addToCart(product); setCarted(true) }}>
+      <button 
+        className="logbutton" 
+        style={{
+          backgroundColor: carted ? 'green' : 'inherit',
+          color: carted ? 'green' : 'inherit',
+        }}
+        onClick={() => { addToCart(product); setCarted(true) }}
+        disabled={carted}
+        >
         🛒 Add to Cart
       </button>
       <br />
-      {carted? <p style={{color:'green'}}>Added to Cart!</p>:<span>&nbsp;</span>}
+      <span>&nbsp;</span>
     </div>
   );
 };

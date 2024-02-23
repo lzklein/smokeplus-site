@@ -212,7 +212,7 @@ const ProductPage = () => {
               style={{
                 marginTop: '20px',
                 padding: '15px',
-                backgroundColor: carted ? 'green' : 'inherit',
+                backgroundColor: carted ? '#8CC84B' : 'inherit',
                 color: carted ? 'white' : 'inherit',
               }}
               onClick={() => {
