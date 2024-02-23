@@ -153,7 +153,7 @@ const ProductPage = () => {
           </p>
 
           {sizes.length > 0 && (
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <p>Size Options:</p>
               <select
                 onChange={(e) => {
@@ -171,7 +171,7 @@ const ProductPage = () => {
             </div>
           )}
           {flavors.length > 0 && (
-            <div>
+            <div style={{marginBottom:'5px'}}>
               <p style={{ marginTop: '5px', marginBottom: '10px' }}>Flavors:</p>
               <select
                 onChange={(e) => {
