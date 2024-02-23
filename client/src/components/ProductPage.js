@@ -212,8 +212,7 @@ const ProductPage = () => {
               style={{
                 marginTop: '20px',
                 padding: '15px',
-                backgroundColor: carted ? '#8CC84B' : 'inherit',
-                color: carted ? 'white' : 'inherit',
+                color: carted ? 'green' : 'inherit',
               }}
               onClick={() => {
                 addToCart(product, itemQuantity);
@@ -316,8 +315,7 @@ const ProductPage = () => {
               style={{
                 marginTop: '20px',
                 padding: '15px',
-                backgroundColor: carted ? 'green' : 'inherit',
-                color: carted ? 'white' : 'inherit',
+                color: carted ? 'green' : 'inherit',
               }}
               onClick={() => {
                 addToCart(product, itemQuantity);

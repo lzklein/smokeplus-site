@@ -143,7 +143,6 @@ const ProductCard = ({ product, compact }) => {
           <button 
           className="logbutton" 
           style={{
-            backgroundColor: carted ? 'green' : 'inherit',
             color: carted ? 'green' : 'inherit',
           }}
           onClick={() => { addToCart(product); setCarted(true) }}
@@ -189,7 +188,6 @@ const ProductCard = ({ product, compact }) => {
       <button 
         className="logbutton" 
         style={{
-          backgroundColor: carted ? 'green' : 'inherit',
           color: carted ? 'green' : 'inherit',
         }}
         onClick={() => { addToCart(product); setCarted(true) }}
