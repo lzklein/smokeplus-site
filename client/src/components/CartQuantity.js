@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CartQuantity = () => {
+const CartQuantity = ({max}) => {
   const [quantity, setQuantity] = useState(1);
   const [isInputMode, setIsInputMode] = useState(false);
 
@@ -30,8 +30,9 @@ const CartQuantity = () => {
       {isInputMode ? (
         <>
           <input
-            type='text'
+            type='number'
             min='1'
+            max={max}
             value={quantity}
             onChange={handleInputChange}
             style={{ width: '50px', marginRight: '5px' }}
