@@ -1,9 +1,8 @@
-import React, { useContext, useEffect, useState } from 'react';
-import {useNavigate} from 'react-router-dom';
-import { SessionContext } from '../App'; 
+import React, { useEffect, useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { SessionContext } from '../App';
 import CartCard from './CartCard';
 import { v4 as uuidv4 } from 'uuid';
-
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -16,8 +15,12 @@ const Cart = () => {
     const currentTime = new Date();
     const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000); // Adding 10 minutes
     const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000); // Adding 15 minutes
-    setReadyTimeMin(addMinMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
-    setReadyTimeMax(addMaxMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
+    setReadyTimeMin(
+      addMinMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+    );
+    setReadyTimeMax(
+      addMaxMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+    );
   }, [cart, total]);
 
   const handleDelete = async (itemId) => {
@@ -25,14 +28,13 @@ const Cart = () => {
       const response = await fetch(`${API_BASE_URL}/api/cart/${itemId}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json', 
+          'Content-Type': 'application/json',
         },
       });
-  
+
       if (!response.ok) {
         console.error('Failed to delete item:', response.statusText);
       } else {
-        console.log('Item removed cart successfully');
         const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
@@ -40,50 +42,70 @@ const Cart = () => {
     } catch (error) {
       console.error('Error removing item from cart:', error.message);
     }
-  }
+  };
+
+  const handleQuantityChange = (itemId, newQuantity) => {
+    const updatedCart = cart.map((item) =>
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
+    );
+    setCart(updatedCart);
+
+    const newSubtotal = updatedCart.reduce(
+      (subtotal, item) => subtotal + item.price * item.quantity,
+      0
+    );
+    setTotal(newSubtotal);
+  };
 
   const renderCart = () => {
     return cart.map((item) => (
-      <CartCard key={item.id} sessionId = {sessionId} setCart = {setCart} item={item} onDelete={() => handleDelete(item.id)} setTotal={setTotal} url={API_BASE_URL} order={false}/>
+      <CartCard
+        key={item.id}
+        sessionId={sessionId}
+        setCart={setCart}
+        item={item}
+        onDelete={() => handleDelete(item.id)}
+        setTotal={setTotal}
+        url={API_BASE_URL}
+        order={false}
+        onQuantityChange={handleQuantityChange}
+      />
     ));
-  }
-
-  function uuidToNumber(uuid) {
-    const hexString = uuid.replace(/-/g, '').slice(0, 6);
-    const numericValue = parseInt(hexString, 16);
-    
-    return numericValue.toString().padStart(6, '0');
-  }
-  
+  };
 
   const order = {
-    id : uuidToNumber(uuidv4()),
-    cart : cart,
-    userId : sessionId
-  }
+    id: uuidv4(),
+    cart: cart,
+    userId: sessionId,
+  };
 
   const handleScheduleOrder = () => {
-    navigate('/checkout', { state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax } });
-  }
-  
+    navigate('/checkout', {
+      state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax },
+    });
+  };
+
   return (
     <div>
-      {
-        cart.length === 0 ?
-        <div style={{marginTop:"100px", marginBottom:"500px"}}>
+      {cart.length === 0 ? (
+        <div style={{ marginTop: '100px', marginBottom: '500px' }}>
           <h1>Cart is empty</h1>
         </div>
-        :
+      ) : (
         <div className='cart-container'>
-          <h2 style={{marginTop:'40px', marginBottom:'60px'}}>Cart</h2>
+          <h2 style={{ marginTop: '40px', marginBottom: '60px' }}>Cart</h2>
           {renderCart()}
-          <h3 style={{marginTop:'100px'}}>Subtotal: ${total.toFixed(2)}</h3>
-          <h4>Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}</h4>
-          <button className="logbutton" onClick={handleScheduleOrder}>Place Order</button>
+          <h3 style={{ marginTop: '100px' }}>Subtotal: ${total.toFixed(2)}</h3>
+          <h4>
+            Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
+          </h4>
+          <button className='logbutton' onClick={handleScheduleOrder}>
+            Place Order
+          </button>
         </div>
-      }
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default Cart;
