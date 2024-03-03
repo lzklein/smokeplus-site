@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import CartQuantity from './CartQuantity';
+import { SessionContext } from '../App';
 
 const CartCard = ({
   sessionId,

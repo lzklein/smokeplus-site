@@ -10,6 +10,7 @@ const Cart = () => {
   const [productDetails, setProductDetails] = useState([]);
   const [readyTimeMin, setReadyTimeMin] = useState('');
   const [readyTimeMax, setReadyTimeMax] = useState('');
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const currentTime = new Date();
