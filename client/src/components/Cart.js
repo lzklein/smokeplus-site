@@ -7,22 +7,21 @@ import { v4 as uuidv4 } from 'uuid';
 const Cart = () => {
   const navigate = useNavigate();
   const { sessionId, cart, setCart, API_BASE_URL } = useContext(SessionContext);
-  const [productDetails, setProductDetails] = useState([]);
+  const [total, setTotal] = useState(0);
   const [readyTimeMin, setReadyTimeMin] = useState('');
   const [readyTimeMax, setReadyTimeMax] = useState('');
-  const [total, setTotal] = useState(0);
 
   useEffect(() => {
     const currentTime = new Date();
-    const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000);
-    const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000);
+    const addMinMinutes = new Date(currentTime.getTime() + 10 * 60000); // Adding 10 minutes
+    const addMaxMinutes = new Date(currentTime.getTime() + 15 * 60000); // Adding 15 minutes
     setReadyTimeMin(
       addMinMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
     );
     setReadyTimeMax(
       addMaxMinutes?.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
     );
-  }, [cart, productDetails]);
+  }, [cart, total]);
 
   const handleDelete = async (itemId) => {
     try {
@@ -45,12 +44,17 @@ const Cart = () => {
     }
   };
 
-
-  const handleQuantityChange = (productId, newQuantity) => {
-    const updatedProductDetails = productDetails.map((product) =>
-      product.id === productId ? { ...product, quantity: newQuantity } : product
+  const handleQuantityChange = (itemId, newQuantity) => {
+    const updatedCart = cart.map((item) =>
+      item.id === itemId ? { ...item, quantity: newQuantity } : item
     );
-    setProductDetails(updatedProductDetails);
+    setCart(updatedCart);
+
+    const newSubtotal = updatedCart.reduce(
+      (subtotal, item) => subtotal + item.price * item.quantity,
+      0
+    );
+    setTotal(newSubtotal);
   };
 
   const renderCart = () => {
@@ -61,11 +65,10 @@ const Cart = () => {
         setCart={setCart}
         item={item}
         onDelete={() => handleDelete(item.id)}
+        setTotal={setTotal}  
         url={API_BASE_URL}
         order={false}
-        onQuantityChange={(newQuantity) => handleQuantityChange(item.product, newQuantity)}
-        productDetails={productDetails}
-        setProductDetails={setProductDetails}
+        onQuantityChange={handleQuantityChange}
       />
     ));
   };
@@ -81,14 +84,6 @@ const Cart = () => {
       state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax },
     });
   };
-
-  useEffect(() => {
-    const newSubtotal = productDetails.reduce(
-      (subtotal, product) => subtotal + product.price * product.quantity,
-      0
-    );
-    setTotal(newSubtotal);
-  }, [productDetails]);
 
   return (
     <div>
