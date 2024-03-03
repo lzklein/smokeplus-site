@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const CartQuantity = ({max}) => {
+const CartQuantity = ({max, handleDelete}) => {
   const [quantity, setQuantity] = useState(1);
   const [isInputMode, setIsInputMode] = useState(false);
 
@@ -21,10 +21,14 @@ const CartQuantity = ({max}) => {
   };
 
   const handleApplyClick = () => {
-    // Remove the line that switches back to dropdown mode
-    console.log(`Quantity applied: ${quantity}`);
+    if (!quantity) {
+      handleDelete();
+    } else if (quantity > max) {
+      alert(`Quantity exceeds stock limit. Maximum allowed: ${max}`);
+      setQuantity(max);
+    }
   };
-
+  
   return (
     <div className='cart-quantity'>
       {isInputMode ? (

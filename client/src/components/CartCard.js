@@ -50,70 +50,6 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     return parseFloat(fullPrice - discount).toFixed(2);
   }
 
-  const moreQuantity = async () => {
-    if (item.quantity < product.quantity) {
-      const response = await fetch(`${url}/api/cart/${item.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: item.quantity + 1,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error('Failed to update cart item:', response.statusText);
-      } else {
-        console.log('Cart item updated successfully');
-        const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
-        const updatedCartData = await updatedResponse.json();
-        setCart(updatedCartData);
-        if(!!product.deals){
-          setTotal((prevTotal) => {
-            return prevTotal + parseFloat(getPrice(product.price));
-          });
-        }
-        else{
-          setTotal((prevTotal) => prevTotal + product.price);
-        }
-      }
-    } else {
-      alert('No more in stock');
-    }
-  };
-
-  const lessQuantity = async () => {
-    if (item.quantity > 1) {
-      const response = await fetch(`${url}/api/cart/${item.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          quantity: item.quantity - 1,
-        }),
-      });
-
-      if (!response.ok) {
-        console.error('Failed to update cart item:', response.statusText);
-      } else {
-        console.log('Cart item updated successfully');
-        const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
-        const updatedCartData = await updatedResponse.json();
-        setCart(updatedCartData);
-        if(!!product.deals){
-          setTotal((prevTotal) => prevTotal - getPrice(product.price));
-        }
-        else{
-          setTotal((prevTotal) => prevTotal - product.price);
-        }
-      }
-    } else if (item.quantity === 1) {
-      handleDelete();
-    }
-  };
-
   const handleDelete = async () => {
     const confirmed = window.confirm('Remove this item from cart?');
     if (confirmed) {
@@ -174,7 +110,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
             <div className='cart-quantity'>
-              <CartQuantity max={product.quantity}/>
+              <CartQuantity max={product.quantity} handleDelete={handleDelete}/>
             </div>
           </div>
           {!isMobile && <br />}
