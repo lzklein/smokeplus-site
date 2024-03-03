@@ -65,7 +65,7 @@ const Cart = () => {
         setCart={setCart}
         item={item}
         onDelete={() => handleDelete(item.id)}
-        setTotal={setTotal}
+        setTotal={setTotal}  
         url={API_BASE_URL}
         order={false}
         onQuantityChange={handleQuantityChange}

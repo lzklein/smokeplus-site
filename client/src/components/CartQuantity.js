@@ -45,7 +45,7 @@ const CartQuantity = ({ max, handleDelete, value }) => {
             onChange={handleInputChange}
             style={{ width: '80px', marginRight: '5px' }}
           />
-          <button onClick={handleApplyClick} className='backbutton'>
+          <button onClick={handleApplyClick} className='backbutton' style={{marginTop:'3px'}}>
             Apply
           </button>
         </>
