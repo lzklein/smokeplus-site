@@ -35,7 +35,7 @@ const CartQuantity = ({max}) => {
             max={max}
             value={quantity}
             onChange={handleInputChange}
-            style={{ width: '50px', marginRight: '5px' }}
+            style={{ width: '80px', marginRight: '5px' }}
           />
           <button onClick={handleApplyClick} className='back-button'>Apply</button>
         </>
