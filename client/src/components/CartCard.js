@@ -11,6 +11,8 @@ const CartCard = ({
   onQuantityChange,
   onDelete,
   setTotal,
+  productDetails,
+  setProductDetails
 }) => {
   const { isMobile } = useContext(SessionContext);
   const [loaded, setLoaded] = useState(false);

@@ -64,6 +64,8 @@ const Cart = () => {
         url={API_BASE_URL}
         order={false}
         onQuantityChange={(newQuantity) => handleQuantityChange(item.product, newQuantity)}
+        productDetails={productDetails}
+        setProductDetails={setProductDetails}
       />
     ));
   };
