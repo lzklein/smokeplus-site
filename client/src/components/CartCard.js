@@ -83,22 +83,21 @@ const CartCard = ({
   };
 
   useEffect(() => {
-    // Calculate subtotal on quantity change
-    if (!initSet) {
-      if (!order) {
-        if (!!product.deals) {
-          setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity);
-          setInitSet(true);
-          return;
-        } else {
-          setTotal((prevTotal) => prevTotal + product.price * item.quantity);
-          setInitSet(true);
-          return;
-        }
+    if (!initSet || !product || !item) {
+      return;
+    }
+  
+    if (!order) {
+      if (!!product.deals) {
+        setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity);
+      } else {
+        setTotal((prevTotal) => prevTotal + product.price * item.quantity);
       }
     }
+  
     setInitSet(false);
   }, [item.quantity, product, order, setTotal, initSet]);
+  
 
   if (!!order) {
     return (
