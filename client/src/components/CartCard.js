@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { SessionContext } from '../App'; 
+import { SessionContext } from '../App';
+import CartQuantity from './CartQuantity';
 
 const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   const { isMobile } = useContext(SessionContext);
   const [loaded, setLoaded] = useState(false);
   const [product, setProduct] = useState([]);
   const [initSet, setInitSet] = useState(true);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -159,7 +161,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     )
   }
 
-  return (
+ return (
     <div>
       {loaded ? (
         <div className='cartcard'>
@@ -171,27 +173,19 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
             {isMobile && (
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
-            <div className="cart-quantity">
-              <span className="minus" onClick={lessQuantity} style={{ marginTop: '12px', marginRight: '-1px' }}>-</span>
-              <input
-                type="text"
-                className='counter'
-                readOnly
-                value={item.quantity}
-              />
-              <span className="plus" onClick={moreQuantity} style={{ marginTop: '12px', marginLeft: '-1px' }}>+</span>
+            <div className='cart-quantity'>
+              <CartQuantity />
             </div>
           </div>
           {!isMobile && <br />}
           {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>)}
-          {isMobile? null: <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>Remove from Cart</button>}
+          {isMobile ? null : <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>Remove from Cart</button>}
         </div>
       ) : (
         <div>Loading...</div>
       )}
     </div>
   );
-  
 };
 
 export default CartCard;
