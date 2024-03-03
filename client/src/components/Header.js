@@ -144,16 +144,22 @@ const Header = () => {
     return (
       <header className="header" style={{ userSelect: 'none' }}>
         <div className="left-nav">
-          <div className={`hamburger-container ${isOpen ? 'open' : ''}`} onClick={handleBurger}>
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-            <div className="hamburger-line"></div>
-          </div>
+        <div id="menuToggle">
+              <input type="checkbox" checked={isMenuOpen} onChange={() => (isMenuOpen ? closeBurgerMenu() : handleBurger())} className="menuToggle" readOnly/>
+
+              <span onClick={handleBurger} className="menuToggle"></span>
+              <span onClick={handleBurger} className="menuToggle"></span>
+              <span onClick={handleBurger} className="menuToggle"></span>
+
+              <ul id="menu" className={isMenuOpen ? 'isMenuOpen' : ''} ref={menuRef}>
+                {renderCategories()}
+              </ul>
+            </div>
           <Link to="/" style={{ marginLeft: '50px', fontSize: '30px', fontWeight: '500' }}>
             SMOKE PLUS
           </Link>
         </div>
-        {!hidden && (
+        {/* {!hidden && (
           <div className={`mobile-menu ${isOpen ? 'open' : ''}`}>
             <Link
               to="/all"
@@ -177,7 +183,7 @@ const Header = () => {
               Order Status
             </Link>
           </div>
-        )}
+        )} */}
 
         <div className="right-nav" style={{ userSelect: 'none' }}>
           <NavRight cart={cart} />
