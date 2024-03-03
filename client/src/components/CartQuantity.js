@@ -21,7 +21,7 @@ const CartQuantity = () => {
   };
 
   const handleApplyClick = () => {
-    setIsInputMode(false);
+    // Remove the line that switches back to dropdown mode
     console.log(`Quantity applied: ${quantity}`);
   };
 
@@ -30,12 +30,13 @@ const CartQuantity = () => {
       {isInputMode ? (
         <>
           <input
-            type='number'
+            type='text'
             min='1'
             value={quantity}
             onChange={handleInputChange}
+            style={{ width: '50px', marginRight: '5px' }}
           />
-          <button onClick={handleApplyClick}>Apply</button>
+          <button onClick={handleApplyClick} className='back-button'>Apply</button>
         </>
       ) : (
         <select value={quantity} onChange={handleDropdownChange}>
