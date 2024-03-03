@@ -41,7 +41,7 @@ const CartQuantity = ({max, handleDelete}) => {
             onChange={handleInputChange}
             style={{ width: '80px', marginRight: '5px' }}
           />
-          <button onClick={handleApplyClick} className='back-button'>Apply</button>
+          <button onClick={handleApplyClick} className='backbutton'>Apply</button>
         </>
       ) : (
         <select value={quantity} onChange={handleDropdownChange}>
