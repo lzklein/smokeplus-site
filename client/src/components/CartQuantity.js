@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const CartQuantity = ({max, handleDelete}) => {
+const CartQuantity = ({ max, handleDelete, value }) => {
   const [quantity, setQuantity] = useState(1);
   const [isInputMode, setIsInputMode] = useState(false);
+
+  useEffect(() => {
+    setQuantity(value);
+  }, [value]);
 
   const handleDropdownChange = (event) => {
     const selectedValue = parseInt(event.target.value, 10);
@@ -28,7 +32,7 @@ const CartQuantity = ({max, handleDelete}) => {
       setQuantity(max);
     }
   };
-  
+
   return (
     <div className='cart-quantity'>
       {isInputMode ? (
@@ -41,7 +45,9 @@ const CartQuantity = ({max, handleDelete}) => {
             onChange={handleInputChange}
             style={{ width: '80px', marginRight: '5px' }}
           />
-          <button onClick={handleApplyClick} className='backbutton'>Apply</button>
+          <button onClick={handleApplyClick} className='backbutton'>
+            Apply
+          </button>
         </>
       ) : (
         <select value={quantity} onChange={handleDropdownChange}>
