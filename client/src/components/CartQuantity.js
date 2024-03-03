@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CartQuantity = ({ max, handleDelete, value }) => {
+const CartQuantity = ({ max, handleDelete, value, onQuantityChange }) => {
   const [quantity, setQuantity] = useState(1);
   const [isInputMode, setIsInputMode] = useState(false);
 
@@ -11,6 +11,7 @@ const CartQuantity = ({ max, handleDelete, value }) => {
   const handleDropdownChange = (event) => {
     const selectedValue = parseInt(event.target.value, 10);
     setQuantity(selectedValue);
+    onQuantityChange(selectedValue);
 
     if (selectedValue === 10) {
       setIsInputMode(true);
@@ -22,6 +23,7 @@ const CartQuantity = ({ max, handleDelete, value }) => {
   const handleInputChange = (event) => {
     const inputValue = parseInt(event.target.value, 10);
     setQuantity(inputValue);
+    onQuantityChange(inputValue); 
   };
 
   const handleApplyClick = () => {
@@ -30,6 +32,9 @@ const CartQuantity = ({ max, handleDelete, value }) => {
     } else if (quantity > max) {
       alert(`Quantity exceeds stock limit. Maximum allowed: ${max}`);
       setQuantity(max);
+      onQuantityChange(max); 
+    } else {
+      onQuantityChange(quantity);
     }
   };
 
@@ -45,7 +50,7 @@ const CartQuantity = ({ max, handleDelete, value }) => {
             onChange={handleInputChange}
             style={{ width: '80px', marginRight: '5px' }}
           />
-          <button onClick={handleApplyClick} className='backbutton' style={{marginTop:'3px'}}>
+          <button onClick={handleApplyClick} className='backbutton' style={{ marginTop: '3px' }}>
             Apply
           </button>
         </>

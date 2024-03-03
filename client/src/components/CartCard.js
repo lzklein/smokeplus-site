@@ -1,16 +1,15 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { SessionContext } from '../App';
 import CartQuantity from './CartQuantity';
 
 const CartCard = ({
   sessionId,
-  setTotal,
   setCart,
   item,
   url,
   order,
   onQuantityChange,
   onDelete,
+  setTotal,
 }) => {
   const { isMobile } = useContext(SessionContext);
   const [loaded, setLoaded] = useState(false);
@@ -78,36 +77,24 @@ const CartCard = ({
   };
 
   const handleQuantityChange = (newQuantity) => {
-    // Handle quantity changes
-    onQuantityChange(item.id, newQuantity);
+    onQuantityChange(item.product, newQuantity);
   };
 
   useEffect(() => {
     if (!initSet || !product || !item) {
       return;
     }
-  
+
     if (!order) {
       if (!!product.deals) {
-        setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity);
+        setProductDetails([...productDetails, { id: item.product, name: getProductName(), quantity: item.quantity, price: getPrice(product.price) }]);
       } else {
-        setTotal((prevTotal) => prevTotal + product.price * item.quantity);
+        setProductDetails([...productDetails, { id: item.product, name: getProductName(), quantity: item.quantity, price: product.price }]);
       }
     }
-  
+
     setInitSet(false);
   }, [item.quantity, product, order, setTotal, initSet]);
-  
-
-  if (!!order) {
-    return (
-      <div className='cartcard'>
-        <img style={isMobile ? null : { marginLeft: '25vw' }} src={product.image} className='cart-img' alt={product.name} />
-        <h3 style={isMobile ? { maxWidth: '20vw', marginLeft: '-150px' } : { marginRight: '25vw' }}>{product.name} {product.flavors} {product.sizes} {isMobile ? null : item.quantity}</h3>
-        {isMobile ? <h3 style={{ marginLeft: '-80px' }}>{item.quantity}</h3> : null}
-      </div>
-    )
-  }
 
   return (
     <div>
@@ -122,7 +109,13 @@ const CartCard = ({
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
             <div className='cart-quantity'>
-              <CartQuantity max={product.quantity} handleDelete={handleDelete} value={item.quantity} onQuantityChange={handleQuantityChange} />
+              <CartQuantity
+                max={product.quantity}
+                handleDelete={handleDelete}
+                value={item.quantity}
+                onQuantityChange={handleQuantityChange}
+                setTotal={setTotal}
+              />
             </div>
           </div>
           {!isMobile && <br />}
