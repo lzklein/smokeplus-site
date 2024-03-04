@@ -50,34 +50,72 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount }) =>
       alert(`Quantity exceeds stock limit. Maximum allowed: ${max}`);
       setQuantity(max);
     }
-
   };
+
+  const changeQuantity = async () => {
+      const response = await fetch(`${url}/api/cart/${item.id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          quantity: quantity,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('Failed to update cart item:', response.statusText);
+      } else {
+        console.log('Cart item updated successfully');
+        const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
+        const updatedCartData = await updatedResponse.json();
+        setCart(updatedCartData);
+        if(!!product.deals){
+          setTotal((prevTotal) => {
+            return prevTotal + parseFloat(getPrice(product.price));
+          });
+        }
+        else{
+          setTotal((prevTotal) => prevTotal + product.price);
+        }
+      }
+  };
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    handleApplyClick();
+    setIsInputMode(false);
+    handleTotalChange(quantity);
+    changeQuantity();
+  }
 
   return (
     <div className='cart-quantity'>
-      {isInputMode ? (
-        <>
-          <input
-            type='number'
-            min='1'
-            max={max}
-            value={quantity}
-            onChange={handleInputChange}
-            style={{ width: '80px', marginRight: '5px' }}
-          />
-          <button onClick={handleApplyClick} className='backbutton' style={{marginTop:'3px'}}>
-            Apply
-          </button>
-        </>
-      ) : (
-        <select value={quantity} onChange={handleDropdownChange}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
-            <option key={value} value={value}>
-              {value === 10 ? '10+' : value}
-            </option>
-          ))}
-        </select>
-      )}
+        <form onSubmit={handleSubmit}>
+            {isInputMode ? (
+            <>
+            <input
+                type='number'
+                min='1'
+                max={max}
+                value={quantity}
+                onChange={handleInputChange}
+                style={{ width: '80px', marginRight: '5px' }}
+            />
+            <button type="submit" className='backbutton' style={{marginTop:'3px'}}>
+                Apply
+            </button>
+            </>
+        ) : (
+            <select value={quantity} onChange={handleDropdownChange}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+                <option key={value} value={value}>
+                {value === 10 ? '10+' : value}
+                </option>
+            ))}
+            </select>
+        )}
+        </form>
     </div>
   );
 };
