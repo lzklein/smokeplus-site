@@ -69,14 +69,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
-        if(!!product.deals){
-          setTotal((prevTotal) => {
-            return prevTotal + parseFloat(discount(product.price));
-          });
-        }
-        else{
-          setTotal((prevTotal) => prevTotal + product.price);
-        }
       }
   };
 
