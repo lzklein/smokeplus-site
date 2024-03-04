@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from 'react';
+
 const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url, sessionId, setCart, product }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const [isInputMode, setIsInputMode] = useState(false);
