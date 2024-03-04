@@ -9,7 +9,9 @@ const CartQuantity = ({ max, handleDelete, value, price, setTotal }) => {
   }, [value]);
 
   const handleTotalChange = (e) => {
+    console.log(e.target.value)
     const newQuantity = parseInt(e.target.value, 10);
+    console.log(newQuantity)
     const originalPrice = quantity*price
     const difference = originalPrice-(newQuantity*price)
     setTotal((prevTotal)=>prevTotal+difference)
@@ -18,6 +20,7 @@ const CartQuantity = ({ max, handleDelete, value, price, setTotal }) => {
 
   const handleDropdownChange = (e) => {
     const selectedValue = parseInt(e.target.value, 10);
+    console.log(selectedValue)
     setQuantity(selectedValue);
 
     if (selectedValue === 10) {
