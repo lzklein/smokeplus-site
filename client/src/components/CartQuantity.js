@@ -31,7 +31,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (selectedValue === 10) {
       setIsInputMode(true);
     } else {
-      setIsInputMode(false);
       handleTotalChange(e)
     }
   };
@@ -75,7 +74,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const handleSubmit = (e) =>{
     e.preventDefault();
     handleApplyClick();
-    setIsInputMode(true);
     handleTotalChange(quantity);
     changeQuantity();
   }
