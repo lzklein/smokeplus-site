@@ -12,14 +12,14 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const handleTotalChange = (e) => {
     console.log(e.target.value)
     console.log(quantity)
-    const newQuantity = parseInt(e.target.value, 10);
+    const newQuantity = e.target.value;
     console.log(newQuantity)
     console.log(price)
     const originalPrice = quantity*price
     console.log(originalPrice)
-    const difference = (newQuantity*price)-originalPrice
+    const difference = parseFloat((newQuantity*price)-originalPrice).toFixed(2)
     console.log(difference)
-    setTotal((prevTotal)=>prevTotal+parseInt(difference,10))
+    setTotal((prevTotal)=>prevTotal+difference)
     setQuantity(newQuantity)
   }
 
