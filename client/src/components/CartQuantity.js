@@ -14,8 +14,8 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     const originalPrice = quantity*price
     console.log(originalPrice)
     const difference = (newQuantity*price)-originalPrice
-    const formattedDifference = parseFloat(difference).toFixed(2);
-    setTotal((prevTotal) => (parseFloat(prevTotal) + parseFloat(formattedDifference)).toFixed(2));
+    const formattedDifference = parseFloat(difference);
+    setTotal((prevTotal) => (parseFloat(prevTotal) + Number(formattedDifference)).toFixed(2));
     setQuantity(newQuantity)
   }
 
