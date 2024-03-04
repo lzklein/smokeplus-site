@@ -22,7 +22,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (selectedValue === 10) {
       setIsInputMode(true);
     } else {
-      setIsInputMode(false);
       handleTotalChange();
     }
   };
@@ -36,10 +35,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (!quantity) {
       handleDelete();
     } else if (quantity > max) {
-      alert(`Quantity exceeds stock limit. Maximum allowed: ${max}`);
+      alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
       setQuantity(max);
     } else {
-      setIsInputMode(false);
       handleTotalChange();
       changeQuantity();
     }
