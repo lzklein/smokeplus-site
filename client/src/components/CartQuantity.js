@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-const CartQuantity = ({ max, handleDelete, value, price, setTotal }) => {
-  const [quantity, setQuantity] = useState(1);
+const CartQuantity = ({ max, handleDelete, value, price, setTotal, itemQuantity }) => {
+  const [quantity, setQuantity] = useState(itemQuantity);
   const [isInputMode, setIsInputMode] = useState(false);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const CartQuantity = ({ max, handleDelete, value, price, setTotal }) => {
     console.log(price)
     const originalPrice = quantity*price
     const difference = originalPrice-(newQuantity*price)
-    setTotal((prevTotal)=>prevTotal+difference)
+    setTotal((prevTotal)=>parseInt(prevTotal,10)+parseInt(difference,10))
     setQuantity(newQuantity)
   }
 
