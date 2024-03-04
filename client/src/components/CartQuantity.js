@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount }) => {
+const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url, sessionId, setCart, product }) => {
     console.log(item)
   const [quantity, setQuantity] = useState(item.quantity);
   const [isInputMode, setIsInputMode] = useState(false);
@@ -72,7 +72,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount }) =>
         setCart(updatedCartData);
         if(!!product.deals){
           setTotal((prevTotal) => {
-            return prevTotal + parseFloat(getPrice(product.price));
+            return prevTotal + parseFloat(discount(product.price));
           });
         }
         else{
