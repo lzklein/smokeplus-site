@@ -46,8 +46,13 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   }, [product])
 
   const getPrice = (fullPrice) => {
-    const discount = (product.deals * 0.01) * fullPrice;
-    return parseFloat(fullPrice - discount).toFixed(2);
+    if(!!product.deals){
+      const discount = (product.deals * 0.01) * fullPrice;
+      return parseFloat(fullPrice - discount).toFixed(2);
+    }
+    else{
+      return fullPrice
+    }
   }
 
   const handleDelete = async () => {
@@ -110,7 +115,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
             <div className='cart-quantity'>
-              <CartQuantity max={product.quantity} handleDelete={handleDelete} price={product.price} setTotal={setTotal} item={item}/>
+              <CartQuantity max={product.quantity} handleDelete={handleDelete} price={product.price} setTotal={setTotal} item={item} discount={getPrice}/>
             </div>
           </div>
           {!isMobile && <br />}
