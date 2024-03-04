@@ -75,7 +75,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const handleSubmit = (e) =>{
     e.preventDefault();
     handleApplyClick();
-    setIsInputMode(false);
+    setIsInputMode(true);
     handleTotalChange(quantity);
     changeQuantity();
   }
