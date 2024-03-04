@@ -15,11 +15,11 @@ const CartQuantity = ({ max, handleDelete, value, price, setTotal, itemQuantity 
     const newQuantity = parseInt(e.target.value, 10);
     console.log(newQuantity)
     console.log(price)
-    const originalPrice = quantity*price
+    const originalPrice = quantity.quantity*price
     console.log(originalPrice)
     const difference = originalPrice-(newQuantity*price)
     console.log(difference)
-    setTotal((prevTotal)=>parseInt(prevTotal,10)+parseInt(difference,10))
+    setTotal((prevTotal)=>prevTotal+parseInt(difference,10))
     setQuantity(newQuantity)
   }
 
