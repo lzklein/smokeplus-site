@@ -95,7 +95,7 @@ const Cart = () => {
         <div className='cart-container'>
           <h2 style={{ marginTop: '40px', marginBottom: '60px' }}>Cart</h2>
           {renderCart()}
-          <h3 style={{ marginTop: '100px' }}>Subtotal: ${total.toFixed(2)}</h3>
+          <h3 style={{ marginTop: '100px' }}>Subtotal: ${total}</h3>
           <h4>
             Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
           </h4>
