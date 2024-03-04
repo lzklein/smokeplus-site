@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const CartQuantity = ({ max, handleDelete, value }) => {
+const CartQuantity = ({ max, handleDelete, value, price, setTotal }) => {
   const [quantity, setQuantity] = useState(1);
   const [isInputMode, setIsInputMode] = useState(false);
 
@@ -8,20 +8,30 @@ const CartQuantity = ({ max, handleDelete, value }) => {
     setQuantity(value);
   }, [value]);
 
-  const handleDropdownChange = (event) => {
-    const selectedValue = parseInt(event.target.value, 10);
+  const handleTotalChange = (e) => {
+    const newQuantity = parseInt(e.target.value, 10);
+    const originalPrice = quantity*price
+    const difference = originalPrice-(newQuantity*price)
+    setTotal((prevTotal)=>prevTotal+difference)
+    setQuantity(newQuantity)
+  }
+
+  const handleDropdownChange = (e) => {
+    const selectedValue = parseInt(e.target.value, 10);
     setQuantity(selectedValue);
 
     if (selectedValue === 10) {
       setIsInputMode(true);
     } else {
       setIsInputMode(false);
+      handleTotalChange(e)
     }
   };
 
-  const handleInputChange = (event) => {
-    const inputValue = parseInt(event.target.value, 10);
+  const handleInputChange = (e) => {
+    const inputValue = parseInt(e.target.value, 10);
     setQuantity(inputValue);
+    handleTotalChange(e)
   };
 
   const handleApplyClick = () => {
@@ -31,6 +41,7 @@ const CartQuantity = ({ max, handleDelete, value }) => {
       alert(`Quantity exceeds stock limit. Maximum allowed: ${max}`);
       setQuantity(max);
     }
+
   };
 
   return (

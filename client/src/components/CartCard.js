@@ -110,7 +110,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
             <div className='cart-quantity'>
-              <CartQuantity max={product.quantity} handleDelete={handleDelete} value={item}/>
+              <CartQuantity max={product.quantity} handleDelete={handleDelete} value={item} price={product.price} setTotal={setTotal}/>
             </div>
           </div>
           {!isMobile && <br />}
