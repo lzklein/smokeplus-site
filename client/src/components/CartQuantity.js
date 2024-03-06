@@ -41,7 +41,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }
 
   const handleApplyClick = async (e, inputValue) => {
-    if (!inputValue) {
+    if (!inputValue || inputValue === 0) {
       deleteCheck()
     } else if (inputValue > max) {
       alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
@@ -92,7 +92,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
               defaultValue={quantity}
               style={{ width: '80px', marginRight: '5px' }}
             />
-            <button type="submit" className='backbutton' style={{ marginTop: '4px' }}>
+            <button type="submit" className='backbutton' style={{ marginTop: '8px' }}>
               Apply
             </button>
           </>
