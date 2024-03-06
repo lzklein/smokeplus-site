@@ -9,18 +9,24 @@ const Checkout = () => {
     const minTime = location.state?.minTime;  
     const maxTime = location.state?.maxTime;  
     const order = location.state?.order;
+    const name= location.state?.name;
     const navigate = useNavigate();
 
     useEffect(() => {
         const postOrderAndDeleteCart = async () => {
             try {
+                console.log(order);
+                console.log(name)
                 // Post the order
                 const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                     },
-                    body: JSON.stringify(order),
+                    body: JSON.stringify({
+                        order: order,
+                        name: name,
+                    }),
                 });
 
                 if (!orderResponse.ok) {

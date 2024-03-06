@@ -82,9 +82,17 @@ const Cart = () => {
 
   const handleScheduleOrder = (e) => {
     e.preventDefault();
-    navigate('/checkout', {
-      state: { order: order, name:orderName, minTime: readyTimeMin, maxTime: readyTimeMax },
-    });
+    console.log('order', order)
+    console.log('name', orderName)
+    if(!orderName){
+      alert('please enter a name for the order');
+      return;
+    }
+    else{
+      navigate('/checkout', {
+        state: { order: order, name:orderName, minTime: readyTimeMin, maxTime: readyTimeMax },
+      });
+    }
   };
 
   return (
