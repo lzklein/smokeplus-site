@@ -106,15 +106,15 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     <div>
       {loaded ? (
         <div className='cartcard'>
-          <h3 style={isMobile ? { marginLeft: '10px' } : { marginLeft: '300px' }}>{getProductName()}</h3>
           <div className='cart-left'>
-            <img src={product.image} className='cart-img' alt={product.name} />
+            {/* <img src={product.image} className='cart-img' alt={product.name} /> */}
+            <h3 style={isMobile ? { marginLeft: '10px' } : { marginLeft: '300px' }}>{getProductName()}</h3>
           </div>
           <div className='cart-right'>
             {isMobile && (
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
-            <div className='cart-quantity' style={isMobile ? { marginLeft: '30px' } : null}>
+            <div className='cart-quantity' style={isMobile ? { marginLeft: '50px', marginRight:'50px' } : null}>
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
