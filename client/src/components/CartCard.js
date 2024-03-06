@@ -120,7 +120,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
           </div>
           {!isMobile && <br />}
           {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>)}
-          {isMobile ? null : <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>Remove from Cart</button>}
+          <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>{isMobile?'x':'Remove from Cart'}</button>
         </div>
       ) : (
         <div>Loading...</div>
