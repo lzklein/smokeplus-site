@@ -114,8 +114,19 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
             {isMobile && (
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
-            <div className='cart-quantity'>
-              <CartQuantity max={product.quantity} handleDelete={handleDelete} price={getPrice(product.price)} setTotal={setTotal} item={item} discount={getPrice} url={url} sessionId={sessionId} setCart={setCart} product={product}/>
+            <div className='cart-quantity' style={isMobile ? { marginLeft: '30px' } : null}>
+              <CartQuantity
+                max={product.quantity}
+                handleDelete={handleDelete}
+                price={getPrice(product.price)}
+                setTotal={setTotal}
+                item={item}
+                discount={getPrice}
+                url={url}
+                sessionId={sessionId}
+                setCart={setCart}
+                product={product}
+              />
             </div>
           </div>
           {!isMobile && <br />}
