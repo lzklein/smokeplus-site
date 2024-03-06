@@ -110,24 +110,24 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
     )
   }
 
- return (
+  return (
     <div>
       {loaded ? (
         <div className='cartcard'>
           <div className='cart-left'>
-            <h3 style={isMobile ? { marginLeft: '10px', textAlign:'left' } : { marginLeft: '300px', textAlign:'left' }}>{getProductName()}</h3>
+            <h3 style={isMobile ? { marginLeft: '10px', textAlign: 'left' } : { marginLeft: '300px', textAlign: 'left' }}>{getProductName()}</h3>
           </div>
           <div className='cart-right' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             {isMobile && (
               <div>
-                {product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>}
+                {product.deals ? <p>${getPrice(product, item)}</p> : <p>${parseFloat(getPrice(product, item)).toFixed(2)}</p>}
               </div>
             )}
-            <div className='cart-quantity'>
+            <div className='cart-quantity' style={isMobile ? { marginLeft: '10px', paddingRight: '10px' } : null}>
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
-                price={getPrice(product.price)}
+                price={getPrice(product, item)}
                 setTotal={setTotal}
                 item={item}
                 discount={getPrice}
@@ -138,9 +138,9 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               />
             </div> 
             {!isMobile && <br />}
-            {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>)}
+            {!isMobile && (product.deals ? <p>${getPrice(product, item)}</p> : <p>${parseFloat(getPrice(product, item)).toFixed(2)}</p>)}
           </div>
-          <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>{isMobile?'x':'Remove from Cart'}</button>
+          <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>{isMobile ? 'x' : 'Remove from Cart'}</button>
         </div>
       ) : (
         <div>Loading...</div>
