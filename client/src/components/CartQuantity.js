@@ -9,7 +9,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }, [item.quantity]);
 
   const handleTotalChange = (newQuantity) => {
+    console.log(newQuantity)
     const quantityParse = parseInt(newQuantity);
+    console.log(quantityParse)
     const originalPrice = item.quantity * price;
     console.log(originalPrice)
     const difference = parseFloat((quantityParse * price) - originalPrice);
@@ -36,7 +38,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   
   
 
-  const handleApplyClick = (e) => {
+  const handleApplyClick = async (e) => {
     if (!quantity) {
       handleDelete();
     } else if (quantity > max) {
@@ -44,12 +46,11 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
       setQuantity(max);
       handleTotalChange(max);
     } else {
-      debugger;
-      changeQuantity();
-      handleTotalChange();
+      await changeQuantity();
+      handleTotalChange(quantity);
     }
   };
-
+  
   const changeQuantity = async () => {
     const response = await fetch(`${url}/api/cart/${item.id}`, {
       method: 'PATCH',
