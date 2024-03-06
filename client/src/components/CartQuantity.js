@@ -9,18 +9,20 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }, [item.quantity]);
 
   const handleTotalChange = (newQuantity) => {
-    console.log(newQuantity)
     const quantityParse = parseInt(newQuantity);
-    console.log(quantityParse)
     const originalPrice = item.quantity * price;
-    console.log(originalPrice)
     const difference = parseFloat((quantityParse * price) - originalPrice);
-    console.log(difference)
     setTotal((prevTotal) => parseFloat(prevTotal) + parseFloat(difference));
+    changeQuantity(newQuantity)
   };
 
   const handleDropdownChange = (e) => {
     const selectedValue = parseInt(e.target.value, 10);
+
+    if (selectedValue === 0){
+      handleDelete()
+    }
+
     setQuantity(selectedValue);
 
     if (selectedValue === 10) {
@@ -35,8 +37,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     setQuantity(inputValue);
     handleTotalChange(inputValue);
   };
-  
-  
 
   const handleApplyClick = async (e) => {
     if (!quantity) {
@@ -46,19 +46,18 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
       setQuantity(max);
       handleTotalChange(max);
     } else {
-      await changeQuantity();
       handleTotalChange(quantity);
     }
   };
   
-  const changeQuantity = async () => {
+  const changeQuantity = async (newQuantity) => {
     const response = await fetch(`${url}/api/cart/${item.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        quantity: quantity,
+        quantity: newQuantity,
       }),
     });
 
@@ -74,6 +73,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    debugger;
     handleApplyClick(e);
   };
 
@@ -84,9 +84,8 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
           <>
             <input
               type='number'
-              min='1'
+              min='0'
               max={max}
-              value={quantity}
               onChange={handleInputChange}
               style={{ width: '80px', marginRight: '5px' }}
             />
@@ -96,8 +95,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
           </>
         ) : (
           <select value={quantity} onChange={handleDropdownChange}>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
               <option key={value} value={value}>
+                {value === 0 ? '0 (Remove)': value}
                 {value === 10 ? '10+' : value}
               </option>
             ))}
