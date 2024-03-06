@@ -41,7 +41,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }
 
   const handleApplyClick = async (e, inputValue) => {
-    if (!inputValue || inputValue === 0) {
+    if (!inputValue || parseInt(inputValue, 10) === 0) {
       deleteCheck()
     } else if (inputValue > max) {
       alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
