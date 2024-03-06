@@ -32,7 +32,10 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const handleInputChange = (e) => {
     const inputValue = parseInt(e.target.value, 10);
     setQuantity(inputValue);
+    handleTotalChange();
   };
+  
+  
 
   const handleApplyClick = () => {
     if (!quantity) {
