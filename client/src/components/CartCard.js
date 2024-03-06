@@ -84,13 +84,18 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   const getProductName = () => {
     const productName = product.name.toLowerCase() + " " + product.flavors.toLowerCase() + " " + product.sizes.toLowerCase();
   
-    const formattedName = productName
+    let formattedName = productName
       .split(' ')
       .map(word => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
-
+  
+    if (formattedName.length >= 25) {
+      formattedName = formattedName.slice(0, 25) + "...";
+    }
+  
     return formattedName;
   };
+  
 
   if(!!order){
     return(
@@ -107,14 +112,13 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
       {loaded ? (
         <div className='cartcard'>
           <div className='cart-left'>
-            {/* <img src={product.image} className='cart-img' alt={product.name} /> */}
-            <h3 style={isMobile ? { marginLeft: '10px' } : { marginLeft: '300px' }}>{getProductName()}</h3>
+            <h3 style={isMobile ? { marginLeft: '10px', textAlign:'left' } : { marginLeft: '300px', textAlign:'left' }}>{getProductName()}</h3>
           </div>
           <div className='cart-right'>
             {isMobile && (
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
-            <div className='cart-quantity' style={isMobile ? { marginLeft: '50px', marginRight:'50px' } : null}>
+            <div className='cart-quantity' style={isMobile ? { paddingLeft: '50px', paddingRight:'50px' } : null}>
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
