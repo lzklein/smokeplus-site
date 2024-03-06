@@ -22,6 +22,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (selectedValue === 0){
       handleDelete();
       setQuantity(1);
+      handleTotalChange(1)
       return;
     }
 
@@ -77,6 +78,8 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     e.preventDefault();
     console.log('e.target', e.target);
     console.log('e.target.value', e.target.value);
+    const inputValue = document.querySelector('.quantity-input').value;
+    console.log(inputValue)
     handleApplyClick(e);
   };
 
@@ -88,8 +91,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
             <input
               type='number'
               min='0'
+              className='quantity-input'
               max={max}
-              onChange={handleInputChange}
+              defaultValue={quantity}
               style={{ width: '80px', marginRight: '5px' }}
             />
             <button type="submit" className='backbutton' style={{ marginTop: '3px' }}>
