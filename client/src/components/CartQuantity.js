@@ -91,6 +91,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
               className='quantity-input'
               defaultValue={quantity}
               value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
               style={{ width: '80px', marginRight: '5px' }}
             />
             <button type="submit" className='backbutton' style={{ marginTop: '8px' }}>
