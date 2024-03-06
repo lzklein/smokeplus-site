@@ -119,7 +119,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
           </div>
           <div className='cart-right' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             {isMobile && (
-              <div>
+              <div style={{ width: '80px' }}>
                 {product.deals ? <p>${getPrice(product, item)}</p> : <p>${parseFloat(getPrice(product, item)).toFixed(2)}</p>}
               </div>
             )}
@@ -138,7 +138,11 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               />
             </div> 
             {!isMobile && <br />}
-            {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${parseFloat(getPrice(product.price)).toFixed(2)}</p>)}
+            {!isMobile && (
+              <div style={{ width: '80px' }}>
+                {product.deals ? <p>${getPrice(product.price)}</p> : <p>${parseFloat(getPrice(product.price)).toFixed(2)}</p>}
+              </div>
+            )}
           </div>
           <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>{isMobile ? 'x' : 'Remove from Cart'}</button>
         </div>
