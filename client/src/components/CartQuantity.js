@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url, sessionId, setCart, product }) => {
   const [quantity, setQuantity] = useState(item.quantity);
   const [isInputMode, setIsInputMode] = useState(false);
+  const [inputValue, setInputValue] = useState(quantity)
 
   useEffect(() => {
     setQuantity(item.quantity);
@@ -35,7 +36,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const deleteCheck = () => {
     handleDelete();
     setQuantity(1);
-    document.querySelector('.quantity-input').value = 1;
+    setInputValue(1)
     handleTotalChange(1)
     return;
   }
@@ -76,7 +77,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const inputValue = document.querySelector('.quantity-input').value;
     handleApplyClick(e, inputValue);
   };
 
@@ -90,6 +90,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
               min='0'
               className='quantity-input'
               defaultValue={quantity}
+              value={inputValue}
               style={{ width: '80px', marginRight: '5px' }}
             />
             <button type="submit" className='backbutton' style={{ marginTop: '8px' }}>
