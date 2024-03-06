@@ -11,8 +11,8 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   const handleTotalChange = () => {
     const newQuantity = parseInt(quantity);
     const originalPrice = item.quantity * price;
-    const difference = parseFloat((newQuantity * price) - originalPrice).toFixed(2);
-    setTotal((prevTotal) => parseFloat(prevTotal) + parseFloat(difference));
+    const difference = parseFloat((newQuantity * price) - originalPrice);
+    setTotal((prevTotal) => parseFloat(prevTotal) += parseFloat(difference));
   };
 
   const handleDropdownChange = (e) => {
