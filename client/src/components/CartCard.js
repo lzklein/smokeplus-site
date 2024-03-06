@@ -123,7 +123,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
             {isMobile && (
               product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
             )}
-            <div className='cart-quantity' style={isMobile ? { paddingLeft: '50px', paddingRight:'50px' } : null}>
+            <div className='cart-quantity' style={isMobile ? { paddingLeft: '120px', paddingRight:'50px' } : null}>
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
