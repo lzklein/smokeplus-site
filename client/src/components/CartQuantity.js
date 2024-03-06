@@ -32,15 +32,10 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     }
   };
 
-  const handleInputChange = (e) => {
-    const inputValue = parseInt(e.target.value, 10);
-    setQuantity(inputValue);
-    handleTotalChange(inputValue);
-  };
-
   const deleteCheck = () => {
     handleDelete();
     setQuantity(1);
+    document.querySelector('.quantity-input').value = 1;
     handleTotalChange(1)
     return;
   }
