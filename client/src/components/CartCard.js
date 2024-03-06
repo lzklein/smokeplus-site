@@ -113,7 +113,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   return (
     <div>
       {loaded ? (
-        <div className='cartcard'>
+        <div className='cartcard' style={{ borderBottom: '1px solid #ccc' }}>
           <div className='cart-left'>
             <h3 style={isMobile ? { marginLeft: '10px', textAlign: 'left' } : { marginLeft: '300px', textAlign: 'left' }}>{getProductName()}</h3>
           </div>
