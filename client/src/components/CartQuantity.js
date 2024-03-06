@@ -8,12 +8,11 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     setQuantity(item.quantity);
   }, [item.quantity]);
 
-  const handleTotalChange = () => {
-    const newQuantity = parseInt(quantity);
-    console.log(newQuantity)
+  const handleTotalChange = (newQuantity) => {
+    const quantityParse = parseInt(newQuantity);
     const originalPrice = item.quantity * price;
     console.log(originalPrice)
-    const difference = parseFloat((newQuantity * price) - originalPrice);
+    const difference = parseFloat((quantityParse * price) - originalPrice);
     console.log(difference)
     setTotal((prevTotal) => parseFloat(prevTotal) + parseFloat(difference));
   };
@@ -25,27 +24,29 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (selectedValue === 10) {
       setIsInputMode(true);
     } else {
-      handleTotalChange();
+      handleTotalChange(selectedValue);
     }
   };
 
   const handleInputChange = (e) => {
     const inputValue = parseInt(e.target.value, 10);
     setQuantity(inputValue);
-    handleTotalChange();
+    handleTotalChange(inputValue);
   };
   
   
 
-  const handleApplyClick = () => {
+  const handleApplyClick = (e) => {
     if (!quantity) {
       handleDelete();
     } else if (quantity > max) {
       alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
       setQuantity(max);
+      handleTotalChange(max);
     } else {
-      handleTotalChange();
+      debugger;
       changeQuantity();
+      handleTotalChange();
     }
   };
 
@@ -72,7 +73,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleApplyClick();
+    handleApplyClick(e);
   };
 
   return (
