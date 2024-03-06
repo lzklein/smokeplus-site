@@ -20,7 +20,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     const selectedValue = parseInt(e.target.value, 10);
 
     if (selectedValue === 0){
-      handleDelete()
+      handleDelete();
+      setQuantity(1);
+      return;
     }
 
     setQuantity(selectedValue);
@@ -73,7 +75,8 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    debugger;
+    console.log('e.target', e.target);
+    console.log('e.target.value', e.target.value);
     handleApplyClick(e);
   };
 
@@ -97,8 +100,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
           <select value={quantity} onChange={handleDropdownChange}>
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((value) => (
               <option key={value} value={value}>
-                {value === 0 ? '0 (Remove)': value}
-                {value === 10 ? '10+' : value}
+                {value === 0 ? '0 (Remove)' : value === 10 ? '10+' : value}
               </option>
             ))}
           </select>
