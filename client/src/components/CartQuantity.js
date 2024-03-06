@@ -92,7 +92,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
               defaultValue={quantity}
               style={{ width: '80px', marginRight: '5px' }}
             />
-            <button type="submit" className='backbutton' style={{ marginTop: '3px' }}>
+            <button type="submit" className='backbutton' style={{ marginTop: '4px' }}>
               Apply
             </button>
           </>
