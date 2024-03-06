@@ -101,12 +101,22 @@ const Cart = () => {
           <h4>
             Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
           </h4>
-          <form  onSubmit={handleScheduleOrder}>
-          <input type='text' placeholder='Name for pickup...' value={orderName} onChange={(e)=>{setOrderName(e.target.value)}}></input>
-          <br/>
-          <button className='logbutton' type='submit' style={{marginTop:'10px'}}>
-            Place Order
-          </button>
+          <form onSubmit={handleScheduleOrder}>
+            <div>
+              <input
+                type="text"
+                placeholder="Name for pickup..."
+                value={orderName}
+                onChange={(e) => {
+                  setOrderName(e.target.value);
+                }}
+              />
+            </div>
+            <div>
+              <button className="logbutton" type="submit" style={{ marginTop: '10px' }}>
+                Place Order
+              </button>
+            </div>
           </form>
           <h4>*Tobacco products may be subject to additional taxes during payment instore</h4>
         </div>
