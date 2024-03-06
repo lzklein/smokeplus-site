@@ -10,6 +10,7 @@ const Cart = () => {
   const [total, setTotal] = useState(0);
   const [readyTimeMin, setReadyTimeMin] = useState('');
   const [readyTimeMax, setReadyTimeMax] = useState('');
+  const [orderName, setOrderName] = useState('');
 
   useEffect(() => {
     const currentTime = new Date();
@@ -79,7 +80,8 @@ const Cart = () => {
     userId: sessionId,
   };
 
-  const handleScheduleOrder = () => {
+  const handleScheduleOrder = (e) => {
+    e.preventDefault();
     navigate('/checkout', {
       state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax },
     });
@@ -99,9 +101,13 @@ const Cart = () => {
           <h4>
             Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
           </h4>
-          <button className='logbutton' onClick={handleScheduleOrder}>
+          <form  onSubmit={handleScheduleOrder}>
+          <input type='text' placeholder='Name for pickup...' value={orderName} onChange={(e)=>{setOrderName(e.target.value)}}></input>
+          <button className='logbutton' type='submit'>
             Place Order
           </button>
+          </form>
+          <h4>*Tobacco products may be subject to additional taxes during payment instore</h4>
         </div>
       )}
     </div>
