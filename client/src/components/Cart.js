@@ -103,7 +103,8 @@ const Cart = () => {
           </h4>
           <form  onSubmit={handleScheduleOrder}>
           <input type='text' placeholder='Name for pickup...' value={orderName} onChange={(e)=>{setOrderName(e.target.value)}}></input>
-          <button className='logbutton' type='submit'>
+          <br/>
+          <button className='logbutton' type='submit' style={{marginTop:'10px'}}>
             Place Order
           </button>
           </form>
