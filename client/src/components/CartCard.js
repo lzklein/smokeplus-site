@@ -93,8 +93,13 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
       formattedName = formattedName.slice(0, 25) + "...";
     }
   
+    if (product.categories && product.categories.includes("Tobacco")) {
+      formattedName += "*";
+    }
+  
     return formattedName;
   };
+  
   
 
   if(!!order){
