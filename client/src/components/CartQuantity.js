@@ -46,9 +46,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }
 
   const handleApplyClick = async (e, inputValue) => {
-    if (!quantity) {
+    if (!inputValue) {
       deleteCheck()
-    } else if (quantity > max) {
+    } else if (inputValue > max) {
       alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
       setQuantity(max);
       handleTotalChange(max);
@@ -72,7 +72,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (!response.ok) {
       console.error('Failed to update cart item:', response.statusText);
     } else {
-      console.log('Cart item updated successfully');
+      // console.log('Cart item updated successfully');
       const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
       const updatedCartData = await updatedResponse.json();
       setCart(updatedCartData);
@@ -81,10 +81,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('e.target', e.target);
-    console.log('e.target.value', e.target.value);
     const inputValue = document.querySelector('.quantity-input').value;
-    console.log(inputValue)
     handleApplyClick(e, inputValue);
   };
 
@@ -97,7 +94,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
               type='number'
               min='0'
               className='quantity-input'
-              max={max}
               defaultValue={quantity}
               style={{ width: '80px', marginRight: '5px' }}
             />
