@@ -20,10 +20,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     const selectedValue = parseInt(e.target.value, 10);
 
     if (selectedValue === 0){
-      handleDelete();
-      setQuantity(1);
-      handleTotalChange(1)
-      return;
+      deleteCheck()
     }
 
     setQuantity(selectedValue);
@@ -41,15 +38,23 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     handleTotalChange(inputValue);
   };
 
-  const handleApplyClick = async (e) => {
+  const deleteCheck = () => {
+    handleDelete();
+    setQuantity(1);
+    handleTotalChange(1)
+    return;
+  }
+
+  const handleApplyClick = async (e, inputValue) => {
     if (!quantity) {
-      handleDelete();
+      deleteCheck()
     } else if (quantity > max) {
       alert(`Quantity exceeds stock limit. Current number in stock: ${max}`);
       setQuantity(max);
       handleTotalChange(max);
     } else {
-      handleTotalChange(quantity);
+      setQuantity(inputValue)
+      handleTotalChange(inputValue);
     }
   };
   
@@ -80,7 +85,7 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     console.log('e.target.value', e.target.value);
     const inputValue = document.querySelector('.quantity-input').value;
     console.log(inputValue)
-    handleApplyClick(e);
+    handleApplyClick(e, inputValue);
   };
 
   return (
