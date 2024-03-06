@@ -50,7 +50,7 @@ const OrderCard = ({ order, onComplete }) => {
     <div style={{ marginBottom: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} onClick={() => setHidden(!hidden)}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <h3 style={{ marginRight: '10px', userSelect: 'none' }}>
-          Order # {order.id} | Pickup Time: {getPickuptime()}
+          Order # {order.id} for {order.user} | Pickup Time: {getPickuptime()}
         </h3>
         <button className='backbutton' style={{ marginTop: '13.5px', marginLeft: '20px' }} onClick={() => onComplete(order.id)}>
           Complete

@@ -86,14 +86,14 @@ app.post('/api/orders', async (req, res) => {
   console.log("Posting!");
   console.log('Request Body:', req.body);
 
-  const { id, userId, cart } = req.body;
+  const { id, name, cart } = req.body;
   console.log("cart:", cart);
   try {
     const newOrder = await Order.create({
       id,
-      user: userId,
+      user: name,
       cart: JSON.stringify(cart),
-    });
+    }); 
 
     io.emit('orderPost', newOrder);
 

@@ -83,7 +83,7 @@ const Cart = () => {
   const handleScheduleOrder = (e) => {
     e.preventDefault();
     navigate('/checkout', {
-      state: { order: order, minTime: readyTimeMin, maxTime: readyTimeMax },
+      state: { order: order, name:orderName, minTime: readyTimeMin, maxTime: readyTimeMax },
     });
   };
 
