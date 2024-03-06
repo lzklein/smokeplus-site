@@ -105,6 +105,7 @@ const Cart = () => {
             <div>
               <input
                 type="text"
+                style={{marginTop:'10px'}}
                 placeholder="Name for pickup..."
                 value={orderName}
                 onChange={(e) => {
