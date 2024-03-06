@@ -125,7 +125,6 @@ const App = () => {
     if (!response.ok) {
       console.error('Failed to update cart item:', response.statusText);
     } else {
-      console.log('Cart item updated successfully');
       const updatedResponse = await fetch(`${API_BASE_URL}/api/cart?sessionId=${sessionId}`);
       const updatedCartData = await updatedResponse.json();
       setCart(updatedCartData);
@@ -148,7 +147,6 @@ const App = () => {
         console.error('Failed to add item to cart:', response.statusText);
       } else {
         const updatedCartData = await response.json();
-        console.log('Item added to cart successfully');
         setCart((prevState) => [...prevState, updatedCartData]);
       }
     } catch (error) {

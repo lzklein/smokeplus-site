@@ -29,7 +29,6 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
   useEffect(()=>{
     if(!initSet){
       if(!order){
-        // console.log(product)
         if(!!product.deals){
           setTotal((prevTotal) => prevTotal + getPrice(product.price) * item.quantity)
           setInitSet(true)
@@ -68,7 +67,6 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
       if (!response.ok) {
         console.error('Failed to delete cart item:', response.statusText);
       } else {
-        console.log('Cart item deleted successfully');
         const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
         const updatedCartData = await updatedResponse.json();
         setCart(updatedCartData);
@@ -119,11 +117,13 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
           <div className='cart-left'>
             <h3 style={isMobile ? { marginLeft: '10px', textAlign:'left' } : { marginLeft: '300px', textAlign:'left' }}>{getProductName()}</h3>
           </div>
-          <div className='cart-right'>
+          <div className='cart-right' style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             {isMobile && (
-              product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>
+              <div>
+                {product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>}
+              </div>
             )}
-            <div className='cart-quantity' style={isMobile ? { paddingLeft: '50px', paddingRight:'200px' } : null}>
+            <div className='cart-quantity'>
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
@@ -136,10 +136,10 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
                 setCart={setCart}
                 product={product}
               />
-            </div>
+            </div> 
+            {!isMobile && <br />}
+            {!isMobile && (product.deals ? <p>${getPrice(product.price)}</p> : <p>${(product.price * item.quantity).toFixed(2)}</p>)}
           </div>
-          {!isMobile && <br />}
-          {!isMobile && (product.deals ? <p style={{paddingLeft:'40px'}}>${getPrice(product.price)}</p> : <p  style={{paddingLeft:'40px'}}>${(product.price * item.quantity).toFixed(2)}</p>)}
           <button className="backbutton" onClick={handleDelete} style={{ marginRight: '300px', marginLeft: '30px', marginTop: '16px' }}>{isMobile?'x':'Remove from Cart'}</button>
         </div>
       ) : (

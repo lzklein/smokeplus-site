@@ -58,7 +58,6 @@ const BannerEdit = ({ bannerImages }) => {
             name: filename,
           };
   
-          console.log('Upload successful', filename);
           setUpdatedBannerImages([newImage, ...updatedBannerImages]);
         } else {
           console.error('Failed to upload image');

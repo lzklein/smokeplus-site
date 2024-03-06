@@ -33,7 +33,6 @@ const EmployeeLogin = () => {
         console.error('Login failed:', response.statusText);
         setErrorMessage('Login Info Incorrect');
         setFailCount(failCount+1)
-        console.log(failCount)
       }
     } catch (error) {
       console.error('Error during login:', error);

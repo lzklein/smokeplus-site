@@ -40,7 +40,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             newErrors.categories = [];
         }
         
-        // console.log('New Errors:', newErrors);
         setErrors(newErrors);
         
         const hasError = Object.values(newErrors).some((error) => {
@@ -49,9 +48,6 @@ const EditProductForm = ({ isOpen, onClose, onSubmit, product }) => {
             }
             return error !== ''; 
         }) || newErrors.categories.length > 0;
-        
-        // console.log('Values for hasError:', Object.values(newErrors));
-        // console.log('Has Error:', hasError);
         
         return hasError;
         };

@@ -28,8 +28,6 @@ const Checkout = () => {
                     return;
                 }
 
-                // console.log('Order posted successfully');
-
                 // Delete the cart
                 const cartDeletionResponse = await fetch(`${API_BASE_URL}/api/cart/deleteBySessionId/${sessionId}`, {
                     method: 'DELETE',
@@ -45,9 +43,6 @@ const Checkout = () => {
                 else {
                     setCart([]);
                 }
-
-                // console.log('Cart deleted successfully');
-
                 setLoaded(true);
             } catch (error) {
                 console.error('Error posting order and deleting cart:', error.message);

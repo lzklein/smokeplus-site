@@ -68,7 +68,6 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     if (!response.ok) {
       console.error('Failed to update cart item:', response.statusText);
     } else {
-      // console.log('Cart item updated successfully');
       const updatedResponse = await fetch(`${url}/api/cart?sessionId=${sessionId}`);
       const updatedCartData = await updatedResponse.json();
       setCart(updatedCartData);
