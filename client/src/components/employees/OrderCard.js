@@ -41,7 +41,7 @@ const OrderCard = ({ order, onComplete }) => {
   const renderCartList = () => {
     return products.map((product, index) => (
       <li key={index} style={{ userSelect: 'none' }}>
-        {product.name} ({product.price}) -{order.cart[index].quantity}-
+        {order.cart[index].quantity}- {product.name} ({product.price})
       </li>
     ));
   };
@@ -50,7 +50,7 @@ const OrderCard = ({ order, onComplete }) => {
     <div style={{ marginBottom: '15px', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} onClick={() => setHidden(!hidden)}>
       <div style={{ display: 'flex', alignItems: 'center' }}>
         <h3 style={{ marginRight: '10px', userSelect: 'none' }}>
-          Order # {order.id} for {order.user} | Pickup Time: {getPickuptime()}
+        {order.user} | Order # {order.id} | Pickup Time: {getPickuptime()}
         </h3>
         <button className='backbutton' style={{ marginTop: '13.5px', marginLeft: '20px' }} onClick={() => onComplete(order.id)}>
           Complete
