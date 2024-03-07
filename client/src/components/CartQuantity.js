@@ -10,22 +10,23 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
   }, [item.quantity]);
 
   const handleTotalChange = (newQuantity) => {
+    console.log(newQuantity)
     const quantityParse = parseInt(newQuantity);
+    console.log(quantityParse)
     const originalPrice = item.quantity * price;
+    console.log(originalPrice)
     const difference = parseFloat((quantityParse * price) - originalPrice);
+    console.log(difference)
     setTotal((prevTotal) => parseFloat(prevTotal) + parseFloat(difference));
     changeQuantity(newQuantity)
   };
 
   const handleDropdownChange = (e) => {
     const selectedValue = parseInt(e.target.value, 10);
-
     if (selectedValue === 0){
       deleteCheck()
     }
-
     setQuantity(selectedValue);
-
     if (selectedValue === 10) {
       setIsInputMode(true);
     } else {
