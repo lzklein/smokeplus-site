@@ -127,7 +127,7 @@ const CartCard = ({ sessionId, setTotal, setCart, item, url, order }) => {
               <CartQuantity
                 max={product.quantity}
                 handleDelete={handleDelete}
-                price={getPrice(product, item)}
+                price={getPrice(product.price)}
                 setTotal={setTotal}
                 item={item}
                 discount={getPrice}
