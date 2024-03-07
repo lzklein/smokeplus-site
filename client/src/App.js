@@ -32,6 +32,7 @@ import BannerEdit from './components/employees/BannerEdit';
 import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 import PickPopular from './components/employees/PickPopular';
+import Tax from './components/employees/Tax';
 
 // css
 const loadMobileStyles = async (isMobile) => {
@@ -170,6 +171,7 @@ const App = () => {
 
   const routes = [
     { path: '/search', element: <Search /> },
+    { path: '/tax', element: <Tax /> },
     { path: '/category/more/:category', element: <CategoryMore /> },
     { path: '/subcategory/more/:subcategory', element: <SubcategoryMore /> },
     { path: '/brand/more/:brand', element: <BrandMore /> },
