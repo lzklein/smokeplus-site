@@ -86,6 +86,10 @@ const Cart = () => {
       alert('please enter a name for the order');
       return;
     }
+    else if(orderName.length>11){
+      alert('please enter a shorter name');
+      return;
+    }
     else{
       navigate('/checkout', {
         state: { order: order, name:orderName, minTime: readyTimeMin, maxTime: readyTimeMax },
