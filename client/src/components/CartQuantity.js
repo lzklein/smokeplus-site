@@ -9,6 +9,12 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     setQuantity(item.quantity);
   }, [item.quantity]);
 
+  useEffect(()=>{
+    if(quantity >= 10){
+      setIsInputMode(true)
+    }
+  },[])
+
   const handleTotalChange = (newQuantity) => {
     const quantityParse = parseInt(newQuantity);
     const originalPrice = item.quantity * price;
