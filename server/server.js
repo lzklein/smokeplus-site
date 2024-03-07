@@ -126,12 +126,14 @@ app.post('/api/orders', async (req, res) => {
 
     io.emit('orderPost', newOrder);
 
-    res.status(201).json(newOrder);
+    // Send the created order back in the response
+    res.status(201).json({ order: newOrder });
   } catch (error) {
     console.error('Error creating product:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
 
 // Auto Delete Old Orders every 2 hours
 cron.schedule('0 */2 * * *', async () => {

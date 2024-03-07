@@ -11,53 +11,58 @@ const Checkout = () => {
     const order = location.state?.order;
     const name= location.state?.name;
     const navigate = useNavigate();
+    const [orderData, setOrderData] = useState({});
 
     useEffect(() => {
         const postOrderAndDeleteCart = async () => {
-            try {
-                console.log(order);
-                console.log(name)
-                // Post the order
-                const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        order: order,
-                        name: name,
-                    }),
-                });
-
-                if (!orderResponse.ok) {
-                    console.error('Failed to post order:', orderResponse.statusText);
-                    return;
-                }
-
-                // Delete the cart
-                const cartDeletionResponse = await fetch(`${API_BASE_URL}/api/cart/deleteBySessionId/${sessionId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
-
-                if (!cartDeletionResponse.ok) {
-                    console.error('Failed to delete cart:', cartDeletionResponse.statusText);
-                    return;
-                }
-                else {
-                    setCart([]);
-                }
-                setLoaded(true);
-            } catch (error) {
-                console.error('Error posting order and deleting cart:', error.message);
+        try {
+            console.log(order);
+            console.log(name)
+            // Post the order
+            const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                order: order,
+                name: name,
+            }),
+            });
+    
+            if (!orderResponse.ok) {
+            console.error('Failed to post order:', orderResponse.statusText);
+            return;
             }
+    
+            // Parse the response to get the created order
+            const { order: createdOrder } = await orderResponse.json();
+    
+            // Delete the cart
+            const cartDeletionResponse = await fetch(`${API_BASE_URL}/api/cart/deleteBySessionId/${sessionId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            });
+    
+            if (!cartDeletionResponse.ok) {
+            console.error('Failed to delete cart:', cartDeletionResponse.statusText);
+            return;
+            } else {
+            setCart([]);
+            }
+    
+            setOrderData(createdOrder);
+            setLoaded(true);
+        } catch (error) {
+            console.error('Error posting order and deleting cart:', error.message);
+        }
         };
-
+    
         postOrderAndDeleteCart();
     }, [order, sessionId, API_BASE_URL]);
-
+    
     if (!loaded) {
         return <h1>Placing Order...</h1>;
     }
@@ -65,7 +70,7 @@ const Checkout = () => {
     return (
         <div>
             <h1 style={{marginTop:'40px'}}>Order Confirmed!</h1>
-            <h2 style={{marginTop:'20px'}}>Your order number is {order.id}</h2>
+            <h2 style={{marginTop:'20px'}}>Your order number is {orderData.id}</h2>
             <h3 style={{marginTop:'40px'}}>
                 It will be ready for pickup around {minTime}
                 {' - '}
