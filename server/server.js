@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
 // Post order with io emit
 app.post('/api/orders', async (req, res) => {
   console.log("Posting order!");
-  console.log('Request Body:', req.body);
+  // console.log('Request Body:', req.body);
 
   const { order, name } = req.body;
   const { cart } = order;

@@ -14,6 +14,9 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     const quantityParse = parseInt(newQuantity);
     console.log(quantityParse)
     const originalPrice = item.quantity * price;
+    console.log(item)
+    console.log(item.quantity)
+    console.log(price)
     console.log(originalPrice)
     const difference = parseFloat((quantityParse * price) - originalPrice);
     console.log(difference)
