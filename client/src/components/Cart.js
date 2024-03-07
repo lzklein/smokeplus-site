@@ -2,7 +2,6 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { SessionContext } from '../App';
 import CartCard from './CartCard';
-import { v4 as uuidv4 } from 'uuid';
 
 const Cart = () => {
   const navigate = useNavigate();
@@ -73,9 +72,8 @@ const Cart = () => {
       />
     ));
   };
-
+  
   const order = {
-    id: uuidv4(),
     cart: cart,
     userId: sessionId,
   };

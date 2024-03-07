@@ -87,16 +87,35 @@ app.post('/api/orders', async (req, res) => {
   console.log('Request Body:', req.body);
 
   const { order, name } = req.body;
-  const { id, cart } = order;
-  console.log('name', name);
-  console.log("cart:", cart);
+  const { cart } = order;
   const cartString = JSON.stringify(cart)
-  console.log("cart datatype:", typeof cartString);
-  console.log("id datatype:", typeof id);
-  console.log('id:', id)
-  console.log("name datatype:", typeof name);
 
-  console.log('stringified:', cartString)
+  const randomNumberGenerator = () => {
+    const characters = '1234567890';
+    let result = '';
+
+    for (let i = 0; i < 6; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      result += characters.charAt(randomIndex);
+    }
+
+    return parseInt(result);
+  }
+
+  let id;
+  let isUniqueId = false;
+
+  while (!isUniqueId) {
+    id = randomNumberGenerator();
+
+    // Check if the generated id is unique
+    const existingOrder = await Order.findOne({ where: { id } });
+
+    if (!existingOrder) {
+      isUniqueId = true;
+    }
+  }
+
   try {
     const newOrder = await Order.create({
       id: id,
