@@ -92,6 +92,8 @@ app.post('/api/orders', async (req, res) => {
   console.log("cart:", cart);
   const cartString = JSON.stringify(cart)
   console.log("cart datatype:", typeof cartString);
+  console.log("id datatype:", typeof id);
+  console.log("name datatype:", typeof name);
 
   console.log('stringified:', cartString)
   try {
