@@ -9,7 +9,12 @@ const CartQuantity = ({ max, handleDelete, price, setTotal, item, discount, url,
     setQuantity(item.quantity);
   }, [item.quantity]);
 
+  const discountedPrice = discount(product, item)
+
   const handleTotalChange = (newQuantity) => {
+    console.log(product)
+    console.log(item)
+    console.log(discountedPrice)
     console.log(newQuantity)
     const quantityParse = parseInt(newQuantity);
     console.log(quantityParse)
