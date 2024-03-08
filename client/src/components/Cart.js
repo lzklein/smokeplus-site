@@ -24,7 +24,6 @@ const Cart = () => {
         setTax(data.taxRate);
       } catch (error) {
         console.error('Error fetching tax rate:', error.message);
-        setError('Failed to fetch tax rate. Please try again.');
       }
     };
 
