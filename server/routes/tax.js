@@ -1,15 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs/promises');
-const path = require('path');  // Add this line
+const path = require('path');  
 
 const router = express.Router();
 
-app.use(bodyParser.json());
+router.use(bodyParser.json());
 
-app.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
     try {
-      const filePath = path.join(__dirname, 'taxRate.json');  // Full path to the file
+      const filePath = path.join(__dirname, '../taxRate.json'); 
       const data = await fs.readFile(filePath, 'utf8');
       const taxRate = parseFloat(data);
       res.json({ taxRate });
@@ -19,7 +19,7 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.patch('/', async (req, res) => {
+router.patch('/', async (req, res) => {
     const { taxRate } = req.body;
 
     if (taxRate === undefined || typeof taxRate !== 'number') {
@@ -27,7 +27,7 @@ app.patch('/', async (req, res) => {
     }
 
     try {
-      const filePath = path.join(__dirname, 'taxRate.json');  // Full path to the file
+      const filePath = path.join(__dirname, '../taxRate.json'); 
       await fs.writeFile(filePath, taxRate.toString(), 'utf8');
       res.json({ success: true, taxRate });
     } catch (error) {
