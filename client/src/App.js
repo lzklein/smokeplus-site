@@ -211,7 +211,7 @@ const App = () => {
           <div class="ring ring8"></div>
           <div class="ring ring9"></div>
         </div>
-        <h1>Loading...</h1>
+        <h1 style={{ textAlign: 'center', marginTop:'50px' }}>Loading...</h1>
       </div>
     );
   }
@@ -229,7 +229,7 @@ const App = () => {
           <div class="ring ring8"></div>
           <div class="ring ring9"></div>
         </div>
-        <h1>Loading...</h1>
+        <h1 style={{ textAlign: 'center', marginTop:'50px' }}>Loading...</h1>
       </div>
     );
   }
