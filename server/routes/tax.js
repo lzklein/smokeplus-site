@@ -8,10 +8,12 @@ const router = express.Router();
 router.use(bodyParser.json());
 
 router.get('/', async (req, res) => {
+    console.log('getting tax rate!')
     try {
       const filePath = path.join(__dirname, '../taxRate.json'); 
       const data = await fs.readFile(filePath, 'utf8');
       const taxRate = parseFloat(data);
+      console.log('tax rate:', taxRate)
       res.json({ taxRate });
     } catch (error) {
       console.error('Error reading tax rate:', error.message);
@@ -20,8 +22,10 @@ router.get('/', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
-    const { taxRate } = req.body;
+    console.log('patching tax rate!')
 
+    const { taxRate } = req.body;
+    console.log(taxRate)
     if (taxRate === undefined || typeof taxRate !== 'number') {
       return res.status(400).json({ error: 'Invalid tax rate format' });
     }
