@@ -127,9 +127,9 @@ const Cart = () => {
           <h2 style={{ marginTop: '40px', marginBottom: '60px' }}>Cart</h2>
           {renderCart()}
           <h3 style={{ marginTop: '100px' }}>Subtotal: ${total.toFixed(2)}</h3>
-          <h4 style={{ marginTop: '10px' }}>Tax: {(total*tax).toFixed(2)}</h4>
-          <h3 style={{ marginTop: '10px' }}>Total: {(total+(total*tax)).toFixed(2)}</h3>
-          <h4>
+          <h4 style={{ marginTop: '2px', marginLeft:'30px' }}>Tax: ${(total*tax).toFixed(2)}</h4>
+          <h3 style={{ marginTop: '2px' }}>Total: ${(total+(total*tax)).toFixed(2)}</h3>
+          <h4 style={{marginTop:'2px'}}>
             Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
           </h4>
           <form onSubmit={handleScheduleOrder}>
