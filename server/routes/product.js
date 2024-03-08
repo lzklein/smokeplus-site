@@ -96,7 +96,7 @@ router.get('/search/:query', async (req, res) => {
 
     // fuse parameters
     const fuseOptions = {
-      keys: ['name', 'flavor', 'categories', 'sizes'],
+      keys: ['name', 'flavor', 'categories', 'brands', 'subcategories', 'sizes'],
       threshold: 0.5,
     };
     
