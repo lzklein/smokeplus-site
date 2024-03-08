@@ -27,17 +27,18 @@ router.patch('/', async (req, res) => {
     const { taxRate } = req.body;
     console.log(taxRate)
     if (taxRate === undefined || typeof taxRate !== 'number') {
+        console.log('invalid input:', typeof taxRate)
       return res.status(400).json({ error: 'Invalid tax rate format' });
     }
 
     try {
-      const filePath = path.join(__dirname, '../taxRate.json'); 
-      await fs.writeFile(filePath, taxRate.toString(), 'utf8');
-      res.json({ success: true, taxRate });
-    } catch (error) {
-      console.error('Error updating tax rate:', error.message);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
+        const filePath = path.join(__dirname, '../taxRate.json'); 
+        await fs.writeFile(filePath, taxRate.toString(), 'utf8');
+        res.json({ success: true, taxRate });
+      } catch (error) {
+        console.error('Error updating tax rate:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      }  
 });
 
 module.exports = router;
