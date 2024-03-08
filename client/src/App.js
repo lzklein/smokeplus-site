@@ -198,7 +198,11 @@ const App = () => {
   ];
 
   if (!!loading) {
-    return <div>Loading</div>;
+    return (
+      <div class="drawing" id="loading">
+        <div class="loading-dot"></div>
+      </div>
+    );
   }
 
   return (
