@@ -10,6 +10,26 @@ const Cart = () => {
   const [readyTimeMin, setReadyTimeMin] = useState('');
   const [readyTimeMax, setReadyTimeMax] = useState('');
   const [orderName, setOrderName] = useState('');
+  const [tax, setTax] = useState(0)
+
+  useEffect(() => {
+    const fetchTaxRate = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/api/tax`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch tax rate: ${response.statusText}`);
+        }
+        
+        const data = await response.json();
+        setTax(data.taxRate);
+      } catch (error) {
+        console.error('Error fetching tax rate:', error.message);
+        setError('Failed to fetch tax rate. Please try again.');
+      }
+    };
+
+    fetchTaxRate();
+  }, []);
 
   useEffect(() => {
     const currentTime = new Date();
@@ -108,6 +128,8 @@ const Cart = () => {
           <h2 style={{ marginTop: '40px', marginBottom: '60px' }}>Cart</h2>
           {renderCart()}
           <h3 style={{ marginTop: '100px' }}>Subtotal: ${total.toFixed(2)}</h3>
+          <h4 style={{ marginTop: '10px' }}>Tax: {(total*tax).toFixed(2)}</h4>
+          <h3 style={{ marginTop: '10px' }}>Total: {(total+(total*tax)).toFixed(2)}</h3>
           <h4>
             Your Order Will Be Ready Around {readyTimeMin} - {readyTimeMax}
           </h4>
