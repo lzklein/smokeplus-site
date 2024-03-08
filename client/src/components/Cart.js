@@ -21,7 +21,7 @@ const Cart = () => {
         }
         
         const data = await response.json();
-        setTax(data.taxRate);
+        setTax(data.taxRate/100);
       } catch (error) {
         console.error('Error fetching tax rate:', error.message);
       }
