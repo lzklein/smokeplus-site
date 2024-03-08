@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { SessionContext } from '../../App';
 
 const Tax = () => {
+  const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [originalTax, setOriginalTax] = useState(0);
   const [taxInput, setTaxInput] = useState(0);
   const [error, setError] = useState(null);
@@ -8,7 +10,7 @@ const Tax = () => {
   useEffect(() => {
     const fetchTaxRate = async () => {
       try {
-        const response = await fetch('/api/tax');
+        const response = await fetch(`${API_BASE_URL}/api/tax`);
         if (!response.ok) {
           throw new Error(`Failed to fetch tax rate: ${response.statusText}`);
         }
@@ -26,7 +28,7 @@ const Tax = () => {
 
   const applyTax = async () => {
     try {
-      const response = await fetch('/api/tax', {
+      const response = await fetch(`${API_BASE_URL}/api/tax`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -45,6 +47,15 @@ const Tax = () => {
       setError('Failed to update tax rate. Please try again.');
     }
   };
+
+  if (!authorized) {
+    return (
+      <div>
+        <h1>ERROR</h1>
+        <h1>Unauthorized User</h1>
+      </div>
+    );
+  }
 
   return (
     <div>
