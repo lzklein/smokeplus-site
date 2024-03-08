@@ -215,24 +215,6 @@ const App = () => {
       </div>
     );
   }
-  if (!loading) {
-    return (
-      <div>
-        <div class="whirlpool" style={{marginTop:'200px'}}>
-          <div class="ring ring1"></div>
-          <div class="ring ring2"></div>
-          <div class="ring ring3"></div>
-          <div class="ring ring4"></div>
-          <div class="ring ring5"></div>
-          <div class="ring ring6"></div>
-          <div class="ring ring7"></div>
-          <div class="ring ring8"></div>
-          <div class="ring ring9"></div>
-        </div>
-        <h1 style={{ textAlign: 'center', marginTop:'50px' }}>Loading...</h1>
-      </div>
-    );
-  }
 
   return (
     <SessionContext.Provider
