@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { SessionContext } from '../../App';
+import { useNavigate } from 'react-router-dom';
 
 const Tax = () => {
   const { API_BASE_URL, authorized } = useContext(SessionContext);
   const [originalTax, setOriginalTax] = useState(0);
   const [taxInput, setTaxInput] = useState(0);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTaxRate = async () => {
@@ -59,6 +61,9 @@ const Tax = () => {
 
   return (
     <div>
+        <button className="backbutton" onClick={() => navigate(-1)}>
+          {"<< Back"}
+        </button>
       <h1>Tax</h1>
       <h3>The current tax rate is: {originalTax}%</h3>
       <form>
@@ -70,7 +75,7 @@ const Tax = () => {
           step="0.001"
           pattern="\d+(\.\d{1,3})?"
         />
-        <button type="button" onClick={applyTax}>
+        <button type="button" onClick={applyTax} className='backbutton'>
           Apply
         </button>
       </form>
