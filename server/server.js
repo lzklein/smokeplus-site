@@ -169,6 +169,7 @@ cron.schedule('0 0 * * 0', () => {
 
 // manual backup
 router.post('/mega-backup', async (req, res) => {
+  console.log('manual backup starting!')
   try {
     await megaBackup();
     res.json({ message: 'Mega backup initiated successfully' });

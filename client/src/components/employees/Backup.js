@@ -41,7 +41,7 @@ const Backup = () => {
         {"<< Back"}
       </button>
       <h3>Backups are saved every Sunday at midnight</h3>
-      <button onClick={handleManualBackup} className='loginbutton'>
+      <button onClick={handleManualBackup} className='logbutton'>
         Manual backup
       </button>
     </div>
