@@ -61,10 +61,10 @@ const Tax = () => {
 
   return (
     <div>
-        <button className="backbutton" onClick={() => navigate(-1)}>
+      <h1>Tax</h1>
+      <button className="backbutton" onClick={() => navigate(-1)}>
           {"<< Back"}
         </button>
-      <h1>Tax</h1>
       <h3>The current tax rate is: {originalTax}%</h3>
       <form>
         <input

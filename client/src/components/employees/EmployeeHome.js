@@ -27,6 +27,9 @@ const EmployeeHome = () => {
           <Link to='/tax' className='employee-link'>
             <li>Edit Tax Rate</li>
           </Link>
+          <Link to='/backup' className='employee-link'>
+            <li>Save Backup</li>
+          </Link>
         </ul>
       </nav>
     </div>

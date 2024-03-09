@@ -33,6 +33,7 @@ import InventoryEdit from './components/employees/InventoryEdit';
 import DealsEdit from './components/employees/DealsEdit';
 import PickPopular from './components/employees/PickPopular';
 import Tax from './components/employees/Tax';
+import Backup from './components/employees/Backup';
 
 // css
 const loadMobileStyles = async (isMobile) => {
@@ -180,6 +181,7 @@ const App = () => {
     { path: '/products/:productId', element: <ProductPage /> },
     { path: '/popular/edit', element: <PickPopular /> },
     { path: '/cart', element: <Cart /> },
+    { path: '/backup', element: <Backup /> },
     { path: '/order/:id', element: <OrderCheck /> },
     { path: '/order', element: <Order /> },
     { path: '/all', element: <AllProducts /> },

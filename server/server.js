@@ -161,10 +161,24 @@ cron.schedule('0 */2 * * *', async () => {
   }
 });
 
+// auto backup
 cron.schedule('0 0 * * 0', () => {
   console.log('Backing up database...');
   megaBackup();
 });
+
+// manual backup
+router.post('/mega-backup', async (req, res) => {
+  try {
+    await megaBackup();
+    res.json({ message: 'Mega backup initiated successfully' });
+  } catch (error) {
+    console.error('Error in mega backup:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 
 // Init routes
 app.use('/api', initRoutes);
