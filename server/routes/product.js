@@ -2,6 +2,7 @@ const express = require('express');
 const { sequelize, Product,Cart } = require('../models'); 
 const { Op } = require('sequelize');
 const Fuse = require('fuse.js');
+const validator = require('validator');
 
 const router = express.Router();
 
@@ -90,6 +91,17 @@ router.get('/hamburger/category', async (req, res) => {
 // Fuzzy search for products
 router.get('/search/:query', async (req, res) => {
   const searchQuery = req.params.query;
+
+  const min=1;
+  const max=40;
+
+  // Validate search string
+  if (!validator.isAlphanumeric(searchQuery)) {
+    return res.status(400).json({ error: 'Invalid search query format' });
+  }
+  if (!validator.isLength(searchQuery, { min: min, max: max })) {
+    return res.status(400).json({ error: 'Invalid search query length' });
+  }
 
   try {
     const products = await Product.findAll();

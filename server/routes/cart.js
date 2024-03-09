@@ -1,5 +1,6 @@
 const express = require('express');
 const { sequelize, Cart } = require('../models'); 
+const validator = require('validator');
 
 const router = express.Router();
 
@@ -51,6 +52,11 @@ router.patch('/:id', async (req, res) => {
   const { id } = req.params;
   const { quantity } = req.body;
 
+  // Validate quantity as a number
+  if (!validator.isNumeric(String(quantity))) {
+    return res.status(400).json({ error: 'Invalid quantity format. Must be a number.' });
+  }
+    
   try {
     const updatedCartItem = await Cart.findByPk(id);
 
