@@ -168,7 +168,7 @@ cron.schedule('0 0 * * 0', () => {
 });
 
 // manual backup
-router.post('/mega-backup', async (req, res) => {
+app.post('/mega-backup', async (req, res) => {
   console.log('manual backup starting!')
   try {
     await megaBackup();
@@ -178,7 +178,6 @@ router.post('/mega-backup', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 
 // Init routes
