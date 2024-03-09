@@ -65,10 +65,6 @@ const App = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    document.title = 'SmokePlus';
-  }, []);
-
-  useEffect(() => {
     let currentSession = localStorage.getItem('sessionId');
     if (!currentSession) {
       currentSession = generateSessionId();
