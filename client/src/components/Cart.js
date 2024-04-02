@@ -99,8 +99,8 @@ const Cart = () => {
 
   const handleScheduleOrder = (e) => {
     e.preventDefault();
-    console.log('order', order)
-    console.log('name', orderName)
+    // console.log('order', order)
+    // console.log('name', orderName)
     if(!orderName){
       alert('please enter a name for the order');
       return;

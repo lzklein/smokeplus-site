@@ -16,8 +16,8 @@ const Checkout = () => {
     useEffect(() => {
         const postOrderAndDeleteCart = async () => {
         try {
-            console.log(order);
-            console.log(name)
+            // console.log(order);
+            // console.log(name)
             // Post the order
             const orderResponse = await fetch(`${API_BASE_URL}/api/orders`, {
             method: 'POST',

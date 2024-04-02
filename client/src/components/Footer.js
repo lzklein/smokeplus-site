@@ -22,7 +22,7 @@ const Footer = () => {
             <p style={{fontSize:'12px', marginBottom:'10px'}}> Phone (425) 264-5749</p>
           </li> */}
           <li>
-            <h4 onClick={()=>{window.open('https://www.instagram.com/smoke_plus_renton/?hl=en', '_blank')}} rel="noopener noreferrer" style={{marginBottom:'50px'}}>Follow us on Instagram!</h4>
+            <a onClick={()=>{window.open('https://www.instagram.com/smoke_plus_renton/?hl=en', '_blank')}} rel="noopener noreferrer" style={{marginBottom:'50px'}}>Follow us on Instagram!</a>
           </li>
           {/* <li>
             <a href="https://www.instagram.com/smoke_plus_renton/?hl=en" target="_blank" rel="noopener noreferrer" style={{fontSize:'12px'}}>
