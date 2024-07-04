@@ -1,6 +1,6 @@
 // imports
 import React, { createContext, useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 // components
@@ -60,7 +60,8 @@ const App = () => {
   // ! Website url here vv
   const API_BASE_URL = 'https://smokeplus-api.onrender.com';
   const location = useLocation();
-
+  const navigate = useNavigate();
+  
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
