@@ -1,11 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, {useContext} from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../../App'; 
 
 const EmployeeHome = () => {
 
   const { setAuthorized} = useContext(SessionContext);
-
+  const navigate = useNavigate();
+  
   const handleLogout = () => {
     setAuthorized(false);
     localStorage.removeItem('authorized');
