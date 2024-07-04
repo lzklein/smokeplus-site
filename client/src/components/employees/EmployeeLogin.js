@@ -27,6 +27,7 @@ const EmployeeLogin = () => {
         setErrorMessage('');
         const data = await response.json();
         setAuthorized(true);
+        localStorage.setItem('authorized', 'true');
         navigate('/employee');
         setFailCount(0)
       } else {

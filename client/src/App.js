@@ -91,6 +91,14 @@ const App = () => {
   }, [sessionId]);
 
   useEffect(() => {
+    const storedAuthorized = localStorage.getItem('authorized') === 'true';
+  
+    if (storedAuthorized) {
+      setAuthorized(true);
+    }
+  }, [setAuthorized, navigate]);
+
+  useEffect(() => {
     const loadIfMobile = async () => {
       await loadMobileStyles(isMobile);
       setMobileLoading(false);

@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SessionContext } from '../../App'; 
 
 const EmployeeHome = () => {
+
+  const { setAuthorized} = useContext(SessionContext);
+
+  const handleLogout = () => {
+    setAuthorized(false);
+    localStorage.removeItem('authorized');
+    navigate('/');
+  };
+
   return (
     <div><h1>Smoke Plus Employees Portal</h1>
       <nav>
@@ -30,6 +40,9 @@ const EmployeeHome = () => {
           <Link to='/backup' className='employee-link'>
             <li>Save Backup</li>
           </Link>
+          <button onClick={handleLogout} className='employee-link'>
+            <li>Logout</li>
+          </button>
         </ul>
       </nav>
     </div>

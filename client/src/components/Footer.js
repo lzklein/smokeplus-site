@@ -3,7 +3,7 @@ import { SessionContext } from '../App';
 import map from '../map.png';
 
 const Footer = () => {
-  const { isMobile } = useContext(SessionContext);
+  const { isMobile, authorized } = useContext(SessionContext);
 
   if (isMobile) {
     return (
@@ -30,7 +30,7 @@ const Footer = () => {
             </a>
           </li> */}
           <li>
-            <a href="/employee-login" >Employee Login</a>
+            <a href={authorized?'/employee':"/employee-login"} >Employee Login</a>
           </li>
           {/* <li>
             <a href="/employee-login" style={{fontSize:'12px'}}>Login</a>
